@@ -17,7 +17,6 @@ st.markdown("<h1 style='text-align: center; color: #083266;'>IISD-ELA Publicatio
 
 
 # Connect to Google Sheet containing publications data
-#url = "https://docs.google.com/spreadsheets/d/14AcoVf78Uzo2Fi-V-DMYSkdE3S471dM4TtBOspfkkQ0/edit?usp=sharing"
 conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 data = conn.read(worksheet="Publications") 
 authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
@@ -29,7 +28,6 @@ authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 data['publication_year'] = data['publication_year'].astype(int).astype(str)
 data['issue_no'] =  data['issue_no'].astype(int).astype(str)
 data['volume_no'] = data['volume_no'].astype(int).astype(str)
-data['lake_tags'] = data['lake_tags'].astype(str)
 
 
 
