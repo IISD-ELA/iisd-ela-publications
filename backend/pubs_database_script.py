@@ -12,7 +12,7 @@ st.set_page_config(layout="wide")
 
 
 # Set page title
-st.markdown("<h1 style='text-align: center; color: #083266;'>IISD-ELA Publications Search Engine</h1>", unsafe_allow_html=True)
+#st.markdown("<h1 style='text-align: center; color: #083266;'>IISD-ELA Publications Search Engine</h1>", unsafe_allow_html=True)
 #st.title("IISD-ELA Publications Search Engine", )
 
 
