@@ -142,7 +142,7 @@ with col1:
     # Add a general search box
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "")
 
-    st.markdown('**<div style="font-size: 12px;">Please note that the "Search by author(s)" function will only work for current IISD-ELA researchers.\nTo search by other researchers, please use the "General search" function below.**</div>',
+    st.markdown('**<div style="font-size: 12px;">Please note that the "Search by author(s)" function will only work for current IISD-ELA researchers.\nTo search by other researchers, please use the "General search" function.**</div>',
                 unsafe_allow_html=True)
 
 # Filter the data based on the search query and selected tags
