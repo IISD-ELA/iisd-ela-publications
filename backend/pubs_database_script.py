@@ -44,7 +44,6 @@ print(data['approved'])
 data = data[data['approved']=='Not applicable']
 print(data)
 
-
 # Store all data type tags in a set object
 data_types_set = set(['Physical Limnology',
                       'Zooplankton',
