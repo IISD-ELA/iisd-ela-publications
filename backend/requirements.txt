@@ -1,4 +1,4 @@
-git+https://github.com/streamlit/gsheets-connection==0.0.4
+git+https://github.com/streamlit/gsheets-connection
 streamlit==1.30
 pandas
 numpy==1.26.4
