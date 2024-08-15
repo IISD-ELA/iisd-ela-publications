@@ -41,7 +41,7 @@ data['volume_no'] = data['volume_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
 
 print(data['approved'])
-#data = data[data['approved']=='Not applicable']
+data = data[data['approved']=='Not applicable']
 print(data)
 
 # Store all data type tags in a set object
