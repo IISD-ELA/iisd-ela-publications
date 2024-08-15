@@ -31,7 +31,6 @@ authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 #authors_data = conn.read(spreadsheet=url, worksheet='2088685364')
 #######################debugging stuff end#########################
 
-
 # filter out records that have not yet been approved by CH or IY
 data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 
