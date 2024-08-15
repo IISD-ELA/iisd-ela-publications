@@ -31,9 +31,6 @@ authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 #authors_data = conn.read(spreadsheet=url, worksheet='2088685364')
 #######################debugging stuff end#########################
 
-# filter out records that have not yet been approved by CH or IY
-data = data[data['approved'].isin(['Yes', 'Not applicable'])]
-
 
 # Convert data types to string
     # This is so that years aren't displayed with decimals and
@@ -43,8 +40,8 @@ data['issue_no'] =  data['issue_no'].astype(int).astype(str)
 data['volume_no'] = data['volume_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
 
-print(data['approved_by'])
-data = data[data['approved_by'].isin(['iyaktubay', 'N/A'])]
+print(data['approved'])
+data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 print(data)
 
 # Store all data type tags in a set object
