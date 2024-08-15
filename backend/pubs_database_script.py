@@ -17,7 +17,7 @@ st.set_page_config(layout="wide")
 
 
 # Connect to Google Sheet containing publications data
-conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+conn = st.connection("gsheets", type=GSheetsConnection)
 data = conn.read(worksheet="Publications") 
 authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 
