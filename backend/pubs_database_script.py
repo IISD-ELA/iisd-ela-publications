@@ -40,9 +40,10 @@ data['issue_no'] =  data['issue_no'].astype(int).astype(str)
 data['volume_no'] = data['volume_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
 
-print(data['approved'])
+
+# Filter out unapproved rows that were added by staff outside data team
 data = data[data['approved'].isin(['Yes', 'Not applicable'])]
-print(data)
+
 
 # Store all data type tags in a set object
 data_types_set = set(['Physical Limnology',
