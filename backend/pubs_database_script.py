@@ -23,11 +23,7 @@ authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 
 
 # filter out records that have not yet been approved by CH or IY
-print('**********************************************')
-print(data['approved'])
-print('**********************************************')
-
-data = data[data['approved'].isin(['Yes', 'N/A'])]
+#data = data[data['approved'].isin(['Yes', 'N/A'])]
 
 # Convert data types to string
     # This is so that years aren't displayed with decimals and
