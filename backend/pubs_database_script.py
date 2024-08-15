@@ -22,8 +22,18 @@ data = conn.read(worksheet="Publications")
 authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 
 
+#######################debugging stuff start#######################
+#url = "https://docs.google.com/spreadsheets/d/1FMSNSxu7-NA2ZSGOEyd01X7xnyRA4R8TRvONNTPuBMo/edit?gid=1098272421#gid=1098272421"
+
+#conn = st.connection("gsheets", type=GSheetsConnection)
+
+#data = conn.read(spreadsheet=url, worksheet='1098272421')
+#authors_data = conn.read(spreadsheet=url, worksheet='2088685364')
+#######################debugging stuff end#########################
+
+
 # filter out records that have not yet been approved by CH or IY
-#data = data[data['approved'].isin(['Yes', 'N/A'])]
+data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 
 
 # Convert data types to string
@@ -34,8 +44,9 @@ data['issue_no'] =  data['issue_no'].astype(int).astype(str)
 data['volume_no'] = data['volume_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
 
-data = data[data['approved'].isin(['Yes', 'N/A'])]
-
+print(data['approved_by'])
+data = data[data['approved_by'].isin(['iyaktubay', 'N/A'])]
+print(data)
 
 # Store all data type tags in a set object
 data_types_set = set(['Physical Limnology',
