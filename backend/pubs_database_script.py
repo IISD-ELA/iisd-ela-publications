@@ -22,21 +22,12 @@ data = conn.read(worksheet="Publications")
 authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 
 
-#######################debugging stuff start#######################
-#url = "https://docs.google.com/spreadsheets/d/1FMSNSxu7-NA2ZSGOEyd01X7xnyRA4R8TRvONNTPuBMo/edit?gid=1098272421#gid=1098272421"
-
-#conn = st.connection("gsheets", type=GSheetsConnection)
-
-#data = conn.read(spreadsheet=url, worksheet='1098272421')
-#authors_data = conn.read(spreadsheet=url, worksheet='2088685364')
-#######################debugging stuff end#########################
-
 # Convert data types to string
     # This is so that years aren't displayed with decimals and
     # to avoid some data type errors
 data['publication_year'] = data['publication_year'].astype(int).astype(str)
-#data[data['issue_no'].notna(), 'issue_no'] = data['issue_no'].astype(int).astype(str)
-#data[data['volume_no'].notna(), 'volume_no'] = data['volume_no'].astype(int).astype(str)
+
+print(data['issue_no'].unique())
 data['issue_no'] = data['issue_no'].astype(int).astype(str)
 data['volume_no'] = data['volume_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
