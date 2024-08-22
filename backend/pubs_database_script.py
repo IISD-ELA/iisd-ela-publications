@@ -1,6 +1,6 @@
 # Draft IISD-ELA Publications Search Engine
 # Author: Idil Yaktubay
-# Last Updated: 2024-08-15
+# Last Updated: 2024-08-22
 
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
@@ -31,12 +31,12 @@ authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 #authors_data = conn.read(spreadsheet=url, worksheet='2088685364')
 #######################debugging stuff end#########################
 
-
 # Convert data types to string
     # This is so that years aren't displayed with decimals and
     # to avoid some data type errors
 data['publication_year'] = data['publication_year'].astype(int).astype(str)
-data['issue_no'] =  data['issue_no'].astype(int).astype(str)
+data[data['issue_no'].notna(), 'issue_no'] = data['issue_no'].astype(int).astype(str)
+#data['issue_no'] = data['issue_no'].astype(int).astype(str)
 data['volume_no'] = data['volume_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
 
