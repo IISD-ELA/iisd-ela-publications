@@ -43,7 +43,8 @@ data_types_set = set(['Physical Limnology',
                       'Meteorology',
                       'Fish',
                       'Chemistry',
-                      'Algae']) # Add phytoplankton? 
+                      'Algae',
+                      'Other']) # Add phytoplankton? 
 
 # Store all environmental issue tags in a set object
 env_issues_set = set(['Acid Rain',
