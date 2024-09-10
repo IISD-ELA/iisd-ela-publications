@@ -1,6 +1,6 @@
 # Draft IISD-ELA Publications Search Engine
 # Author: Idil Yaktubay
-# Last Updated: 2024-08-27
+# Last Updated: 2024-09-10
 
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
@@ -21,6 +21,8 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 data = conn.read(worksheet="Publications") 
 authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 
+# Filter out publication types other than journal articles for now
+data = data[data['publication_type']=='Journal Article']
 
 # Convert data types to string
     # This is so that years aren't displayed with decimals and
