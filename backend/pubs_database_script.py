@@ -22,6 +22,7 @@ data = conn.read(worksheet="Publications")
 authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 
 # Filter out publication types other than journal articles for now
+# Theses will be added to the db later and code will be added to deal with them
 data = data[data['publication_type']=='Journal Article']
 
 # Convert data types to string
