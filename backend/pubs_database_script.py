@@ -1,6 +1,6 @@
 # Draft IISD-ELA Publications Search Engine
 # Author: Idil Yaktubay
-# Last Updated: 2024-09-10
+# Last Updated: 2024-09-17
 
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
