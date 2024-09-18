@@ -105,7 +105,7 @@ def combined_search(data,
                                 axis=1)),
                 (iisd_ela_rel_query,
                     data.apply(lambda row:
-                                    any(rel_tag in row['relationship_to_iisd_ela']
+                                    any(rel_tag in row['relationship_to_iisd_ela'].astype(str)
                                         for rel_tag in iisd_ela_rel_query),
                                 axis=1)),
                 (general_search_query,
@@ -172,7 +172,7 @@ with col1:
     st.markdown('**<div style="font-size: 12px;">If you notice any missing publications or encounter issues with this search engine, please reach out to us at eladata@iisd-ela.org.**</div>',
                 unsafe_allow_html=True)
 
-print(data.columns)
+
 # Filter the data based on the search query and selected tags
 result_for_user = combined_search(
                                 data, 
