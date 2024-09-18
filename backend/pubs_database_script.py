@@ -109,7 +109,7 @@ def combined_search(data,
                     data.apply(lambda row: 
                                     row.astype(str).str.contains(general_search_query,
                                                                  case=False).any(), 
-                                                                 axis=1)),
+                                                                 axis=1))
               ]
     
     list_result_datasets = []
