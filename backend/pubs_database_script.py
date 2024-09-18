@@ -48,6 +48,7 @@ data_types_set = set(['Physical Limnology',
                       'Algae',
                       'Other']) # Add phytoplankton? 
 
+
 # Store all environmental issue tags in a set object
 env_issues_set = set(['Acid Rain',
                       'Algal Blooms',
@@ -59,6 +60,13 @@ env_issues_set = set(['Acid Rain',
                       'Other'
                     ])
 
+
+# Store all relationship to IISD-ELA tags in a set object
+rel_to_iisd_ela = set(['Current IISD-ELA authors',
+                       'Data collected from IISD-ELA lakes',
+                       'IISD-ELA acknowledged'])
+
+
 # Store all *current* IISD-ELA authors in a set object
 # Need to get this list from Sumeep or someone else ...
 iisd_ela_authors_set = set(authors_data['publication_authors'])
@@ -69,7 +77,8 @@ def combined_search(data,
                     data_type_query, 
                     env_issue_query, 
                     lake_query, 
-                    author_query, 
+                    author_query,
+                    iisd_ela_rel_query, 
                     year_start_query, 
                     year_end_query, 
                     general_search_query):
@@ -95,6 +104,10 @@ def combined_search(data,
                                                         for s in row['publication_authors'].split('; ')]
                                         for author_tag in author_query),
                                 axis=1)),
+                (iisd_ela_rel_query,
+                    data.apply(lambda row:
+                                    row['relationship_to_iisd_ela'].astype(str).str.contains(iisd_ela_rel_query).any(),
+                                                                                             axis=1)),
                 (general_search_query,
                     data.apply(lambda row: 
                                     row.astype(str).str.contains(general_search_query,
@@ -133,9 +146,14 @@ with col1:
     lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lake}$ ", 
                                options=sorted(set_unique_lakes))
 
-    # Add aa multi-select widget for author tags
+    # Add a multi-select widget for author tags
     author_search_query = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{author(s)}$",
                                          options=sorted(iisd_ela_authors_set))
+    
+    # Add a multi-select widget for relationship to IISD-ELA
+    rel_to_iisd_ela_query = st.multiselect(r"$\bold{Relationship} \: \bold{to} \: \bold{IISD-ELA}$",
+                                           options=rel_to_iisd_ela)
+    
     # Add year range start and end boxes
     # Create columns for side-by-side inputs
     col3, col4 = st.columns(2)
@@ -161,6 +179,7 @@ result_for_user = combined_search(
                                 env_issue_tags,
                                 lake_tags,
                                 author_search_query,
+                                rel_to_iisd_ela_query,
                                 year_range_start_query,
                                 year_range_end_query,
                                 general_search_query
