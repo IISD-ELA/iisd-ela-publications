@@ -105,8 +105,9 @@ def combined_search(data,
                                 axis=1)),
                 (iisd_ela_rel_query,
                     data.apply(lambda row:
-                                    row['relationship_to_iisd_ela'].contains(iisd_ela_rel_query).any(),
-                                                                                             axis=1)),
+                                    any(rel_tag in row['relationship_to_iisd_ela']
+                                        for rel_tag in iisd_ela_rel_query),
+                                axis=1)),
                 (general_search_query,
                     data.apply(lambda row: 
                                     row.astype(str).str.contains(general_search_query,
