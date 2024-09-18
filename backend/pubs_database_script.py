@@ -151,7 +151,7 @@ with col1:
                                          options=sorted(iisd_ela_authors_set))
     
     # Add a multi-select widget for relationship to IISD-ELA
-    rel_to_iisd_ela_query = st.multiselect(r"$\bold{Relationship} \: \bold{to} \: \bold{IISD-ELA}$",
+    rel_to_iisd_ela_query = st.multiselect(r"$\bold{Relationship} \: \bold{to} \: \bold{IISD} \bold{-} \bold{ELA}$",
                                            options=rel_to_iisd_ela)
     
     # Add year range start and end boxes
