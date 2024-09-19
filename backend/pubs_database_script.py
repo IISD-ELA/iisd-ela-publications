@@ -66,8 +66,7 @@ env_issues_set = ['Acid Rain',
 rel_to_iisd_ela = ['<select a filter>',
                     'Publications by current IISD-ELA scientists',
                     'Publications by other scientists (research supported by IISD-ELA)']
-rel_to_iisd_ela_mapping = {'authored': rel_to_iisd_ela[1],
-                          'supported': rel_to_iisd_ela[2]}
+
 
 # Store all *current* IISD-ELA authors in a set object
 # Need to get this list from Sumeep or someone else ...
@@ -127,8 +126,11 @@ def combined_search(data,
     if year_end_query:
         data = data[lambda data: data['publication_year'] <= year_end_query]
 
-    data['relationship_to_iisd_ela'] = data['relationship_to_iisd_ela'].map(rel_to_iisd_ela_mapping)
-    data = data[data['relationship_to_iisd_ela']==iisd_ela_rel_query]
+    if rel_to_iisd_ela_query != iisd_ela_rel_query[0]:
+        rel_to_iisd_ela_mapping = {'authored': rel_to_iisd_ela[1],
+                                   'supported': rel_to_iisd_ela[2]}
+        data['relationship_to_iisd_ela'] = data['relationship_to_iisd_ela'].map(rel_to_iisd_ela_mapping)
+        data = data[data['relationship_to_iisd_ela']==iisd_ela_rel_query]
 
     return data
 
