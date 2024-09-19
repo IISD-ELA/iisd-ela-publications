@@ -148,7 +148,7 @@ with col1:
     
     # Add a multi-select widget for lake tags
     # a. Get a list of all distinct (unique) lakes in the database
-    set_unique_lakes = {int(num_str) for num_str in set(data['lake_tags'].str.split('; ').sum())}
+    set_unique_lakes = {int(num_str) for num_str in set(data['lake_tags'].str.split('; ').sum()) if num_str.isdigit()}
     # b. Add the lake tag widget
     lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lake}$ ", 
                                options=sorted(set_unique_lakes))
