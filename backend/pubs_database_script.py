@@ -64,7 +64,7 @@ env_issues_set = ['Acid Rain',
 # Store all relationship to IISD-ELA tags in a list
 rel_to_iisd_ela = ['<select a filter>',
                        'Publications by current IISD-ELA scientists',
-                       'Publications by other scientists, supported by IISD-ELA']
+                       'Publications by other scientists (research supported by IISD-ELA)']
 
 
 # Store all *current* IISD-ELA authors in a set object
