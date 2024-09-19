@@ -38,19 +38,19 @@ data['lake_tags'] = data['lake_tags'].astype(str)
 data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 
 
-# Store all data type tags in a set object
-data_types_set = set(['Physical Limnology',
+# Store all data type tags in a list
+data_types_set = ['Physical Limnology',
                       'Zooplankton',
                       'Hydrology',
                       'Meteorology',
                       'Fish',
                       'Chemistry',
                       'Algae',
-                      'Other']) # Add phytoplankton? 
+                      'Other'] # Add phytoplankton? 
 
 
-# Store all environmental issue tags in a set object
-env_issues_set = set(['Acid Rain',
+# Store all environmental issue tags in a list
+env_issues_set = ['Acid Rain',
                       'Algal Blooms',
                       'Climate Change',
                       'Drugs',
@@ -58,13 +58,13 @@ env_issues_set = set(['Acid Rain',
                       'Oil Spills',
                       'Plastics',
                       'Other'
-                    ])
+                    ]
 
 
-# Store all relationship to IISD-ELA tags in a set object
-rel_to_iisd_ela = set(['Select a filter',
+# Store all relationship to IISD-ELA tags in a list
+rel_to_iisd_ela = ['Select a filter',
                        'Research by current IISD-ELA scientists',
-                       'Research by other scientists, supported by IISD-ELA'])
+                       'Research by other scientists, supported by IISD-ELA']
 
 
 # Store all *current* IISD-ELA authors in a set object
