@@ -37,7 +37,7 @@ data['lake_tags'] = data['lake_tags'].astype(str)
 # Filter out unapproved rows that were added by staff outside data team
 data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 
-print(data['relationship_to_iisd_ela'])
+
 # Store all data type tags in a list
 data_types_set = ['Physical Limnology',
                       'Zooplankton',
