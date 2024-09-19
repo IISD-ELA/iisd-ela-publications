@@ -65,8 +65,9 @@ env_issues.append('Other')
 # Store all relationship to IISD-ELA tags in a list
 # DO NOT!! Change the order of the values in this list
 rel_to_iisd_ela = ['<select a filter>',
-                    'Current IISD-ELA scientists',
-                    'Other scientists (research supported by IISD-ELA)']
+                    'Current IISD-ELA researchers',
+                    'Other researchers (supported by IISD-ELA)',
+                    'Student theses']
 
 
 # Store all *current* IISD-ELA authors in a set object
@@ -161,7 +162,7 @@ with col1:
                                          options=sorted(iisd_ela_authors_set))
     
     # Add a multi-select widget for relationship to IISD-ELA
-    rel_to_iisd_ela_query = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{relationship} \: \bold{to} \: \bold{IISD} - \bold{ELA}$",
+    rel_to_iisd_ela_query = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
                                            options=rel_to_iisd_ela, index=rel_to_iisd_ela.index('<select a filter>'))
     
     # Add year range start and end boxes
