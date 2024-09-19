@@ -64,7 +64,7 @@ env_issues_set = set(['Acid Rain',
 # Store all relationship to IISD-ELA tags in a set object
 rel_to_iisd_ela = set(['Select a filter',
                        'Current IISD-ELA scientists',
-                       'Supported by IISD-ELA'])
+                       'Other scientists - supported by IISD-ELA'])
 
 
 # Store all *current* IISD-ELA authors in a set object
@@ -150,7 +150,7 @@ with col1:
     
     # Add a multi-select widget for relationship to IISD-ELA
     rel_to_iisd_ela_query = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{relationship} \: \bold{to} \: \bold{IISD} - \bold{ELA}$",
-                                           options=rel_to_iisd_ela)
+                                           options=rel_to_iisd_ela, index=0)
     
     # Add year range start and end boxes
     # Create columns for side-by-side inputs
