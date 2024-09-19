@@ -37,7 +37,7 @@ data['lake_tags'] = data['lake_tags'].astype(str)
 # Filter out unapproved rows that were added by staff outside data team
 data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 
-
+print(data['relationship_to_iisd_ela'])
 # Store all data type tags in a list
 data_types_set = ['Physical Limnology',
                       'Zooplankton',
@@ -178,7 +178,7 @@ with col1:
     st.markdown('**<div style="font-size: 12px;">If you notice any missing publications or encounter issues with this search engine, please reach out to us at eladata@iisd-ela.org.**</div>',
                 unsafe_allow_html=True)
 
-print(data['relationship_to_iisd_ela'])
+
 # Filter the data based on the search query and selected tags
 result_for_user = combined_search(
                                 data, 
