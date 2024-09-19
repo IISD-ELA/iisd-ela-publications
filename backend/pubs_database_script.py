@@ -39,26 +39,25 @@ data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 
 
 # Store all data type tags in a list
-data_types_set = ['Physical Limnology',
+data_types_set = sorted(['Physical Limnology',
                       'Zooplankton',
                       'Hydrology',
                       'Meteorology',
                       'Fish',
                       'Chemistry',
-                      'Algae',
-                      'Other'] # Add phytoplankton? 
+                      'Algae']).append('Other')
+                      # Add phytoplankton? 
 
 
 # Store all environmental issue tags in a list
-env_issues_set = ['Acid Rain',
+env_issues_set = sorted(['Acid Rain',
                       'Algal Blooms',
                       'Climate Change',
                       'Drugs',
                       'Mercury',
                       'Oil Spills',
-                      'Plastics',
-                      'Other'
-                    ]
+                      'Plastics']).append('Other')
+                    
 
 
 # Store all relationship to IISD-ELA tags in a list
