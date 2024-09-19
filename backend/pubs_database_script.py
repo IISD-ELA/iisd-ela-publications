@@ -150,7 +150,7 @@ with col1:
     # a. Get a list of all distinct (unique) lakes in the database
     unique_lakes = {int(num_str) for num_str in set(data['lake_tags'].str.split('; ').sum()) 
                                 if num_str.isdigit()}
-    #unique_lakes.append('Other or Unspecified')
+    unique_lakes.add('Other or Unspecified')
     
     # b. Add the lake tag widget
     lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lake}$ ", 
