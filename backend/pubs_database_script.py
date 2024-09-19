@@ -149,7 +149,7 @@ with col1:
     # Add a multi-select widget for lake tags
     # a. Get a list of all distinct (unique) lakes in the database
     unique_lakes = list({int(num_str) for num_str in set(data['lake_tags'].str.split('; ').sum()) 
-                                if num_str.isdigit()}_)
+                                if num_str.isdigit()})
     unique_lakes.append('Other or Unspecified')
     
     # b. Add the lake tag widget
