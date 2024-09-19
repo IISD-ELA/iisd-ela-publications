@@ -45,8 +45,9 @@ data_types_set = sorted(['Physical Limnology',
                       'Meteorology',
                       'Fish',
                       'Chemistry',
-                      'Algae']).append('Other')
+                      'Algae'])
                       # Add phytoplankton? 
+data_types_set.append('Other')
 
 
 # Store all environmental issue tags in a list
@@ -56,7 +57,8 @@ env_issues_set = sorted(['Acid Rain',
                       'Drugs',
                       'Mercury',
                       'Oil Spills',
-                      'Plastics']).append('Other')
+                      'Plastics'])
+data_types_set.append('Other')
                     
 
 
