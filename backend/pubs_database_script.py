@@ -183,7 +183,7 @@ st.markdown('''**<div style="font-size: 12px;">
                     <u1> 
                         <li> The "Search by author(s)" function will only work for current IISD-ELA researchers.\nTo search by other researchers, please use the "General search" function. </li>
                         <li> The "Search by" features of this search engine follow an "OR" logic, and the "Filter by" feature follows an "AND" logic. </li>
-            </div>**
+            **</div>
             ''',
                 unsafe_allow_html=True)
 st.markdown('**<div style="font-size: 12px;">If you notice any missing publications or encounter issues with this search engine, please reach out to us at eladata@iisd-ela.org.**</div>',
