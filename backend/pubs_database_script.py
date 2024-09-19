@@ -63,8 +63,8 @@ env_issues_set = ['Acid Rain',
 
 # Store all relationship to IISD-ELA tags in a list
 rel_to_iisd_ela = ['<select a filter>',
-                       'Research by current IISD-ELA scientists',
-                       'Research by other scientists, supported by IISD-ELA']
+                       'Publications by current IISD-ELA scientists',
+                       'Publications by other scientists, supported by IISD-ELA']
 
 
 # Store all *current* IISD-ELA authors in a set object
@@ -104,8 +104,8 @@ def combined_search(data,
                                                         for s in row['publication_authors'].split('; ')]
                                         for author_tag in author_query),
                                 axis=1)),
-                (iisd_ela_rel_query,
-                    data['relationship_to_iisd_ela'].isin([iisd_ela_rel_query])),
+                #(iisd_ela_rel_query,
+                    #data['relationship_to_iisd_ela'].isin([iisd_ela_rel_query])),
                 (general_search_query,
                     data.apply(lambda row: 
                                     row.astype(str).str.contains(general_search_query,
@@ -124,6 +124,8 @@ def combined_search(data,
         data = data[lambda data: data['publication_year'] >= year_start_query]
     if year_end_query:
         data = data[lambda data: data['publication_year'] <= year_end_query]
+    if iisd_ela_rel_query != '<select a filter>':
+        data = data[data['relationship_to_iisd_ela']==iisd_ela_rel_query]
     return data
 
 
