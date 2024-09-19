@@ -203,7 +203,7 @@ with col2:
         st.markdown(f"No publications were found for your search.")
     else:
         st.markdown(
-        "<h2 style='color: #083266;'>Search Results</h2>",
+        r"<h2 style='color: #083266;'>Search Results ({len(data})</h2>",
         unsafe_allow_html=True
                     )
         #st.markdown("## Search Results")
