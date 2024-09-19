@@ -62,9 +62,9 @@ env_issues_set = set(['Acid Rain',
 
 
 # Store all relationship to IISD-ELA tags in a set object
-rel_to_iisd_ela = set(['Select Filter',
-                       'Author(s) are current IISD-ELA scientists',
-                       'Supported by IISD-ELA, but author(s) are not current IISD-ELA scientists'])
+rel_to_iisd_ela = set(['Select a filter',
+                       'Current IISD-ELA scientists',
+                       'Supported by IISD-ELA'])
 
 
 # Store all *current* IISD-ELA authors in a set object
