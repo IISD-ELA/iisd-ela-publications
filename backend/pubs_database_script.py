@@ -58,7 +58,7 @@ env_issues_set = sorted(['Acid Rain',
                       'Mercury',
                       'Oil Spills',
                       'Plastics'])
-data_types_set.append('Other')
+env_issues_set.append('Other')
                     
 
 
