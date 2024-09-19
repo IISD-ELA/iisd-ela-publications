@@ -104,7 +104,7 @@ def combined_search(data,
                                         for author_tag in author_query),
                                 axis=1)),
                 (iisd_ela_rel_query,
-                    data['relationship_to_iisd_ela'].isin(iisd_ela_rel_query)),
+                    data['relationship_to_iisd_ela'].isin([iisd_ela_rel_query])),
                 (general_search_query,
                     data.apply(lambda row: 
                                     row.astype(str).str.contains(general_search_query,
