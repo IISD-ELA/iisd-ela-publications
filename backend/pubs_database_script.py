@@ -39,7 +39,7 @@ data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 
 
 # Store all data type tags in a list
-data_types_set = sorted(['Physical Limnology',
+data_types = sorted(['Physical Limnology',
                       'Zooplankton',
                       'Hydrology',
                       'Meteorology',
@@ -47,18 +47,18 @@ data_types_set = sorted(['Physical Limnology',
                       'Chemistry',
                       'Algae'])
                       # Add phytoplankton? 
-data_types_set.append('Other')
+data_types.append('Other')
 
 
 # Store all environmental issue tags in a list
-env_issues_set = sorted(['Acid Rain',
+env_issues = sorted(['Acid Rain',
                       'Algal Blooms',
                       'Climate Change',
                       'Drugs',
                       'Mercury',
                       'Oil Spills',
                       'Plastics'])
-env_issues_set.append('Other')
+env_issues.append('Other')
                     
 
 
@@ -140,11 +140,11 @@ col1, col2 = st.columns(spec=[0.3, 0.7])
 with col1: 
     # Add a multi-select widget for data type tags
     data_type_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{data} \: \bold{type}$",
-                                     options=data_types_set)
+                                     options=data_types)
 
     # Add a multi-select widget for environmental issue tags
     env_issue_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{environmental} \: \bold{issue}$", 
-                                    options=env_issues_set)
+                                    options=env_issues)
     
     # Add a multi-select widget for lake tags
     # a. Get a list of all distinct (unique) lakes in the database
