@@ -117,9 +117,9 @@ def combined_search(data,
               ]'''
     queries = [ 
                 (lake_query,
-                    data.apply(lambda row:
-                                    any(lake_tag in row['lake_tags'].split('; ')
-                                        for lake_tag in lake_query),
+                    data.apply(lambda row: print(row),
+                                    #any(lake_tag in row['lake_tags'].split('; ')
+                                     #   for lake_tag in lake_query),
                                 axis=1))
                 ]
     
