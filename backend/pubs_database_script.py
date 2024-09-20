@@ -77,12 +77,6 @@ rel_to_iisd_ela = ['<select a filter>',
 iisd_ela_authors_set = set(authors_data['authors'])
 
 
-# Store all distinct lakes in the data in a list
-unique_lakes = sorted(list({int(num_str) for num_str in set(data['lake_tags'].str.split('; ').sum()) 
-                                if num_str.isdigit()}))
-unique_lakes.append('Other or Unspecified')
-
-
 # Define a combined search function
 def combined_search(data, 
                     data_type_query, 
@@ -155,6 +149,11 @@ with col1:
     env_issue_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{environmental} \: \bold{issue}$", 
                                     options=env_issues)
     
+
+    # Store all distinct lakes in the data in a list
+    unique_lakes = sorted(list({int(num_str) for num_str in set(data['lake_tags'].str.split('; ').sum()) 
+                                    if num_str.isdigit()}))
+    unique_lakes.append('Other or Unspecified')
     # b. Add a multi-select widget for lake tags
     lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lake}$ ", 
                                options=unique_lakes)
