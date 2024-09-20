@@ -88,6 +88,7 @@ def combined_search(data,
                     year_start_query, 
                     year_end_query, 
                     general_search_query):
+    lake_query
     queries = [ (data_type_query,
                     data.apply(lambda row: 
                                     any(data_type_tag in row['data_type_tags'].split('; ') 
@@ -133,8 +134,8 @@ def combined_search(data,
                                    'supported': rel_to_iisd_ela[2]}
         data['relationship_to_iisd_ela'] = data['relationship_to_iisd_ela'].map(rel_to_iisd_ela_mapping)
         data = data[data['relationship_to_iisd_ela']==iisd_ela_rel_query]
-    #elif rel_to_iisd_ela_query == rel_to_iisd_ela[3]:
-     #   data = data[data['type'].isin(['msc', 'phd'])]
+    elif rel_to_iisd_ela_query == rel_to_iisd_ela[3]:
+        data = data[data['type'].isin(['msc', 'phd'])]
 
     return data
 
