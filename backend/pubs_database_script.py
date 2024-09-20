@@ -180,7 +180,7 @@ st.markdown(f"<h4 style='color: #083266;'>Notes</h4>", unsafe_allow_html=True)
 st.markdown('''<div style="font-size: 12px;">
                     <u1> 
                         <li> The "Search by author(s)" function will only work for current IISD-ELA researchers.\nTo search by other researchers, please use the "General search" function. </li>
-                        <li> The "Search by" features will generate results that match any of the tags you have selected. The "Filter by" feature will narrow down results to only those that meet the selected filter criteria. </li>
+                        <li> The "Search by" functions will generate results that match any of the tags you have selected. The "Filter by" function will narrow down results to only those that meet the selected filter criteria. </li>
                     </u1>
             </div>
             ''',
