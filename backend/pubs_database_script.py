@@ -225,7 +225,7 @@ with col2:
                 if row['type'] == 'journal':
                     row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['journal_name']}*, *{row['journal_vol_no']}*({row['journal_issue_no']}), {row['journal_page_range']}. {row['doi_or_url']}"
                 elif row['type'].isin(['msc', 'phd']):
-                    row_string = f"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else "Master\'s dissertation"}, {row['thesis_uni']}]. {row['thesis_db']}. {row['doi_or_url']}"
+                    row_string = f"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else 'Master\'s dissertation'}, {row['thesis_uni']}]. {row['thesis_db']}. {row['doi_or_url']}"
                 st.markdown(row_string, unsafe_allow_html=True)
 
         
