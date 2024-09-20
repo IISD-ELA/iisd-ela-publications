@@ -39,6 +39,7 @@ data[data['type']=='journal']['journal_issue_no'] = data[data['type']=='journal'
 data[data['type']=='journal']['journal_vol_no'] = data[data['type']=='journal']['journal_vol_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
 
+print(data['lake_tags'])
 
 # Store all data type tags in a list
 data_types = sorted(['Physical Limnology',
