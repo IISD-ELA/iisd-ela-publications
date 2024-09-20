@@ -229,8 +229,8 @@ with col2:
                     row_string = f"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, {row['thesis_uni']}]. {row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} {row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
                 
                 tag_info = f'''**Lakes:** {row['lake_tags']}  
-                               \033[1mData Types:\033[0m {row['data_type_tags']}  
-                               \033[1mEnvironmental Issues:\033[0m {row['environmental_issue_tags']}  
+                               **Data Types:** {row['data_type_tags']}  
+                               **Environmental Issues:** {row['environmental_issue_tags']}  
                                '''
                 st.markdown(row_string, 
                             unsafe_allow_html=True,
