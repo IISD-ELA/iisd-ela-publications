@@ -229,7 +229,7 @@ with col2:
                     row_string = f"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, {row['thesis_uni']}]. {row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} {row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
                 st.markdown(row_string, 
                             unsafe_allow_html=True,
-                            help=f"Lakes: {row['lake_tags']}, "+
+                            help=f"\033[1mLakes:\033[0m {row['lake_tags']}, "+
                                  f"Data Types: {row['data_type_tags']}, " +
                                  f"Environmental Issues: {row['environmental_issue_tags']}")
 
