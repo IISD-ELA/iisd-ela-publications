@@ -23,12 +23,12 @@ authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 
 # Filter out publication types other than journal articles for now
 # Theses will be added to the db later and code will be added to deal with them
-data = data[data['publication_type']=='journal']
+data = data[data['type']=='journal']
 
 # Convert data types to string
     # This is so that years aren't displayed with decimals and
     # to avoid some data type errors
-data['publication_year'] = data['publication_year'].astype(int).astype(str)
+data['year'] = data['year'].astype(int).astype(str)
 data['issue_no'] = data['issue_no'].astype(int).astype(str)
 data['volume_no'] = data['volume_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
@@ -72,7 +72,7 @@ rel_to_iisd_ela = ['<select a filter>',
 
 # Store all *current* IISD-ELA authors in a set object
 # Need to get this list from Sumeep or someone else ...
-iisd_ela_authors_set = set(authors_data['publication_authors'])
+iisd_ela_authors_set = set(authors_data['authors'])
 
 
 # Define a combined search function
@@ -104,7 +104,7 @@ def combined_search(data,
                 (author_query, 
                     data.apply(lambda row:
                                     any(author_tag in [s.replace('& ', '') 
-                                                        for s in row['publication_authors'].split('; ')]
+                                                        for s in row['authors'].split('; ')]
                                         for author_tag in author_query),
                                 axis=1)),
                 (general_search_query,
@@ -122,9 +122,9 @@ def combined_search(data,
     if len(list_result_datasets) > 0:
         data = pd.concat(list_result_datasets, ignore_index=True, axis=0).drop_duplicates()
     if year_start_query:
-        data = data[lambda data: data['publication_year'] >= year_start_query]
+        data = data[lambda data: data['year'] >= year_start_query]
     if year_end_query:
-        data = data[lambda data: data['publication_year'] <= year_end_query]
+        data = data[lambda data: data['year'] <= year_end_query]
     
     if rel_to_iisd_ela_query != rel_to_iisd_ela[0]:
         rel_to_iisd_ela_mapping = {'authored': rel_to_iisd_ela[1],
@@ -200,10 +200,10 @@ result_for_user = combined_search(
                                 year_range_start_query,
                                 year_range_end_query,
                                 general_search_query
-                                ).sort_values(by=['publication_authors', 'publication_year'])
+                                ).sort_values(by=['authors', 'year'])
 
 # Prepare authors values for MLA format
-result_for_user['publication_authors'] = result_for_user['publication_authors'].str.replace(';', ',')
+result_for_user['authors'] = result_for_user['authors'].str.replace(';', ',')
 
 
 with col2:
@@ -219,7 +219,7 @@ with col2:
         with st.container(height=500, border=False):
             # Display each row as a string
             for index, row in result_for_user.iterrows():
-                row_string = f"- {row['publication_authors']} ({row['publication_year']}). {row['publication_title']}. *{row['publisher_name']}*, *{row['volume_no']}*({row['issue_no']}), {row['page_range']}. https://doi.org/{row['doi']}"
+                row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['publisher']}*, *{row['volume_no']}*({row['issue_no']}), {row['page_range']}. https://doi.org/{row['doi_or_url']}"
                 st.markdown(row_string, unsafe_allow_html=True)
 
         
