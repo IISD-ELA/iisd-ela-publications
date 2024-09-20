@@ -28,7 +28,7 @@ data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 
 # Filter out publication types other than journal articles for now
 # Theses will be added to the db later and code will be added to deal with them
-#data = data[data['type']=='journal']
+data = data[data['type']=='journal']
 
 
 # Convert data types to string
@@ -88,7 +88,6 @@ def combined_search(data,
                     year_start_query, 
                     year_end_query, 
                     general_search_query):
-    data
     queries = [ (data_type_query,
                     data.apply(lambda row: 
                                     any(data_type_tag in row['data_type_tags'].split('; ') 
