@@ -21,21 +21,23 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 data = conn.read(worksheet="Publications") 
 authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 
+
+# Filter out unapproved rows that were added by staff outside data team
+data = data[data['approved'].isin(['Yes', 'Not applicable'])]
+
+
 # Filter out publication types other than journal articles for now
 # Theses will be added to the db later and code will be added to deal with them
-data = data[data['type']=='journal']
+#data = data[data['type']=='journal']
+
 
 # Convert data types to string
     # This is so that years aren't displayed with decimals and
     # to avoid some data type errors
 data['year'] = data['year'].astype(int).astype(str)
 data[data['type']=='journal']['journal_issue_no'] = data['journal_issue_no'].astype(int).astype(str)
-data['journal_vol_no'] = data['journal_vol_no'].astype(int).astype(str)
+data[data['type']=='journal']['journal_vol_no'] = data['journal_vol_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
-
-
-# Filter out unapproved rows that were added by staff outside data team
-data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 
 
 # Store all data type tags in a list
@@ -73,6 +75,12 @@ rel_to_iisd_ela = ['<select a filter>',
 # Store all *current* IISD-ELA authors in a set object
 # Need to get this list from Sumeep or someone else ...
 iisd_ela_authors_set = set(authors_data['authors'])
+
+
+# Store all distinct lakes in the data in a list
+unique_lakes = sorted(list({int(num_str) for num_str in set(data['lake_tags'].str.split('; ').sum()) 
+                                if num_str.isdigit()}))
+unique_lakes.append('Other or Unspecified')
 
 
 # Define a combined search function
@@ -145,13 +153,7 @@ with col1:
     env_issue_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{environmental} \: \bold{issue}$", 
                                     options=env_issues)
     
-    # Add a multi-select widget for lake tags
-    # a. Get a list of all distinct (unique) lakes in the database
-    unique_lakes = sorted(list({int(num_str) for num_str in set(data['lake_tags'].str.split('; ').sum()) 
-                                if num_str.isdigit()}))
-    unique_lakes.append('Other or Unspecified')
-    
-    # b. Add the lake tag widget
+    # b. Add a multi-select widget for lake tags
     lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lake}$ ", 
                                options=unique_lakes)
 
@@ -202,7 +204,8 @@ result_for_user = combined_search(
                                 general_search_query
                                 ).sort_values(by=['authors', 'year'])
 
-# Prepare authors values for MLA format
+
+# Prepare authors values for APA format
 result_for_user['authors'] = result_for_user['authors'].str.replace(';', ',')
 
 
@@ -219,7 +222,10 @@ with col2:
         with st.container(height=500, border=False):
             # Display each row as a string
             for index, row in result_for_user.iterrows():
-                row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['journal_name']}*, *{row['journal_vol_no']}*({row['journal_issue_no']}), {row['journal_page_range']}. https://doi.org/{row['doi_or_url']}"
+                if row['type'] == 'journal':
+                    row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['journal_name']}*, *{row['journal_vol_no']}*({row['journal_issue_no']}), {row['journal_page_range']}. {row['doi_or_url']}"
+                elif row['type'].isin(['msc', 'phd']):
+                    row_string = f"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else "Master's thesis"}, {row['thesis_uni']}]. {row['thesis_db']}. {row['doi_or_url']}"
                 st.markdown(row_string, unsafe_allow_html=True)
 
         
