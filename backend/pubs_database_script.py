@@ -67,7 +67,7 @@ env_issues.append('Other')
 rel_to_iisd_ela = ['<select a filter>',
                     'Current IISD-ELA researchers',
                     'Other researchers (supported by IISD-ELA)',
-                    'Student theses']
+                    'Students (theses)']
 
 
 # Store all *current* IISD-ELA authors in a set object
@@ -177,12 +177,12 @@ with col1:
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "")
 
 st.markdown(f"<h4 style='color: #083266;'>Notes</h4>", unsafe_allow_html=True)
-st.markdown('''**<div style="font-size: 12px;">
+st.markdown('''<div style="font-size: 12px;">
                     <u1> 
                         <li> The "Search by author(s)" function will only work for current IISD-ELA researchers.\nTo search by other researchers, please use the "General search" function. </li>
                         <li> The "Search by" features will generate results that match any of the tags you have selected. The "Filter by" feature will narrow down results to only those that meet the selected filter criteria. </li>
                     </u1>
-            **</div>
+            </div>
             ''',
                 unsafe_allow_html=True)
 st.markdown('**<div style="font-size: 12px;">If you notice any missing publications or encounter issues with this search engine, please reach out to us at eladata@iisd-ela.org.**</div>',
