@@ -134,11 +134,13 @@ def combined_search(data,
     if year_end_query:
         data = data[lambda data: data['year'] <= year_end_query]
     
-    if rel_to_iisd_ela_query != rel_to_iisd_ela[0]:
+    if rel_to_iisd_ela_query in [rel_to_iisd_ela[1], rel_to_iisd_ela[2]]:
         rel_to_iisd_ela_mapping = {'authored': rel_to_iisd_ela[1],
                                    'supported': rel_to_iisd_ela[2]}
         data['relationship_to_iisd_ela'] = data['relationship_to_iisd_ela'].map(rel_to_iisd_ela_mapping)
         data = data[data['relationship_to_iisd_ela']==iisd_ela_rel_query]
+    elif rel_to_iisd_ela_query == rel_to_iisd_ela[3]:
+        data = data[data['type'].isin(['msc', 'phd'])]
 
     return data
 
