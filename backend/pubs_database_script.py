@@ -88,7 +88,7 @@ def combined_search(data,
                     year_start_query, 
                     year_end_query, 
                     general_search_query):
-    
+    data
     queries = [ (data_type_query,
                     data.apply(lambda row: 
                                     any(data_type_tag in row['data_type_tags'].split('; ') 
@@ -119,8 +119,7 @@ def combined_search(data,
     
     list_result_datasets = []
     for query, condition in queries:
-        if query==lake_query:
-            data[condition]
+        if query:
             list_result_datasets.append(data[condition])
 
     if len(list_result_datasets) > 0:
