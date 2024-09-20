@@ -219,7 +219,7 @@ with col2:
         with st.container(height=500, border=False):
             # Display each row as a string
             for index, row in result_for_user.iterrows():
-                row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['publisher']}*, *{row['journal_vol_no']}*({row['journal_issue_no']}), {row['journal_page_range']}. https://doi.org/{row['doi_or_url']}"
+                row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['journal_name']}*, *{row['journal_vol_no']}*({row['journal_issue_no']}), {row['journal_page_range']}. https://doi.org/{row['doi_or_url']}"
                 st.markdown(row_string, unsafe_allow_html=True)
 
         
