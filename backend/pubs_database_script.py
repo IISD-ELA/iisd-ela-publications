@@ -119,7 +119,8 @@ def combined_search(data,
     
     list_result_datasets = []
     for query, condition in queries:
-        if query: 
+        if query==lake_query:
+            data[condition]
             list_result_datasets.append(data[condition])
 
     if len(list_result_datasets) > 0:
