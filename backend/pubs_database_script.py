@@ -35,8 +35,6 @@ data = data[data['approved'].isin(['Yes', 'Not applicable'])]
     # This is so that years aren't displayed with decimals and
     # to avoid some data type errors
 data['year'] = data['year'].astype(int).astype(str)
-#data[data['type']=='journal']['journal_issue_no'] = data[data['type']=='journal']['journal_issue_no'].astype(int).astype(str)
-#data[data['type']=='journal']['journal_vol_no'] = data[data['type']=='journal']['journal_vol_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
 
 
@@ -228,7 +226,7 @@ with col2:
                 if row['type'] == 'journal':
                     row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['journal_name']}*, *{str(int(row['journal_vol_no']))}*({str(int(row['journal_issue_no']))}){', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}. {row['doi_or_url']}"
                 elif row['type']=='msc' or row['type']=='phd':
-                    row_string = f"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, {row['thesis_uni']}]. {row['thesis_db']}. {row['doi_or_url']}"
+                    row_string = f"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, {row['thesis_uni']}]. {row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} {row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
                 st.markdown(row_string, unsafe_allow_html=True)
 
         
