@@ -29,8 +29,8 @@ data = data[data['type']=='journal']
     # This is so that years aren't displayed with decimals and
     # to avoid some data type errors
 data['year'] = data['year'].astype(int).astype(str)
-data['issue_no'] = data['issue_no'].astype(int).astype(str)
-data['volume_no'] = data['volume_no'].astype(int).astype(str)
+data['journal_issue_no'] = data['journal_issue_no'].astype(int).astype(str)
+data['journal_vol_no'] = data['journal_vol_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
 
 
@@ -219,7 +219,7 @@ with col2:
         with st.container(height=500, border=False):
             # Display each row as a string
             for index, row in result_for_user.iterrows():
-                row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['publisher']}*, *{row['volume_no']}*({row['issue_no']}), {row['page_range']}. https://doi.org/{row['doi_or_url']}"
+                row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['publisher']}*, *{row['journal_vol_no']}*({row['journal_issue_no']}), {row['journal_page_range']}. https://doi.org/{row['doi_or_url']}"
                 st.markdown(row_string, unsafe_allow_html=True)
 
         
