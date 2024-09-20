@@ -227,8 +227,8 @@ with col2:
                     row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['journal_name']}*, *{str(int(row['journal_vol_no']))}*({str(int(row['journal_issue_no']))}){', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}. {row['doi_or_url']}"
                 elif row['type']=='msc' or row['type']=='phd':
                     row_string = f"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, {row['thesis_uni']}]. {row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} {row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
-                if st.button(row_string):
-                    st.write(f"Lake tags: {row['lake_tags']}")
+                with st.expander(row_string):
+                    st.write('Lake tags: ', row['lake_tags'])
                 st.markdown(row_string, unsafe_allow_html=True)
 
         
