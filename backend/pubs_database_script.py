@@ -23,7 +23,7 @@ authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 
 # Filter out publication types other than journal articles for now
 # Theses will be added to the db later and code will be added to deal with them
-data = data[data['publication_type']=='Journal Article']
+data = data[data['publication_type']=='journal']
 
 # Convert data types to string
     # This is so that years aren't displayed with decimals and
@@ -219,7 +219,7 @@ with col2:
         with st.container(height=500, border=False):
             # Display each row as a string
             for index, row in result_for_user.iterrows():
-                row_string = f"- {row['publication_authors']} ({row['publication_year']}). {row['publication_title']}. *{row['journal_name']}*, *{row['volume_no']}*({row['issue_no']}), {row['page_range']}. https://doi.org/{row['doi']}"
+                row_string = f"- {row['publication_authors']} ({row['publication_year']}). {row['publication_title']}. *{row['publisher_name']}*, *{row['volume_no']}*({row['issue_no']}), {row['page_range']}. https://doi.org/{row['doi']}"
                 st.markdown(row_string, unsafe_allow_html=True)
 
         
