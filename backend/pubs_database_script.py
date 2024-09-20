@@ -28,7 +28,7 @@ data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 
 # Filter out publication types other than journal articles for now
 # Theses will be added to the db later and code will be added to deal with them
-data = data[data['type']=='journal']
+#data = data[data['type']=='journal']
 
 
 # Convert data types to string
@@ -133,8 +133,8 @@ def combined_search(data,
                                    'supported': rel_to_iisd_ela[2]}
         data['relationship_to_iisd_ela'] = data['relationship_to_iisd_ela'].map(rel_to_iisd_ela_mapping)
         data = data[data['relationship_to_iisd_ela']==iisd_ela_rel_query]
-    elif rel_to_iisd_ela_query == rel_to_iisd_ela[3]:
-        data = data[data['type'].isin(['msc', 'phd'])]
+    #elif rel_to_iisd_ela_query == rel_to_iisd_ela[3]:
+     #   data = data[data['type'].isin(['msc', 'phd'])]
 
     return data
 
