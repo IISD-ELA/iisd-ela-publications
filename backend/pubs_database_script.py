@@ -226,7 +226,7 @@ with col2:
             # Display each row as a string
             for index, row in result_for_user.iterrows():
                 if row['type'] == 'journal':
-                    row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['journal_name']}*, *{row['journal_vol_no']}*({row['journal_issue_no']}), {row['journal_page_range'] if row['journal_page_range'].notna() else '.'}. {row['doi_or_url']}"
+                    row_string = f"- {row['authors']} ({row['year']}). {row['title']}. *{row['journal_name']}*, *{row['journal_vol_no']}*({row['journal_issue_no']}), {row['journal_page_range'] if row['journal_page_range'] != 'nan' else '.'}. {row['doi_or_url']}"
                 elif row['type']=='msc' or row['type']=='phd':
                     row_string = f"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, {row['thesis_uni']}]. {row['thesis_db']}. {row['doi_or_url']}"
                 st.markdown(row_string, unsafe_allow_html=True)
