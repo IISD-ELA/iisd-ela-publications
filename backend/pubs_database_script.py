@@ -29,7 +29,7 @@ data = data[data['type']=='journal']
     # This is so that years aren't displayed with decimals and
     # to avoid some data type errors
 data['year'] = data['year'].astype(int).astype(str)
-data['journal_issue_no'] = data['journal_issue_no'].astype(int).astype(str)
+data[data['type']=='journal']['journal_issue_no'] = data['journal_issue_no'].astype(int).astype(str)
 data['journal_vol_no'] = data['journal_vol_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
 
