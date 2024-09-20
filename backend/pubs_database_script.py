@@ -228,14 +228,7 @@ with col2:
                 elif row['type']=='msc' or row['type']=='phd':
                     row_string = rf"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, {row['thesis_uni']}]. {row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} {row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
                 
-                st.markdown("""
-                            <style>
-                            .big-font {
-                                font-size: 20px;
-                            }
-                            </style>
-                            """, unsafe_allow_html=True)
-                with st.expander(row_string):
+                with st.button(row_string):
                     st.write('Lake Tags:', row['lake_tags'])
 
         
