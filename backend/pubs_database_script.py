@@ -227,6 +227,14 @@ with col2:
                     row_string = rf"- {row['authors']} ({row['year']}). {row['title']}. *{row['journal_name']}*, *{str(int(row['journal_vol_no']))}*({str(int(row['journal_issue_no']))}){', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}. {row['doi_or_url']}"
                 elif row['type']=='msc' or row['type']=='phd':
                     row_string = rf"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, {row['thesis_uni']}]. {row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} {row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
+                
+                st.markdown("""
+                            <style>
+                            .small-font {
+                                font-size: 16px;
+                            }
+                            </style>
+                            """, unsafe_allow_html=True)
                 with st.expander(row_string):
                     st.write('Lake Tags:', row['lake_tags'])
 
