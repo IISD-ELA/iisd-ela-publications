@@ -28,7 +28,7 @@ data = data[data['approved'].isin(['Yes', 'Not applicable'])]
 
 # Filter out publication types other than journal articles for now
 # Theses will be added to the db later and code will be added to deal with them
-data = data[data['type']=='journal']
+#data = data[data['type']=='journal']
 
 
 # Convert data types to string
