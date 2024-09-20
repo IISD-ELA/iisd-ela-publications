@@ -230,7 +230,7 @@ with col2:
                 st.markdown(row_string, 
                             unsafe_allow_html=True,
                             help=f"Lakes: {row['lake_tags']}\n"+
-                                 f"Data Types: {row['data_type_tags}']}\n" +
+                                 f"Data Types: {row['data_type_tags']}\n" +
                                  f"Environmental Issues: {row['environmental_issue_tags']}")
 
         
