@@ -219,6 +219,8 @@ with col2:
         f"<h2 style='color: #083266;'>Search Results ({len(result_for_user)})</h2>",
         unsafe_allow_html=True
                     )
+        st.markdown('**<div style="font-size: 12px;">Hover above the question mark icon to see tags for each publication.**</div>',
+                unsafe_allow_html=True)
         #st.markdown("## Search Results")
         with st.container(height=500, border=False):
             # Display each row as a string
