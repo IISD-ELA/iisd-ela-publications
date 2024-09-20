@@ -39,7 +39,7 @@ data[data['type']=='journal']['journal_issue_no'] = data[data['type']=='journal'
 data[data['type']=='journal']['journal_vol_no'] = data[data['type']=='journal']['journal_vol_no'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
 
-data
+
 # Store all data type tags in a list
 data_types = sorted(['Physical Limnology',
                       'Zooplankton',
@@ -87,7 +87,7 @@ def combined_search(data,
                     year_start_query, 
                     year_end_query, 
                     general_search_query):
-
+    data
     '''queries = [ (data_type_query,
                     data.apply(lambda row: 
                                     any(data_type_tag in row['data_type_tags'].split('; ') 
