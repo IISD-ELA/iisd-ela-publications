@@ -184,6 +184,7 @@ st.markdown('''<div style="font-size: 12px;">
                     <u1> 
                         <li> The "Search by author(s)" function will only work for current IISD-ELA researchers.\nTo search by other researchers, please use the "General search" function. </li>
                         <li> The "Search by" functions will generate results that match any of the tags you have selected. The "Filter by" function will narrow down results to only those that meet the selected filter criteria. </li>
+                        <li> You can hover above the question mark icons to see the tags associated with each publication. </li>
                     </u1>
             </div>
             ''',
@@ -219,8 +220,6 @@ with col2:
         f"<h2 style='color: #083266;'>Search Results ({len(result_for_user)})</h2>",
         unsafe_allow_html=True
                     )
-        st.markdown('**<div style="font-size: 12px;">Hover above the question mark icon to see tags for each publication.**</div>',
-                unsafe_allow_html=True)
         #st.markdown("## Search Results")
         with st.container(height=500, border=False):
             # Display each row as a string
