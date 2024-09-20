@@ -230,8 +230,8 @@ with col2:
                 
                 st.markdown("""
                             <style>
-                            .small-font {
-                                font-size: 16px;
+                            .big-font {
+                                font-size: 20px;
                             }
                             </style>
                             """, unsafe_allow_html=True)
