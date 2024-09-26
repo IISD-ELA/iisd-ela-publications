@@ -30,7 +30,7 @@ data = all_data[all_data['approved'].isin(['Yes', 'Not applicable'])]
     # This is so that years aren't displayed with decimals and
     # to avoid some data type errors
 data['year'] = data['year'].astype(int).astype(str)
-#data['lake_tags'] = data['lake_tags'].astype(str)
+data['lake_tags'] = data['lake_tags'].astype(str)
 
 
 # Store all data type tags in a list
