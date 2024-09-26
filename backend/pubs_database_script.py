@@ -72,7 +72,7 @@ rel_to_iisd_ela = ['<select a filter>',
 
 
 # Store all current IISD-ELA authors in a set object
-iisd_ela_authors_set = set(authors_data['authors'])
+iisd_ela_authors_set = authors_data['authors']
 
 
 # Define a combined search function
