@@ -259,12 +259,13 @@ with col2:
 
                 # Format journal articles in APA 7th ed format
                 if row['type'] == 'journal':
-                    row_string = f"- {row['authors']} ({row['year']}). \
-                                     {row['title']}. *{row['journal_name']}*, \
-                                     *{str(int(row['journal_vol_no']))}*\
-                                     ({str(int(row['journal_issue_no']))})\
-                                     {', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}.\
-                                     {row['doi_or_url']}"
+                    row_string =(f"- {row['authors']} ({row['year']}). " 
+                                 f"{row['title']}. *{row['journal_name']}*, " 
+                                 f"*{str(int(row['journal_vol_no']))}*" 
+                                 f"({str(int(row['journal_issue_no']))})" 
+                                 f"{', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}. " 
+                                 f"{row['doi_or_url']}"
+                                )
                     
 
                 # Format theses in APA 7th ed format
