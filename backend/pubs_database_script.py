@@ -216,6 +216,7 @@ st.markdown('''<div style="font-size: 12px;">
                         <li> The "Search by author(s)" function will only work for current IISD-ELA researchers.\nTo search by other researchers, please use the "General search" function. </li>
                         <li> The "Search by" functions will generate results that match any of the tags you have selected. The "Filter by" function will narrow down results to only those that meet the selected filter criteria. </li>
                         <li> You can hover above the question mark icons to see the tags associated with each publication. </li>
+                        <li> You can search by any keyword that may not appear in the publication texts themselves (e.g., "cyanobacteria") using the "General search" function as most records are tagged with additional invisible keywords. </li>
                     </u1>
             </div>
             ''',
