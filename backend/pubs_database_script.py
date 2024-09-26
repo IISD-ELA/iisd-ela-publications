@@ -252,12 +252,24 @@ with col2:
         unsafe_allow_html=True
                     )
         with st.container(height=500, border=False):
+
             # Display each row as a string
             for index, row in result_for_user.iterrows():
+
+
+                # Format journal articles in APA 7th ed format
                 if row['type'] == 'journal':
                     row_string = f"- {row['authors']} ({row['year']}). \
                                      {row['title']}. *{row['journal_name']}*, \
-                            *{str(int(row['journal_vol_no']))}*({str(int(row['journal_issue_no']))}){', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}. {row['doi_or_url']}"
+                                     *{str(int(row['journal_vol_no']))}*\
+                                     ({str(int(row['journal_issue_no']))})\
+                                     {', '+str(row['journal_page_range']) 
+                                           if not pd.isna(row['journal_page_range']) 
+                                           else ''}. \
+                                     {row['doi_or_url']}"
+                    
+
+                # Format theses in APA 7th ed format
                 elif row['type']=='msc' or row['type']=='phd':
                     row_string = f"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, {row['thesis_uni']}]. {row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} {row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
                 
