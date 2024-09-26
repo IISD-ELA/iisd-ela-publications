@@ -71,8 +71,8 @@ rel_to_iisd_ela = ['<select a filter>',
                     'Students (theses)']
 
 
-# Store all current IISD-ELA authors in a set object
-iisd_ela_authors_set = authors_data['authors']
+# Store all current IISD-ELA authors in a list
+iisd_ela_authors = authors_data['authors']
 
 
 # Define a combined search function
@@ -86,7 +86,7 @@ def combined_search(data,
                     year_end_query, 
                     general_search_query):
     
-
+    # Define a list of query and condition pairs for search by functions
     queries = [ (data_type_query,
                     data.apply(lambda row: 
                                     any(data_type_tag in row['data_type_tags'].split('; ') 
@@ -116,23 +116,31 @@ def combined_search(data,
               ]
 
     
+    # Gather all dataframes that satisfy at least one of the query-condition pairs
     list_result_datasets = []
     for query, condition in queries:
         if query:
             list_result_datasets.append(data[condition])
 
+    # Concatenate all dataframes that satify at least one of the query-condition pairs
+    # Also drop duplicates
     if len(list_result_datasets) > 0:
         data = pd.concat(list_result_datasets, ignore_index=True, axis=0).drop_duplicates()
+
+    # Filter by year queries, if any
     if year_start_query:
         data = data[lambda data: data['year'] >= year_start_query]
     if year_end_query:
         data = data[lambda data: data['year'] <= year_end_query]
     
+    # Filter by author types current reserchers or other researchers (no students)
     if rel_to_iisd_ela_query in [rel_to_iisd_ela[1], rel_to_iisd_ela[2]]:
         rel_to_iisd_ela_mapping = {'authored': rel_to_iisd_ela[1],
                                    'supported': rel_to_iisd_ela[2]}
         data['relationship_to_iisd_ela'] = data['relationship_to_iisd_ela'].map(rel_to_iisd_ela_mapping)
-        data = data[data['relationship_to_iisd_ela']==iisd_ela_rel_query]
+        data = data[(data['relationship_to_iisd_ela']==iisd_ela_rel_query) &
+                    (data['type']=='journal')]
+    # Filter by author type students
     elif rel_to_iisd_ela_query == rel_to_iisd_ela[3]:
         data = data[data['type'].isin(['msc', 'phd'])]
 
@@ -160,7 +168,7 @@ with col1:
 
     # Add a multi-select widget for author tags
     author_search_query = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{author(s)}$",
-                                         options=sorted(iisd_ela_authors_set))
+                                         options=sorted(iisd_ela_authors))
     
     # Add a multi-select widget for relationship to IISD-ELA
     rel_to_iisd_ela_query = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
