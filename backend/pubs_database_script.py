@@ -125,7 +125,8 @@ def combined_search(data,
     # Concatenate all dataframes that satify at least one of the query-condition pairs
     # Also drop duplicates
     if len(list_result_datasets) > 0:
-        data = pd.concat(list_result_datasets, ignore_index=True, axis=0).drop_duplicates()
+        data = \
+          pd.concat(list_result_datasets, ignore_index=True, axis=0).drop_duplicates()
 
     # Filter by year queries, if any
     if year_start_query:
@@ -135,11 +136,19 @@ def combined_search(data,
     
     # Filter by author types current reserchers or other researchers (no students)
     if rel_to_iisd_ela_query in [rel_to_iisd_ela[1], rel_to_iisd_ela[2]]:
+
+        # Create mapping instructions
         rel_to_iisd_ela_mapping = {'authored': rel_to_iisd_ela[1],
                                    'supported': rel_to_iisd_ela[2]}
-        data['relationship_to_iisd_ela'] = data['relationship_to_iisd_ela'].map(rel_to_iisd_ela_mapping)
+        
+        # Apply mapping instructions to data
+        data['relationship_to_iisd_ela'] = \
+            data['relationship_to_iisd_ela'].map(rel_to_iisd_ela_mapping)
+
+        # Filter data for non-student pubs that satisfy the author type query
         data = data[(data['relationship_to_iisd_ela']==iisd_ela_rel_query) &
                     ~(data['type'].isin(['msc', 'phd']))]
+        
     # Filter by author type students
     elif rel_to_iisd_ela_query == rel_to_iisd_ela[3]:
         data = data[data['type'].isin(['msc', 'phd'])]
