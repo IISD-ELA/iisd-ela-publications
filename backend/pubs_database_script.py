@@ -279,10 +279,14 @@ with col2:
                                   f"{row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
                                 )   
                 
-                tag_info = f'''**Lake(s):** {row['lake_tags']}  
+                # Write tag information into question mark icon for each publication
+                tag_info = f"""
+                               **Lake(s):** {row['lake_tags']}  
                                **Data Type(s):** {row['data_type_tags']}  
                                **Environmental Issue(s):** {row['environmental_issue_tags']}  
-                               '''
+                            """
+                
+                # Display each formatted publication with question mark icon
                 st.markdown(row_string, 
                             unsafe_allow_html=True,
                             help=tag_info) 
