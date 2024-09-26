@@ -172,36 +172,44 @@ with col1:
     data_type_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{data} \: \bold{type}$",
                                      options=data_types)
 
+
     # Add a multi-select widget for environmental issue tags
     env_issue_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{environmental} \: \bold{issue}$", 
                                     options=env_issues)
     
 
-    # b. Add a multi-select widget for lake tags
+    # Add a multi-select widget for lake tags
     lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lake}$ ", 
                                options=unique_lakes)
+
 
     # Add a multi-select widget for author tags
     author_search_query = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{author(s)}$",
                                          options=sorted(iisd_ela_authors))
     
-    # Add a multi-select widget for relationship to IISD-ELA
-    rel_to_iisd_ela_query = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
-                                           options=rel_to_iisd_ela, index=rel_to_iisd_ela.index('<select a filter>'))
     
-    # Add year range start and end boxes
-    # Create columns for side-by-side inputs
+    # Add a selectbox widget for author types (default is set to <select a filter>)
+    rel_to_iisd_ela_query = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
+                                           options=rel_to_iisd_ela, 
+                                           index=rel_to_iisd_ela.index('<select a filter>'))
+    
+
+    # Create columns for side-by-side year filters
     col3, col4 = st.columns(2)
-    # Add a search box for the general search query in the first column
+
+
+    # Fill columns with year filters
     with col3:
         year_range_start_query = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{start}$", "")
-    # Add a search box for the "lake_tags" in the second column
     with col4:
         year_range_end_query = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{end}$", "")
+
 
     # Add a general search box
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "")
 
+
+# Write notes on the bottom of the page
 st.markdown(f"<h4 style='color: #083266;'>Notes</h4>", unsafe_allow_html=True)
 st.markdown('''<div style="font-size: 12px;">
                     <u1> 
@@ -216,7 +224,7 @@ st.markdown('**<div style="font-size: 12px;">If you notice any missing publicati
                 unsafe_allow_html=True)
 
 
-# Filter the data based on the search query and selected tags
+# Call combined_search function to filter the data based on user queries
 result_for_user = combined_search(
                                 data, 
                                 data_type_tags,
@@ -243,7 +251,6 @@ with col2:
         f"<h2 style='color: #083266;'>Search Results ({len(result_for_user)})</h2>",
         unsafe_allow_html=True
                     )
-        #st.markdown("## Search Results")
         with st.container(height=500, border=False):
             # Display each row as a string
             for index, row in result_for_user.iterrows():
@@ -260,20 +267,4 @@ with col2:
                             unsafe_allow_html=True,
                             help=tag_info)
         
-        
-
-
-# URL of the background image
-#image_url = 'https://www.iisd.org/ela/wp-content/uploads/2020/12/Evening-on-Lake-240-HH-2019-scaled-1.jpeg'
-# Define CSS for background image 
-#background_image = f"""
-#<style>
-#[data-testid="stAppViewContainer"] > .main {{
-   # background-image: url('{image_url}');
-    #background-attachment: fixed;
-    #background-size: cover;
-#}}
-#</style>
-#"""
-# Inject CSS with st.markdown
-#st.markdown(background_image, unsafe_allow_html=True)
+    
