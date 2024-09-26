@@ -26,10 +26,15 @@ authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 data = all_data[all_data['approved'].isin(['Yes', 'Not applicable'])]
 
 
-# Convert data types to string
-    # This is so that years aren't displayed with decimals and
-    # to avoid some data type errors
+# Python reads year data as float point numbers
+# So, convert float to integer (2016.0 -> 2016) 
+# and then convert integer to string (2016 -> "2016")
 data['year'] = data['year'].astype(int).astype(str)
+
+
+# For records with a single lake tag, Python reads
+# lake tags as float point numbers (bad)
+# So, convert all lake tags to string
 data['lake_tags'] = data['lake_tags'].astype(str)
 
 
@@ -56,16 +61,17 @@ env_issues.append('Other')
                     
 
 
-# Store all relationship to IISD-ELA tags in a list
-# DO NOT!! Change the order of the values in this list
+# Store all author type tags in a list
+# DO **NOT**!! Change the order of the values in this list
+# You can change the values themselves if needed, but 
+# do not change the order!
 rel_to_iisd_ela = ['<select a filter>',
                     'Current IISD-ELA researchers',
                     'Other researchers (supported by IISD-ELA)',
                     'Students (theses)']
 
 
-# Store all *current* IISD-ELA authors in a set object
-# Need to get this list from Sumeep or someone else ...
+# Store all current IISD-ELA authors in a set object
 iisd_ela_authors_set = set(authors_data['authors'])
 
 
