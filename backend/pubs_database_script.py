@@ -139,7 +139,7 @@ def combined_search(data,
                                    'supported': rel_to_iisd_ela[2]}
         data['relationship_to_iisd_ela'] = data['relationship_to_iisd_ela'].map(rel_to_iisd_ela_mapping)
         data = data[(data['relationship_to_iisd_ela']==iisd_ela_rel_query) &
-                    (not data['type'].isin(['msc', 'phd']))]
+                    (data['type'] != 'msc' and data['type'] != 'phd')]
     # Filter by author type students
     elif rel_to_iisd_ela_query == rel_to_iisd_ela[3]:
         data = data[data['type'].isin(['msc', 'phd'])]
