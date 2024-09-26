@@ -29,7 +29,7 @@ data = all_data[all_data['approved'].isin(['Yes', 'Not applicable'])]
 # Convert data types to string
     # This is so that years aren't displayed with decimals and
     # to avoid some data type errors
-data['year'] = data['year'].astype(int).astype(str)
+#data['year'] = data['year'].astype(int).astype(str)
 data['lake_tags'] = data['lake_tags'].astype(str)
 
 
