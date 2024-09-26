@@ -280,7 +280,7 @@ with col2:
                                 )   
                 
                 # Write tag information into question mark icon for each publication
-                tag_info = f"""
+                tag_info = f"""\
                                **Lake(s):** {row['lake_tags']}  
                                **Data Type(s):** {row['data_type_tags']}  
                                **Environmental Issue(s):** {row['environmental_issue_tags']}  
