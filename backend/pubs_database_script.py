@@ -75,6 +75,13 @@ rel_to_iisd_ela = ['<select a filter>',
 iisd_ela_authors = authors_data['authors']
 
 
+# Store all distinct lakes in the data in a list
+unique_lakes = sorted(list({int(num_str) for num_str in \
+                            set(data['lake_tags'].str.split('; ').sum()) 
+                            if num_str.isdigit()}))
+unique_lakes.append('Other or Unspecified')
+
+
 # Define a combined search function
 def combined_search(data, 
                     data_type_query, 
@@ -128,13 +135,13 @@ def combined_search(data,
         data = \
           pd.concat(list_result_datasets, ignore_index=True, axis=0).drop_duplicates()
 
-    # Filter by year queries, if any
+    # Filter by year queries
     if year_start_query:
         data = data[lambda data: data['year'] >= year_start_query]
     if year_end_query:
         data = data[lambda data: data['year'] <= year_end_query]
     
-    # Filter by author types current reserchers or other researchers (no students)
+    # Filter by author types current researchers or other researchers (no students)
     if rel_to_iisd_ela_query in [rel_to_iisd_ela[1], rel_to_iisd_ela[2]]:
 
         # Create mapping instructions
@@ -156,7 +163,10 @@ def combined_search(data,
     return data
 
 
+# Create separate columns for search functions and search results
 col1, col2 = st.columns(spec=[0.3, 0.7])
+
+# Fill the search functions column with search widgets
 with col1: 
     # Add a multi-select widget for data type tags
     data_type_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{data} \: \bold{type}$",
@@ -167,10 +177,6 @@ with col1:
                                     options=env_issues)
     
 
-    # Store all distinct lakes in the data in a list
-    unique_lakes = sorted(list({int(num_str) for num_str in set(data['lake_tags'].str.split('; ').sum()) 
-                                    if num_str.isdigit()}))
-    unique_lakes.append('Other or Unspecified')
     # b. Add a multi-select widget for lake tags
     lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lake}$ ", 
                                options=unique_lakes)
