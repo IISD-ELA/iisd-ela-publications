@@ -263,9 +263,7 @@ with col2:
                                      {row['title']}. *{row['journal_name']}*, \
                                      *{str(int(row['journal_vol_no']))}*\
                                      ({str(int(row['journal_issue_no']))})\
-                                     {', '+str(row['journal_page_range']) \
-                                        if not pd.isna(row['journal_page_range']) \
-                                        else ''}.\
+                                     {', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}.\
                                      {row['doi_or_url']}"
                     
 
