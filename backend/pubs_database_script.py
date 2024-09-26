@@ -1,34 +1,29 @@
-# Draft IISD-ELA Publications Search Engine
-# Author: Idil Yaktubay
-# Last Updated: 2024-09-19
+# Code purpose: Backend code for IISD-ELA Publications Search Engine
+# Link to search engine: https://iisd-ela-pubs-search-engine.streamlit.app/
+# Author: Idil Yaktubay (iyaktubay@iisd-ela.org)
 
+# Last Updated: 09-26-2024
+# Last Updated by: Idil Yaktubay
+
+
+# Import required modules
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 
 
-# Set page layout to wide (occupy more of the display)
+# Set page layout to wide to occupy more of the display
 st.set_page_config(layout="wide")
-
-
-# Set page title
-#st.markdown("<h1 style='text-align: center; color: #083266;'>IISD-ELA Publications Search Engine</h1>", unsafe_allow_html=True)
-#st.title("IISD-ELA Publications Search Engine", )
 
 
 # Connect to Google Sheet containing publications data
 conn = st.connection("gsheets", type=GSheetsConnection)
-data = conn.read(worksheet="Publications") 
+all_data = conn.read(worksheet="Publications") 
 authors_data = conn.read(worksheet="Current_IISD-ELA_Authors")
 
 
-# Filter out unapproved rows that were added by staff outside data team
-data = data[data['approved'].isin(['Yes', 'Not applicable'])]
-
-
-# Filter out publication types other than journal articles for now
-# Theses will be added to the db later and code will be added to deal with them
-#data = data[data['type']=='journal']
+# Filter for approved rows and rows added by data team
+data = all_data[all_data['approved'].isin(['Yes', 'Not applicable'])]
 
 
 # Convert data types to string
@@ -46,7 +41,6 @@ data_types = sorted(['Physical Limnology',
                       'Fish',
                       'Chemistry',
                       'Algae'])
-                      # Add phytoplankton? 
 data_types.append('Other')
 
 
