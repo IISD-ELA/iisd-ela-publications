@@ -269,7 +269,8 @@ with col2:
                     
 
                 # Format theses in APA 7th ed format
-                elif row['type']=='msc' or row['type']=='phd':
+                #elif row['type']=='msc' or row['type']=='phd':
+                elif row['type'].isin(['msc', 'phd']):
                     row_string = f"- {row['authors']} ({row['year']}). *{row['title']}* [{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, {row['thesis_uni']}]. {row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} {row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
                 
                 tag_info = f'''**Lake(s):** {row['lake_tags']}  
