@@ -123,21 +123,7 @@ def combined_search(data,
                                     any(author_tag in [s.replace('& ', '') 
                                                         for s in row['authors'].split('; ')]
                                         for author_tag in author_query),
-                                axis=1)),
-                # Apply general search function to search entire data row as string
-                # except irrelevant internal columns
-                '''(general_search_query,
-                    data.loc[:, 
-                                 ~data.columns.isin(['source',
-                                                    'approved_date',
-                                                    'approved_by',
-                                                    'approved',
-                                                    'account',
-                                                    'update_date'])
-                            ].apply(lambda row: 
-                                        row.astype(str).str.contains(general_search_query,
-                                                                 case=False).any(), 
-                                    axis=1))'''
+                                axis=1))
               ]
 
     
