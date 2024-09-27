@@ -10,7 +10,6 @@
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
-from streamlit_option_menu import option_menu
 
 
 # Set page layout to wide to occupy more of the display
@@ -235,19 +234,7 @@ with col1:
                                            key='selectbox_author_type',
                                            help=author_types_help)
     
-    author_types = option_menu(
-    "Filter by author type",
-    options=author_type_options,
-    default_index=author_type_options.index('<select a filter>'),
-    icons=None,
-    menu_icon="cast", 
-    styles={
-        "container": {"padding": "0", "background-color": "#fafafa"},
-        "icon": {"color": "#083266", "font-size": "25px"}, 
-        "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-        "nav-link-selected": {"background-color": "#083266", "color": "white"},
-    }
-                )
+
     # Create columns for side-by-side year filters
     col3, col4 = st.columns(2)
 
