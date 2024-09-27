@@ -262,7 +262,9 @@ with col1:
     gen_search_help = """You can search by any keyword that may
                          not appear in the publication texts themselves 
                          (e.g., "cyanobacteria") as most records are tagged 
-                         with additional keywords invisible to the user.
+                         with additional keywords invisible to the user.  
+                         This will filter the search results to show 
+                         publications containing the input text *only*.
                       """
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "",
                                          key='text_gen_search',
