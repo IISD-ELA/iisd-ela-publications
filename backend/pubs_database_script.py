@@ -228,20 +228,13 @@ with col1:
     author_types_help = """The filters are mutually exclusive and you may
                            only choose one.
                         """
-    # author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
-    #                                        options=author_type_options, 
-    #                                        #index=author_type_options.index('<select a filter>'),
-    #                                        key='selectbox_author_type',
-    #                                        help=author_types_help)
-    
-    author_types = st.multiselect(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
+    author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
                                            options=author_type_options, 
                                            #index=author_type_options.index('<select a filter>'),
-                                           key='multi_author_types',
+                                           key='selectbox_author_type',
                                            help=author_types_help)
     
     
-
     # Create columns for side-by-side year filters
     col3, col4 = st.columns(2)
 
