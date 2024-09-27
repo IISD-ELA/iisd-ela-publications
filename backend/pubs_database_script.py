@@ -205,9 +205,14 @@ with col1:
 
 
     # Add a multi-select widget for author tags
+    author_tags_help = """To search by researchers who are not current
+                          IISD-ELA researchers, please use the "General Search"
+                          function.
+                       """
     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors),
-                                         key='multi_author_tags')
+                                         key='multi_author_tags',
+                                         help=author_tags_help)
     
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
@@ -233,8 +238,7 @@ with col1:
     # Add a general search box
     gen_search_help = """You can search by any keyword that may
                          not appear in the publication texts themselves 
-                         (e.g., "cyanobacteria") using this function as 
-                         most records are tagged 
+                         (e.g., "cyanobacteria") as most records are tagged 
                          with additional invisible keywords.
                       """
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "",
@@ -255,10 +259,7 @@ with col1:
 st.markdown(f"<h4 style='color: #083266;'>Notes</h4>", unsafe_allow_html=True)
 st.markdown('''<div style="font-size: 12px;">
                     <u1> 
-                        <li> The "Search by authors" function will only work for current IISD-ELA researchers.\nTo search by other researchers, please use the "General search" function. </li>
                         <li> The "Search by" functions will generate results that match any of the tags you have selected. The "Filter by" function will narrow down results to only those that meet the selected filter criteria. </li>
-                        <li> You can hover above the question mark icons to see the tags associated with each publication. </li>
-                        <li> You can search by any keyword that may not appear in the publication texts themselves (e.g., "cyanobacteria") using the "General search" function as most records are tagged with additional invisible keywords. </li>
                     </u1>
             </div>
             ''',
