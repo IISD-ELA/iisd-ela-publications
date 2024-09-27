@@ -126,7 +126,7 @@ def combined_search(data,
                                 axis=1)),
                 # Apply general search function to search entire data row as string
                 # except irrelevant internal columns
-                (general_search_query,
+                '''(general_search_query,
                     data.loc[:, 
                                  ~data.columns.isin(['source',
                                                     'approved_date',
@@ -137,7 +137,7 @@ def combined_search(data,
                             ].apply(lambda row: 
                                         row.astype(str).str.contains(general_search_query,
                                                                  case=False).any(), 
-                                    axis=1))
+                                    axis=1))'''
               ]
 
     
@@ -158,6 +158,21 @@ def combined_search(data,
         data = data[lambda data: data['year'] >= year_start_query]
     if year_end_query:
         data = data[lambda data: data['year'] <= year_end_query]
+
+    
+    # Filter by general search queries
+    if general_search_query:
+        data = data[data.loc[:, ~data.columns.isin(['source',
+                                        'approved_date',
+                                        'approved_by',
+                                        'approved',
+                                        'account',
+                                        'update_date'])
+                        ].apply(lambda row: 
+                            row.astype(str).str.contains(general_search_query,
+                                                        case=False).any(), 
+                               axis=1)
+                    ]
     
     # Filter by author types current researchers or other researchers (no students)
     if author_types in [author_type_options[1], author_type_options[2]]:
