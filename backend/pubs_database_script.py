@@ -86,7 +86,7 @@ unique_lakes.append('Other or Unspecified')
 inputs_list = ['multi_data_type_tags',
                'multi_env_issue_tags',
                'multi_lake_tags',
-               'multi_authors',
+               'multi_author_tags',
                'selectbox_author_type',
                'text_year_start',
                'text_year_end',
@@ -206,32 +206,32 @@ with col1:
     # Add a multi-select widget for data type tags
     data_type_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{data} \: \bold{types}$",
                                      options=data_types, 
-                                     key='data_type_tags')
+                                     key='multi_data_type_tags')
 
 
     # Add a multi-select widget for environmental issue tags
     env_issue_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{environmental} \: \bold{issues}$", 
                                     options=env_issues, 
-                                    key='env_issue_tags')
+                                    key='multi_env_issue_tags')
     
 
     # Add a multi-select widget for lake tags
     lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lakes}$ ", 
                                options=unique_lakes, 
-                               key='lake_tags')
+                               key='multi_lake_tags')
 
 
     # Add a multi-select widget for author tags
     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors),
-                                         key='author_tags')
+                                         key='multi_author_tags')
     
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
     author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
                                            options=author_type_options, 
                                            index=author_type_options.index('<select a filter>'),
-                                           key='author_types')
+                                           key='selectbox_author_type')
     
 
     # Create columns for side-by-side year filters
@@ -241,14 +241,15 @@ with col1:
     # Fill columns with year filters
     with col3:
         year_range_start = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{start}$", "",
-                                         key='year_range_start')
+                                         key='text_year_start')
     with col4:
         year_range_end = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{end}$", "",
-                                       key='year_range_end')
+                                       key='text_year_end')
 
 
     # Add a general search box
-    general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "")
+    general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "",
+                                         key='text_gen_search')
 
 
     # Add a clear all search parameters button
