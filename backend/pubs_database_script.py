@@ -187,21 +187,28 @@ col1, col2 = st.columns(spec=[0.3, 0.7])
 # Fill the search functions column with search widgets
 with col1: 
     # Add a multi-select widget for data type tags
+    tags_help_general = """Search by functions return search results
+                           that match *any* of the tags you have selected
+                           (this \"or\" that logic).
+                          """
     data_type_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{data} \: \bold{types}$",
                                      options=data_types, 
-                                     key='multi_data_type_tags')
+                                     key='multi_data_type_tags',
+                                     help=tags_help_general)
 
 
     # Add a multi-select widget for environmental issue tags
     env_issue_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{environmental} \: \bold{issues}$", 
                                     options=env_issues, 
-                                    key='multi_env_issue_tags')
+                                    key='multi_env_issue_tags',
+                                    help=tags_help_general)
     
 
     # Add a multi-select widget for lake tags
     lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lakes}$ ", 
                                options=unique_lakes, 
-                               key='multi_lake_tags')
+                               key='multi_lake_tags',
+                               help=tags_help_general)
 
 
     # Add a multi-select widget for author tags
@@ -212,14 +219,20 @@ with col1:
     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors),
                                          key='multi_author_tags',
-                                         help=author_tags_help)
+                                         help=tags_help_general + 
+                                              '  ' +
+                                              author_tags_help)
     
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
+    author_types_help = """This will filter the search results to show publications
+                           that meet the selected author type *only*.
+                        """
     author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
                                            options=author_type_options, 
                                            index=author_type_options.index('<select a filter>'),
-                                           key='selectbox_author_type')
+                                           key='selectbox_author_type',
+                                           help=author_types_help)
     
 
     # Create columns for side-by-side year filters
@@ -229,16 +242,16 @@ with col1:
     # Fill columns with year filters
     with col3:
         year_start_help = """This will filter the search
-                             results to show *only* publications published
-                             in or after the input year.
+                             results to show publications published
+                             in or after the input year *only*.
                           """
         year_range_start = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{start}$", "",
                                          key='text_year_start',
                                          help=year_start_help)
     with col4:
         year_end_help = """This will filter the search
-                           results to show *only* publications published
-                           in or before the input year.
+                           results to show publications published
+                           in or before the input year *only*.
                           """
         year_range_end = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{end}$", "",
                                        key='text_year_end',
