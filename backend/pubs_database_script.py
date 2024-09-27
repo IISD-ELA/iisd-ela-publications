@@ -82,7 +82,7 @@ unique_lakes = sorted(list({int(num_str) for num_str in \
 unique_lakes.append('Other or Unspecified')
 
 
-'''# Initialize session state for all user inputs
+# Initialize session state for all user inputs
 inputs_list = ['multi_data_type_tags',
                'multi_env_issue_tags',
                'multi_lake_tags',
@@ -92,6 +92,7 @@ inputs_list = ['multi_data_type_tags',
                'text_year_end',
                'text_gen_search' 
                ]
+'''
 for input in inputs_list:
     st.session_state[input] = [] if 'multi' in input else \
                                 '<select a filter>' if 'selectbox' in input \
