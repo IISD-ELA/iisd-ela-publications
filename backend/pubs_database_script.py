@@ -251,7 +251,7 @@ with col1:
     
     # Update initialized session states
     search_variables = [key for key in st.session_state.keys()]
-    f'''for i in range({len(search_variables)}):
+    f'''for i in range({search_variables}):
         input = inputs_list[i]
         variable = search_variables[i]
         st.session_state[input] = variable'''
