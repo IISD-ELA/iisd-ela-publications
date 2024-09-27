@@ -225,8 +225,8 @@ with col1:
     
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
-    author_types_help = """This will filter the search results to show publications
-                           that meet the selected author type *only*.
+    author_types_help = """This will filter the search results to show *only*
+                           publications that meet the selected author type.
                         """
     author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
                                            options=author_type_options, 
@@ -242,16 +242,16 @@ with col1:
     # Fill columns with year filters
     with col3:
         year_start_help = """This will filter the search
-                             results to show publications published
-                             in or after the input year *only*.
+                             results to show *only* publications 
+                             published in or after the input year.
                           """
         year_range_start = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{start}$", "",
                                          key='text_year_start',
                                          help=year_start_help)
     with col4:
         year_end_help = """This will filter the search
-                           results to show publications published
-                           in or before the input year *only*.
+                           results to show *only* publications published
+                           in or before the input year.
                           """
         year_range_end = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{end}$", "",
                                        key='text_year_end',
@@ -259,12 +259,12 @@ with col1:
 
 
     # Add a general search box
-    gen_search_help = """You can search by any keyword that may
+    gen_search_help = """This will filter the search results to show 
+                         *only* publications containing the input text.  
+                         You can search by any keyword that may
                          not appear in the publication texts themselves 
                          (e.g., "cyanobacteria") as most records are tagged 
-                         with additional keywords invisible to the user.  
-                         This will filter the search results to show 
-                         publications containing the input text *only*.
+                         with additional keywords invisible to the user.
                       """
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "",
                                          key='text_gen_search',
@@ -281,14 +281,6 @@ with col1:
         
 
 # Write notes on the bottom of the page
-st.markdown(f"<h4 style='color: #083266;'>Notes</h4>", unsafe_allow_html=True)
-st.markdown('''<div style="font-size: 12px;">
-                    <u1> 
-                        <li> The "Search by" functions will generate results that match any of the tags you have selected. The "Filter by" function will narrow down results to only those that meet the selected filter criteria. </li>
-                    </u1>
-            </div>
-            ''',
-                unsafe_allow_html=True)
 st.markdown('**<div style="font-size: 12px;">If you notice any missing publications or encounter issues with this search engine, please reach out to us at eladata@iisd-ela.org.**</div>',
                 unsafe_allow_html=True)
 
