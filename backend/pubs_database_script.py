@@ -238,7 +238,7 @@ with col1:
         st.markdown("""
             <style>
             div[data-baseweb="select"] > div {
-                background-color: chartreuse;
+                background-color: #083266;
             }
             </style>
             """, unsafe_allow_html=True)
