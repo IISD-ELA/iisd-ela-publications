@@ -228,18 +228,20 @@ with col1:
     author_types_help = """The filters are mutually exclusive and you may
                            only choose one.
                         """
-    st.markdown("""
-                <style>
-                div[data-baseweb="select"] > div {
-                    background-color: chartreuse;
-                }
-                </style>
-                """, unsafe_allow_html=True)
     author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
                                            options=author_type_options, 
                                            index=author_type_options.index('<select a filter>'),
                                            key='selectbox_author_type',
                                            help=author_types_help)
+    if author_types != '<select a filter>':
+        # Inject CSS to change the background color
+        st.markdown("""
+            <style>
+            div[data-baseweb="select"] > div {
+                background-color: chartreuse;
+            }
+            </style>
+            """, unsafe_allow_html=True)
     
 
     # Create columns for side-by-side year filters
