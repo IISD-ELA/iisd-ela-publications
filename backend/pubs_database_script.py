@@ -262,8 +262,8 @@ with col1:
         st.session_state[input] = variable
 
     # Add a clear all search parameters button
-    if st.button('Clear all search parameters'):
-        clear_search_params()
+    st.button('Clear all search parameters', on_click=clear_search_params)
+        
 
 
 # Write notes on the bottom of the page
