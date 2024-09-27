@@ -205,28 +205,33 @@ col1, col2 = st.columns(spec=[0.3, 0.7])
 with col1: 
     # Add a multi-select widget for data type tags
     data_type_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{data} \: \bold{types}$",
-                                     options=data_types)
+                                     options=data_types, 
+                                     key='data_type_tags')
 
 
     # Add a multi-select widget for environmental issue tags
     env_issue_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{environmental} \: \bold{issues}$", 
-                                    options=env_issues)
+                                    options=env_issues, 
+                                    key='env_issue_tags')
     
 
     # Add a multi-select widget for lake tags
     lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lakes}$ ", 
-                               options=unique_lakes)
+                               options=unique_lakes, 
+                               key='lake_tags')
 
 
     # Add a multi-select widget for author tags
     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
-                                         options=sorted(iisd_ela_authors))
+                                         options=sorted(iisd_ela_authors),
+                                         key='author_tags')
     
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
     author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
                                            options=author_type_options, 
-                                           index=author_type_options.index('<select a filter>'))
+                                           index=author_type_options.index('<select a filter>'),
+                                           key='author_types')
     
 
     # Create columns for side-by-side year filters
@@ -235,9 +240,11 @@ with col1:
 
     # Fill columns with year filters
     with col3:
-        year_range_start = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{start}$", "")
+        year_range_start = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{start}$", "",
+                                         key='year_range_start')
     with col4:
-        year_range_end = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{end}$", "")
+        year_range_end = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{end}$", "",
+                                       key='year_range_end')
 
 
     # Add a general search box
