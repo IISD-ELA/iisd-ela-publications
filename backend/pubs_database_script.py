@@ -228,18 +228,28 @@ with col1:
 
     # Fill columns with year filters
     with col3:
+        year_start_help = """This function will filter the search
+                             results to show only publications published
+                             in or after the input year.
+                          """
         year_range_start = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{start}$", "",
-                                         key='text_year_start')
+                                         key='text_year_start',
+                                         help=year_start_help)
     with col4:
+        year_end_help = """This function will filter the search
+                           results to show only publications published
+                           in or before the input year.
+                          """
         year_range_end = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{end}$", "",
-                                       key='text_year_end')
+                                       key='text_year_end',
+                                       help=year_end_help)
 
 
     # Add a general search box
     gen_search_help = """You can search by any keyword that may
                          not appear in the publication texts themselves 
                          (e.g., "cyanobacteria") as most records are tagged 
-                         with additional invisible keywords.
+                         with additional keywords invisible to the user.
                       """
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "",
                                          key='text_gen_search',
