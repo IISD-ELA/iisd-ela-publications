@@ -169,17 +169,17 @@ col1, col2 = st.columns(spec=[0.3, 0.7])
 # Fill the search functions column with search widgets
 with col1: 
     # Add a multi-select widget for data type tags
-    data_type_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{data} \: \bold{type}$",
+    data_type_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{data} \: \bold{types}$",
                                      options=data_types)
 
 
     # Add a multi-select widget for environmental issue tags
-    env_issue_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{environmental} \: \bold{issue}$", 
+    env_issue_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{environmental} \: \bold{issues}$", 
                                     options=env_issues)
     
 
     # Add a multi-select widget for lake tags
-    lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lake}$ ", 
+    lake_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{lakes}$ ", 
                                options=unique_lakes)
 
 
@@ -213,7 +213,7 @@ with col1:
 st.markdown(f"<h4 style='color: #083266;'>Notes</h4>", unsafe_allow_html=True)
 st.markdown('''<div style="font-size: 12px;">
                     <u1> 
-                        <li> The "Search by author(s)" function will only work for current IISD-ELA researchers.\nTo search by other researchers, please use the "General search" function. </li>
+                        <li> The "Search by authors" function will only work for current IISD-ELA researchers.\nTo search by other researchers, please use the "General search" function. </li>
                         <li> The "Search by" functions will generate results that match any of the tags you have selected. The "Filter by" function will narrow down results to only those that meet the selected filter criteria. </li>
                         <li> You can hover above the question mark icons to see the tags associated with each publication. </li>
                         <li> You can search by any keyword that may not appear in the publication texts themselves (e.g., "cyanobacteria") using the "General search" function as most records are tagged with additional invisible keywords. </li>
@@ -282,8 +282,8 @@ with col2:
                 
                 # Write tag information into question mark icon for each publication
                 tag_info = f"""**Lakes:** {row['lake_tags']}  
-                               **Data Type:** {row['data_type_tags']}  
-                               **Environmental Issue:** {row['environmental_issue_tags']}  
+                               **Data Types:** {row['data_type_tags']}  
+                               **Environmental Issues:** {row['environmental_issue_tags']}  
                             """
                 
                 # Display each formatted publication with question mark icon
