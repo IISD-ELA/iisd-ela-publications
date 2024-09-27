@@ -233,12 +233,21 @@ with col1:
                                            index=author_type_options.index('<select a filter>'),
                                            key='selectbox_author_type',
                                            help=author_types_help)
-    if author_types != '<select a filter>':
-    # Inject CSS to change the background color of the dropdown
+    if author_types == '<select a filter>':
+        # Default value selected, set normal background
         st.markdown("""
             <style>
             div[data-baseweb="select"] > div {
-                background-color: #083266;
+                background-color: #F0F2F6;  /* Set default background color */
+            }
+            </style>
+            """, unsafe_allow_html=True)
+    else:
+        # Non-default value selected, set custom background color
+        st.markdown("""
+            <style>
+            div[data-baseweb="select"] > div {
+                background-color: #083266;  /* Custom color for non-default selection */
             }
             </style>
             """, unsafe_allow_html=True)
