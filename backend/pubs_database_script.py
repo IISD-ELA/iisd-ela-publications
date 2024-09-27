@@ -188,9 +188,9 @@ col1, col2 = st.columns(spec=[0.3, 0.7])
 # Fill the search functions column with search widgets
 with col1: 
     # Add a multi-select widget for data type tags
-    tags_help_general = """\"Search by\" functions return search results
-                           that match *any* of the tags you have selected
-                           (this \"or\" that logic).  
+    tags_help_general = """You may choose multiple,
+                           which will return search results 
+                           for *any* of the tags ("OR" logic).  
                           """
     data_type_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{data} \: \bold{types}$",
                                      options=data_types, 
@@ -225,8 +225,8 @@ with col1:
     
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
-    author_types_help = """This will filter the search results to show *only*
-                           publications that meet the selected author type.
+    author_types_help = """The filters are mutually exclusive and you may
+                           only choose one.
                         """
     author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
                                            options=author_type_options, 
@@ -241,17 +241,17 @@ with col1:
 
     # Fill columns with year filters
     with col3:
-        year_start_help = """This will filter the search
-                             results to show *only* publications 
-                             published in or after the input year.
+        year_start_help = """This will filter the search results
+                             to show only publications published
+                             *in* or *after* the input year.
                           """
         year_range_start = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{start}$", "",
                                          key='text_year_start',
                                          help=year_start_help)
     with col4:
-        year_end_help = """This will filter the search
-                           results to show *only* publications published
-                           in or before the input year.
+        year_end_help = """This will filter the search results
+                           to show only publications published
+                           *in* or *before* the input year.
                           """
         year_range_end = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{end}$", "",
                                        key='text_year_end',
@@ -259,12 +259,11 @@ with col1:
 
 
     # Add a general search box
-    gen_search_help = """This will filter the search results to show 
-                         *only* publications containing the input text.  
-                         You can search by any keyword that may
-                         not appear in the publication texts themselves 
-                         (e.g., "cyanobacteria") as most records are tagged 
-                         with additional keywords invisible to the user.
+    gen_search_help = """You can search by any keyword,
+                         such as those in the article
+                         title or other generally related
+                         keywords that may be included with
+                         the publication metadata (e.g., "cyanobacteria").
                       """
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "",
                                          key='text_gen_search',
