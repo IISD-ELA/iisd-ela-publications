@@ -228,21 +228,18 @@ with col1:
     author_types_help = """The filters are mutually exclusive and you may
                            only choose one.
                         """
-    # Inject custom CSS for the selectbox options
-    st.markdown(f"""
-            <style>
-            /* Targeting the selectbox */
-            div[role="listbox"] > div[role="option"]:not(:first-child) {{
-                color: #083266 !important;  /* Apply primary color */
-            }}
-            </style>
-            """, unsafe_allow_html=True)
-
-    author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
+    # author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
+    #                                        options=author_type_options, 
+    #                                        index=author_type_options.index('<select a filter>'),
+    #                                        key='selectbox_author_type',
+    #                                        help=author_types_help)
+    
+    author_types = st.multiselect(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
                                            options=author_type_options, 
                                            index=author_type_options.index('<select a filter>'),
-                                           key='selectbox_author_type',
+                                           key='multi_author_types',
                                            help=author_types_help)
+    
     
 
     # Create columns for side-by-side year filters
