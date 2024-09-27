@@ -61,11 +61,11 @@ env_issues.append('Other')
                     
 
 
-# Store all author type tags in a list
+# Store all author type options in a list
 # DO **NOT**!! Change the order of the values in this list
 # You can change the values themselves if needed, but 
 # do not change the order!
-rel_to_iisd_ela = ['<select a filter>',
+author_type_options = ['<select a filter>',
                     'Current IISD-ELA researchers',
                     'Other researchers (supported by IISD-ELA)',
                     'Students (theses)']
@@ -83,20 +83,28 @@ unique_lakes.append('Other or Unspecified')
 
 
 # Initialize session state for all user inputs
-inputs_list = ['multiselect_tags', # for search by
-               'selectbox_filter', # for filter by 
-               'text_input_search' # for user-defined entries
+inputs_list = ['multi_data_type_tags',
+               'multi_env_issue_tags',
+               'multi_lake_tags',
+               'multi_authors',
+               'selectbox_author_type',
+               'text_year_start',
+               'text_year_end',
+               'text_gen_search' 
                ]
 for input in inputs_list:
     st.session_state.setdefault(input,
-                                 [] if input=='multiselect_tags'
-                                    else "")
+                                [] if 'multi' in input else
+                                '<select a filter>' if 'selectbox' in input
+                                else "")
 
 
 # Define function to clear all search parameters
 def clear_search_params():
     for input in inputs_list:
-        st.session_state[input] = [] if input=='multiselect_tags' else ""
+        st.session_state[input] = [] if 'multi' in input else \
+                                '<select a filter>' if 'selectbox' in input \
+                                else ""
     return
 
 
@@ -169,22 +177,22 @@ def combined_search(data,
         data = data[lambda data: data['year'] <= year_end_query]
     
     # Filter by author types current researchers or other researchers (no students)
-    if rel_to_iisd_ela_query in [rel_to_iisd_ela[1], rel_to_iisd_ela[2]]:
+    if author_types in [author_type_options[1], author_type_options[2]]:
 
         # Create mapping instructions
-        rel_to_iisd_ela_mapping = {'authored': rel_to_iisd_ela[1],
-                                   'supported': rel_to_iisd_ela[2]}
+        author_type_options_mapping = {'authored': author_type_options[1],
+                                   'supported': author_type_options[2]}
         
         # Apply mapping instructions to data
         data['relationship_to_iisd_ela'] = \
-            data['relationship_to_iisd_ela'].map(rel_to_iisd_ela_mapping)
+            data['relationship_to_iisd_ela'].map(author_type_options_mapping)
 
         # Filter data for non-student pubs that satisfy the author type query
         data = data[(data['relationship_to_iisd_ela']==iisd_ela_rel_query) &
                     ~(data['type'].isin(['msc', 'phd']))]
         
     # Filter by author type students
-    elif rel_to_iisd_ela_query == rel_to_iisd_ela[3]:
+    elif author_types == author_type_options[3]:
         data = data[data['type'].isin(['msc', 'phd'])]
 
     return data
@@ -211,14 +219,14 @@ with col1:
 
 
     # Add a multi-select widget for author tags
-    author_search_query = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
+    author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors))
     
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
-    rel_to_iisd_ela_query = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
-                                           options=rel_to_iisd_ela, 
-                                           index=rel_to_iisd_ela.index('<select a filter>'))
+    author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
+                                           options=author_type_options, 
+                                           index=author_type_options.index('<select a filter>'))
     
 
     # Create columns for side-by-side year filters
@@ -227,18 +235,21 @@ with col1:
 
     # Fill columns with year filters
     with col3:
-        year_range_start_query = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{start}$", "")
+        year_range_start = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{start}$", "")
     with col4:
-        year_range_end_query = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{end}$", "")
+        year_range_end = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{end}$", "")
 
 
     # Add a general search box
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "")
 
-    
+
     # Add a clear all search parameters button
     if st.button('Clear all search parameters'):
         clear_search_params()
+
+    
+
 
 
 
@@ -264,10 +275,10 @@ result_for_user = combined_search(
                                 data_type_tags,
                                 env_issue_tags,
                                 lake_tags,
-                                author_search_query,
-                                rel_to_iisd_ela_query,
-                                year_range_start_query,
-                                year_range_end_query,
+                                author_tags,
+                                author_types,
+                                year_range_start,
+                                year_range_end,
                                 general_search_query
                                 ).sort_values(by=['authors', 'year'])
 
