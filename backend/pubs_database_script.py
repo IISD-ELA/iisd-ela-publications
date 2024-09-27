@@ -82,23 +82,6 @@ unique_lakes = sorted(list({int(num_str) for num_str in \
 unique_lakes.append('Other or Unspecified')
 
 
-# Initialize session state for all user inputs
-inputs_list = ['multi_data_type_tags',
-               'multi_env_issue_tags',
-               'multi_lake_tags',
-               'multi_author_tags',
-               'selectbox_author_type',
-               'text_year_start',
-               'text_year_end',
-               'text_gen_search' 
-               ]
-'''
-for input in inputs_list:
-    st.session_state[input] = [] if 'multi' in input else \
-                                '<select a filter>' if 'selectbox' in input \
-                                else ""'''
-
-
 # Define function to clear all search parameters
 def clear_search_params():
     for input in inputs_list:
@@ -260,6 +243,12 @@ with col1:
         input = inputs_list[i]
         variable = search_variables[i]
         st.session_state[input] = variable'''
+
+
+    # Store all widget keys in a list 
+    # this is so clear_search_params can access widgets to clear inputs
+    inputs_list = [key for key in st.session_state.keys()]
+
 
     # Add a clear all search parameters button
     st.button('Clear all search parameters', on_click=clear_search_params)
