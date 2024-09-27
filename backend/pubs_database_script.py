@@ -95,7 +95,7 @@ inputs_list = ['multi_data_type_tags',
 for input in inputs_list:
     st.session_state.setdefault(input,
                                 [] if 'multi' in input else
-                                'hehe' if 'selectbox' in input
+                                '<select a filter>' if 'selectbox' in input
                                 else "")
 
 
