@@ -251,11 +251,6 @@ with col1:
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "",
                                          key='text_gen_search')
 
-
-    # Add a clear all search parameters button
-    if st.button('Clear all search parameters'):
-        clear_search_params()
-
     
     # Update initialized session states
     search_variables = [key for key in st.session_state.keys()]
@@ -265,6 +260,10 @@ with col1:
         input = inputs_list[i]
         variable = search_variables[i]
         st.session_state[input] = variable
+
+    # Add a clear all search parameters button
+    if st.button('Clear all search parameters'):
+        clear_search_params()
 
 
 # Write notes on the bottom of the page
