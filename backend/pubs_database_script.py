@@ -85,10 +85,6 @@ unique_lakes.append('Other or Unspecified')
 # Define function to clear all search parameters
 def clear_search_params():
     for input in inputs_list:
-        warning_text = """Are you sure you want to
-                          clear all search parameters?
-                       """
-        st.warning(warning_text)
         if st.button("Yes"):
             st.session_state[input] = [] if 'multi' in input else \
                                 '<select a filter>' if 'selectbox' in input \
