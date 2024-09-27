@@ -184,7 +184,7 @@ with col1:
 
 
     # Add a multi-select widget for author tags
-    author_search_query = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{author(s)}$",
+    author_search_query = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors))
     
     
@@ -281,9 +281,9 @@ with col2:
                                 )   
                 
                 # Write tag information into question mark icon for each publication
-                tag_info = f"""**Lake(s):** {row['lake_tags']}  
-                               **Data Type(s):** {row['data_type_tags']}  
-                               **Environmental Issue(s):** {row['environmental_issue_tags']}  
+                tag_info = f"""**Lakes:** {row['lake_tags']}  
+                               **Data Type:** {row['data_type_tags']}  
+                               **Environmental Issue:** {row['environmental_issue_tags']}  
                             """
                 
                 # Display each formatted publication with question mark icon
