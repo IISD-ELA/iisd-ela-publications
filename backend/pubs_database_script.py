@@ -220,7 +220,6 @@ with col1:
                                          options=sorted(iisd_ela_authors),
                                          key='multi_author_tags',
                                          help=tags_help_general + 
-                                              '\n' +
                                               author_tags_help)
     
     
