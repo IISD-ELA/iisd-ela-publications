@@ -228,16 +228,16 @@ with col1:
 
     # Fill columns with year filters
     with col3:
-        year_start_help = """This function will filter the search
-                             results to show only publications published
+        year_start_help = """This will filter the search
+                             results to show *only* publications published
                              in or after the input year.
                           """
         year_range_start = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{start}$", "",
                                          key='text_year_start',
                                          help=year_start_help)
     with col4:
-        year_end_help = """This function will filter the search
-                           results to show only publications published
+        year_end_help = """This will filter the search
+                           results to show *only* publications published
                            in or before the input year.
                           """
         year_range_end = st.text_input(r"$\bold{Publication} \: \bold{year} \: \bold{end}$", "",
