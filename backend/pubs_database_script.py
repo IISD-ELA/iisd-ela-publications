@@ -228,6 +228,14 @@ with col1:
     author_types_help = """The filters are mutually exclusive and you may
                            only choose one.
                         """
+    st.markdown(f"""
+                <style>
+                /* Target the selectbox */
+                .stSelectbox select option:not(:first-child) {{
+                    color: #083266; /* Apply primary color */
+                }}
+                </style>
+                """, unsafe_allow_html=True)
     author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
                                            options=author_type_options, 
                                            index=author_type_options.index('<select a filter>'),
