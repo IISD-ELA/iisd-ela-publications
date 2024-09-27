@@ -233,8 +233,8 @@ with col1:
     # Add a general search box
     gen_search_help = """You can search by any keyword that may
                          not appear in the publication texts themselves 
-                         (e.g., "cyanobacteria") using the "General 
-                         search" function as most records are tagged 
+                         (e.g., "cyanobacteria") using this function as 
+                         most records are tagged 
                          with additional invisible keywords.
                       """
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "",
