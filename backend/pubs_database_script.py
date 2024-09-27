@@ -118,17 +118,17 @@ def combined_search(data,
                 # Apply general search function to search entire data row as string
                 # except irrelevant internal columns
                 (general_search_query,
-                    data.apply(lambda row: 
-                                    row.loc[:, 
-                                    ~row.columns.isin(['source',
-                                                       'approved_date',
-                                                       'approved_by',
-                                                       'approved',
-                                                       'account',
-                                                       'update_date'])
-                                            ].astype(str).str.contains(general_search_query,
+                    data.loc[:, 
+                                 ~data.columns.isin(['source',
+                                                    'approved_date',
+                                                    'approved_by',
+                                                    'approved',
+                                                    'account',
+                                                    'update_date'])
+                            ].apply(lambda row: 
+                                        row.astype(str).str.contains(general_search_query,
                                                                  case=False).any(), 
-                                                                 axis=1))
+                                    axis=1))
               ]
 
     
