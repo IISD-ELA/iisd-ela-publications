@@ -304,13 +304,13 @@ result_for_user['authors'] = result_for_user['authors'].str.replace(';', ',')
 
 with col2:
     # Display the filtered data
-    if len(result_for_user) == 0:
-        st.markdown(f"No publications were found for your search.")
-    else:
-        st.markdown(
+    st.markdown(
         f"<h2 style='color: #083266;'>Search Results ({len(result_for_user)})</h2>",
         unsafe_allow_html=True
                     )
+    if len(result_for_user) == 0:
+        st.markdown(f"No publications were found for your search.")
+    else:
         with st.container(height=500, border=False):
 
             # Display each row as a string
