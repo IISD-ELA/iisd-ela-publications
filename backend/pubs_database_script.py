@@ -82,8 +82,21 @@ unique_lakes = sorted(list({int(num_str) for num_str in \
 unique_lakes.append('Other or Unspecified')
 
 
+# Initialize session state for all user inputs
+inputs_list = ['multiselect_tags', # for search by
+               'selectbox_filter', # for filter by 
+               'text_input_search' # for user-defined entries
+               ]
+for input in inputs_list:
+    st.session_state.setdefault(input,
+                                 [] if input=='multiselect_tags'
+                                    else "")
+
+
+# Define function to clear all search parameters
 def clear_search_params():
-    st.session_state.multiselect = []
+    for input in inputs_list:
+        st.session_state[input] = [] if input=='multiselect_tags' else ""
     return
 
 
@@ -177,17 +190,6 @@ def combined_search(data,
     return data
 
 
-# Initialize session state for all user inputs
-inputs_list = ['multiselect_tags', # for search by
-               'selectbox_filter', # for filter by 
-               'text_input_search' # for user-defined entries
-               ]
-for input in inputs_list:
-    st.session_state.setdefault(input,
-                                 [] if input=='multiselect_tags'
-                                    else "")
-
-
 # Create separate columns for search functions and search results
 col1, col2 = st.columns(spec=[0.3, 0.7])
 
@@ -233,6 +235,10 @@ with col1:
     # Add a general search box
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "")
 
+    
+    # Add a clear all search parameters button
+    if st.button('Clear all search parameters'):
+        clear_search_params()
 
 
 
