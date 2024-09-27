@@ -233,27 +233,16 @@ with col1:
     # Add a general search box
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "",
                                          key='text_gen_search')
-
     
-    # Update initialized session states
-    '''search_variables = [key for key in st.session_state.keys()]
-    for i in range(len(search_variables)):
-        inputs_list.sort()
-        search_variables.sort()
-        input = inputs_list[i]
-        variable = search_variables[i]
-        st.session_state[input] = variable'''
-
 
     # Store all widget keys in a list 
-    # this is so clear_search_params can access widgets to clear inputs
+    # this is so that clear_search_params can access widgets to clear inputs
     inputs_list = [key for key in st.session_state.keys()]
 
 
     # Add a clear all search parameters button
     st.button('Clear all search parameters', on_click=clear_search_params)
         
-
 
 # Write notes on the bottom of the page
 st.markdown(f"<h4 style='color: #083266;'>Notes</h4>", unsafe_allow_html=True)
