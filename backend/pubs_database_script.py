@@ -237,7 +237,7 @@ with col1:
         # Inject CSS to change the background color
         st.markdown("""
             <style>
-            div[data-baseweb="select"] > div {
+            div[role="listbox"] > ul {
                 background-color: #083266;
             }
             </style>
