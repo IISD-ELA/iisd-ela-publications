@@ -82,6 +82,11 @@ unique_lakes = sorted(list({int(num_str) for num_str in \
 unique_lakes.append('Other or Unspecified')
 
 
+def clear_multi():
+    st.session_state.multiselect = []
+    return
+
+
 # Define a combined search function
 def combined_search(data, 
                     data_type_query, 
@@ -216,6 +221,14 @@ with col1:
 
     # Add a general search box
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "")
+
+
+    # Check state of user session
+    st.session_state
+
+
+    # Add a clear all tags and filters button
+    st.button("Clear all tags and filters", on_click=clear_multi)
 
 
 # Write notes on the bottom of the page
