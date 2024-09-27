@@ -187,7 +187,7 @@ col1, col2 = st.columns(spec=[0.3, 0.7])
 # Fill the search functions column with search widgets
 with col1: 
     # Add a multi-select widget for data type tags
-    tags_help_general = """Search by functions return search results
+    tags_help_general = """\"Search by\" functions return search results
                            that match *any* of the tags you have selected
                            (this \"or\" that logic).
                           """
