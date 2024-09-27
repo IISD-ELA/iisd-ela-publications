@@ -189,7 +189,7 @@ with col1:
     # Add a multi-select widget for data type tags
     tags_help_general = """\"Search by\" functions return search results
                            that match *any* of the tags you have selected
-                           (this \"or\" that logic).
+                           (this \"or\" that logic).  
                           """
     data_type_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{data} \: \bold{types}$",
                                      options=data_types, 
