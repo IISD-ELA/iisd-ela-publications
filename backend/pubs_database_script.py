@@ -2,7 +2,7 @@
 # Link to search engine: https://iisd-ela-pubs-search-engine.streamlit.app/
 # Author: Idil Yaktubay (iyaktubay@iisd-ela.org)
 
-# Last Updated: 09-26-2024
+# Last Updated: 09-27-2024
 # Last Updated by: Idil Yaktubay
 
 
