@@ -93,10 +93,9 @@ inputs_list = ['multi_data_type_tags',
                'text_gen_search' 
                ]
 for input in inputs_list:
-    st.session_state.setdefault(input,
-                                [] if 'multi' in input else
-                                '<select a filter>' if 'selectbox' in input
-                                else "")
+    st.session_state[input] = [] if 'multi' in input else \
+                                '<select a filter>' if 'selectbox' in input \
+                                else ""
 
 
 # Define function to clear all search parameters
@@ -253,13 +252,13 @@ with col1:
 
     
     # Update initialized session states
-    search_variables = [key for key in st.session_state.keys()]
+    '''search_variables = [key for key in st.session_state.keys()]
     for i in range(len(search_variables)):
         inputs_list.sort()
         search_variables.sort()
         input = inputs_list[i]
         variable = search_variables[i]
-        st.session_state[input] = variable
+        st.session_state[input] = variable'''
 
     # Add a clear all search parameters button
     st.button('Clear all search parameters', on_click=clear_search_params)
