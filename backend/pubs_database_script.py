@@ -268,15 +268,6 @@ with col1:
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "",
                                          key='text_gen_search',
                                          help=gen_search_help)
-    
-
-    # Store all widget keys in a list 
-    # this is so that clear_search_params can access widgets to clear inputs
-    inputs_list = [key for key in st.session_state.keys()]
-
-
-    # Add a clear all search parameters button
-    st.button('Clear all search parameters', on_click=clear_search_params)
         
 
 # Write notes on the bottom of the page
@@ -303,11 +294,27 @@ result_for_user['authors'] = result_for_user['authors'].str.replace(';', ',')
 
 
 with col2:
-    # Display the filtered data
-    st.markdown(
-        f"<h2 style='color: #083266;'>Search Results ({len(result_for_user)})</h2>",
-        unsafe_allow_html=True
-                    )
+
+
+    # Split right hand side into two columns for header and
+    # clear all search parameters button
+    col5, col6 = st.columns(2)
+
+    with col5:
+        st.markdown(
+            f"<h2 style='color: #083266;'>Search Results ({len(result_for_user)})</h2>",
+            unsafe_allow_html=True
+                        )
+        
+    with col6:
+        # Store all widget keys in a list 
+        # this is so that clear_search_params can access widgets to clear inputs
+        inputs_list = [key for key in st.session_state.keys()]
+
+        # Add a clear all search parameters button
+        st.button('Clear all search parameters', on_click=clear_search_params)
+        
+
     if len(result_for_user) == 0:
         st.markdown(f"No publications were found for your search.")
     else:
