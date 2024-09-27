@@ -205,7 +205,7 @@ with col1:
 
 
     # Add a multi-select widget for author tags
-    author_tags_help = """To search by researchers who are not current
+    author_tags_help = """To search by authors who are not currently
                           IISD-ELA researchers, please use the "General Search"
                           function.
                        """
