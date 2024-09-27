@@ -234,15 +234,14 @@ with col1:
                                            key='selectbox_author_type',
                                            help=author_types_help)
     if author_types != '<select a filter>':
-        # Inject CSS to change the background color
+    # Inject CSS to change the background color of the dropdown
         st.markdown("""
             <style>
-            div[role="listbox"] > ul {
+            div[data-baseweb="select"] > div {
                 background-color: #083266;
             }
             </style>
             """, unsafe_allow_html=True)
-    
 
     # Create columns for side-by-side year filters
     col3, col4 = st.columns(2)
