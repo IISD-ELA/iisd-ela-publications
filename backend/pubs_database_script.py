@@ -320,7 +320,7 @@ with col2:
 
                 # Format journal articles in APA 7th ed format
                 if row['type'] == 'journal':
-                    row_string =(f"- {row['authors']} ({row['year']}). " 
+                    row_string =(f"{row['authors']} ({row['year']}). " 
                                  f"{row['title']}. *{row['journal_name']}*, " 
                                  f"*{str(int(row['journal_vol_no']))}*" 
                                  f"({str(int(row['journal_issue_no']))})" 
@@ -332,7 +332,7 @@ with col2:
                 # Format theses in APA 7th ed format
                 #elif row['type']=='msc' or row['type']=='phd':
                 elif row['type'] in ['msc', 'phd']:
-                    row_string = (f"- {row['authors']} ({row['year']}). "
+                    row_string = (f"{row['authors']} ({row['year']}). "
                                   f"*{row['title']}* "
                                   f"[{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, "
                                   f"{row['thesis_uni']}]. "
