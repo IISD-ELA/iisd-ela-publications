@@ -91,7 +91,7 @@ inputs_list = ['multi_data_type_tags',
                'text_year_start',
                'text_year_end',
                'text_gen_search' 
-               ].sort()
+               ]
 for input in inputs_list:
     st.session_state.setdefault(input,
                                 [] if 'multi' in input else
@@ -258,8 +258,10 @@ with col1:
 
     
     # Update initialized session states
-    search_variables = [key for key in st.session_state.keys()].sort()
+    search_variables = [key for key in st.session_state.keys()]
     for i in range(len(search_variables)):
+        inputs_list.sort()
+        search_variables.sort()
         input = inputs_list[i]
         variable = search_variables[i]
         st.session_state[input] = variable
