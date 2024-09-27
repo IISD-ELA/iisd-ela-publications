@@ -298,7 +298,7 @@ with col2:
 
     # Split right hand side into two columns for header and
     # clear all search parameters button
-    col5, inter_cols_space, col6 = st.columns((2, 4, 2))
+    col5, col6 = st.columns(spec=[0.7, 0.3])
 
     with col5:
         st.markdown(
