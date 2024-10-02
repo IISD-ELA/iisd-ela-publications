@@ -229,7 +229,7 @@ with col1:
                           function.
                        """
     
-    selected_authors_from_url = st.query_param['author_tags'] \
+    selected_authors_from_url = st.query_params['author_tags'] \
                                 if 'author_tags' in st.query_param \
                                 else []
     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
