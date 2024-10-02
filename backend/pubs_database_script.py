@@ -93,18 +93,18 @@ def clear_search_params():
 
 
 # Define function to set author tags in URL
-def generate_author_tag_url(input_tag):
+def generate_author_tag_url():
     
-    if input_tag:
+    if author_tags:
         # Change url to include input author tag
-        st.query_params.author_tag = input_tag
+        st.query_params.author_tag = author_tags
 
         # Get author tags from url
         url_author_tags = st.query_params.author_tag
 
         # Set session state with authors from url
         st.session_state.multi_author_tags = url_author_tags
-        
+
     else:
 
         # If there's no author input, clear parameters
@@ -241,7 +241,7 @@ with col1:
                                          key='multi_author_tags',
                                          help=tags_help_general + 
                                               author_tags_help,
-                                         on_change=generate_author_tag_url)
+                                         on_change=generate_author_tag_url())
     
     
     # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
