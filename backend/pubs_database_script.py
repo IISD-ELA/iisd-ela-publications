@@ -96,13 +96,7 @@ def clear_search_params():
 def generate_author_tag_url(input_tags):
     if input_tags:
         # Change url to include input author tag
-        st.query_params.author_tag = input_tags
-
-        # Get author tags from url
-        #url_author_tags = st.query_params.author_tag
-
-        # Set session state with authors from url
-        st.write(st.session_state.multi_author_tags)
+        st.query_params['author_tag'] = input_tags
 
     else:
         # If there's no author input, clear parameters
@@ -240,6 +234,7 @@ with col1:
                                          help=tags_help_general + 
                                               author_tags_help)
     
+    # Change URL to include author tags
     generate_author_tag_url(author_tags)
     
     
