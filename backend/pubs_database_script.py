@@ -91,6 +91,15 @@ def clear_search_params():
     return
 
 
+# Define function to set search tags in URL
+def set_search_tag_in_url(input_tag):
+    st.query_params(tag=input_tag)
+
+
+# Define a function to get search tag from URL
+#...
+
+
 # Define a combined search function
 def combined_search(data, 
                     data_type_query, 
@@ -223,6 +232,10 @@ with col1:
                                          help=tags_help_general + 
                                               author_tags_help)
     
+    
+    if author_tags:
+        set_search_tag_in_url(author_tags)
+
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
     author_types_help = """The filters are mutually exclusive and you may
