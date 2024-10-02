@@ -246,13 +246,6 @@ with col1:
                                               author_tags_help)
     
     
-    # Add author tags to the url if any, otherwise clear them
-    if author_tags:
-        set_search_tag_in_url(author_tags)
-        apply_search_tag_from_url()
-    else:
-        set_search_tag_in_url(author_tags).clear()
-    
     # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
     #                                      options=sorted(iisd_ela_authors),
     #                                      key='multi_author_tags',
@@ -327,6 +320,14 @@ result_for_user = combined_search(
 
 # Prepare authors values for APA format
 result_for_user['authors'] = result_for_user['authors'].str.replace(';', ',')
+
+
+# Add author tags to the url if any, otherwise clear them
+if author_tags:
+    set_search_tag_in_url(author_tags)
+    apply_search_tag_from_url()
+else:
+    set_search_tag_in_url(author_tags).clear()
 
 
 with col2:
