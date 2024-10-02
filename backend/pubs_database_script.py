@@ -96,12 +96,12 @@ def clear_search_params():
 def generate_author_tag_url(input_tags):
     if input_tags:
         # Change url to include input author tag
-        st.query_params['author_tag'] = input_tags
+        st.query_params['author_tags'] = input_tags
 
     else:
         # If there's no author input, clear parameters
         st.query_params.clear()
-
+    
 
 # Define a combined search function
 def combined_search(data, 
@@ -228,14 +228,17 @@ with col1:
                           IISD-ELA researchers, please use the "General Search"
                           function.
                        """
+    author_tags = None
     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors),
                                          key='multi_author_tags',
+                                         on_change=generate_author_tag_url(auhtor_tags),
                                          help=tags_help_general + 
                                               author_tags_help)
     
-    # Change URL to include author tags
-    generate_author_tag_url(author_tags)
+
+    
+    
     
     
     # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
