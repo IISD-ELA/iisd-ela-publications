@@ -8,8 +8,8 @@
 
 # Import required modules
 import streamlit as st
-from streamlit_gsheets import GSheetsConnection
 import streamlit_qs as stqs
+from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 
 
