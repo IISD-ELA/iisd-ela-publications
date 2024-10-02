@@ -230,7 +230,12 @@ with col1:
                        """
     if 'author_tags' in st.query_params:
         st.session_state.multi_author_tags = st.query_params.author_tags
-        author_tags = st.session_state.multi_author_tags
+        author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
+                                            options=sorted(iisd_ela_authors),
+                                            key='multi_author_tags',
+                                            default=st.query_params.author_tags,
+                                            help=tags_help_general + 
+                                                author_tags_help)
     else:
         author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                             options=sorted(iisd_ela_authors),
