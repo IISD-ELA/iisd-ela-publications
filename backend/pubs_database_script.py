@@ -8,7 +8,7 @@
 
 # Import required modules
 import streamlit as st
-from streamlit_qs import multiselect_qs
+# from streamlit_qs import multiselect_qs
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 
@@ -227,17 +227,17 @@ with col1:
                           IISD-ELA researchers, please use the "General Search"
                           function.
                        """
-    # author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
-    #                                      options=sorted(iisd_ela_authors),
-    #                                      key='multi_author_tags',
-    #                                      help=tags_help_general + 
-    #                                           author_tags_help)
-    
-    author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
+    author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors),
                                          key='multi_author_tags',
                                          help=tags_help_general + 
                                               author_tags_help)
+    
+    # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
+    #                                      options=sorted(iisd_ela_authors),
+    #                                      key='multi_author_tags',
+    #                                      help=tags_help_general + 
+    #                                           author_tags_help)
     
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
