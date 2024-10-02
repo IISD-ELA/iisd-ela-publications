@@ -1,4 +1,5 @@
 git+https://github.com/streamlit/gsheets-connection
+git+https://github.com/Asaurus1/streamlit-qs.git@main
 streamlit==1.32.0
 pandas
 numpy==1.26.4
