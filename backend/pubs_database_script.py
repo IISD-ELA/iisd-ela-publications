@@ -67,9 +67,9 @@ env_issues.append('Other')
 # You can change the values themselves if needed, but 
 # do not change the order!
 author_type_options = ['<select a filter>',
-                    'Current IISD-ELA researchers',
-                    'Other researchers (supported by IISD-ELA)',
-                    'Students (theses)']
+                       'Current IISD-ELA researchers',
+                       'Other researchers (supported by IISD-ELA)',
+                       'Students (theses)']
 
 
 # Store all current IISD-ELA authors in a list
@@ -92,25 +92,23 @@ def clear_search_params():
     return
 
 
-# Define function to set search tags in URL
-def set_search_tag_in_url(input_tag):
+# Define function to set author tags in URL
+def generate_author_tag_url(input_tag):
     
-    # Change url to include input author tag
-    st.query_params.author_tag = input_tag
+    if input_tag:
+        # Change url to include input author tag
+        st.query_params.author_tag = input_tag
 
-    # return dictonary-like objects for query parameters
-    return st.query_params
+        # Get author tags from url
+        url_author_tags = st.query_params.author_tag
 
+        # Set session state with authors from url
+        st.session_state.multi_author_tags = url_author_tags
+        
+    else:
 
-# Define function to get and apply search tags from URL
-def apply_search_tag_from_url():
-
-    # Get author tags from url
-    author_tags_from_url = st.query_params.author_tag
-
-
-    # Create session state with authors from url
-    st.session_state.multi_author_tags = author_tags_from_url
+        # If there's no author input, clear parameters
+        st.query_params.clear()
 
 
 # Define a combined search function
@@ -234,7 +232,6 @@ with col1:
                                help=tags_help_general)
 
 
-    # Add a multi-select widget for author tags
     author_tags_help = """To search by authors who are not currently
                           IISD-ELA researchers, please use the "General Search"
                           function.
@@ -243,7 +240,8 @@ with col1:
                                          options=sorted(iisd_ela_authors),
                                          key='multi_author_tags',
                                          help=tags_help_general + 
-                                              author_tags_help)
+                                              author_tags_help,
+                                         on_change=generate_author_tag_url)
     
     
     # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
@@ -320,14 +318,6 @@ result_for_user = combined_search(
 
 # Prepare authors values for APA format
 result_for_user['authors'] = result_for_user['authors'].str.replace(';', ',')
-
-
-# Add author tags to the url if any, otherwise clear them
-if author_tags:
-    set_search_tag_in_url(author_tags)
-    apply_search_tag_from_url()
-else:
-    set_search_tag_in_url(author_tags).clear()
 
 
 with col2:
