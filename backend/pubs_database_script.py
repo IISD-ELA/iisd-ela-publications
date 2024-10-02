@@ -92,9 +92,12 @@ def clear_search_params():
     return
 
 
+def placeholder_function():
+    generate_author_tag_url()
+
+
 # Define function to set author tags in URL
 def generate_author_tag_url():
-    
     if author_tags:
         # Change url to include input author tag
         st.query_params.author_tag = author_tags
@@ -241,7 +244,7 @@ with col1:
                                          key='multi_author_tags',
                                          help=tags_help_general + 
                                               author_tags_help,
-                                         on_change=generate_author_tag_url())
+                                         on_change=placeholder_function())
     
     
     # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
