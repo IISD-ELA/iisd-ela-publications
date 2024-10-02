@@ -246,7 +246,7 @@ with col1:
                                                 author_tags_help)
         st.query_params.clear()
         count+=1
-    elif count>1:
+    else:
         author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                             options=sorted(iisd_ela_authors),
                                             key='multi_author_tags',
