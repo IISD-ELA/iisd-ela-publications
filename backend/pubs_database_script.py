@@ -94,15 +94,23 @@ def clear_search_params():
 
 # Define function to set search tags in URL
 def set_search_tag_in_url(input_tag):
+    
     # Change url to include input author tag
     st.query_params.author_tag = input_tag
 
+    # return dictonary-like objects for query parameters
     return st.query_params
 
 
+# Define function to get and apply search tags from URL
+def apply_search_tag_from_url():
 
-# Define a function to get and apply search tag from URL
-# def apply_search_tag_from_url():
+    # Get author tags from url
+    author_tags_from_url = st.query_params.author_tag
+
+
+    # Create session state with authors from url
+    st.session_state['multi_author_tags'] = author_tags_from_url
 
 
 # Define a combined search function
@@ -237,8 +245,11 @@ with col1:
                                          help=tags_help_general + 
                                               author_tags_help)
     
+    
+    # Add author tags to the url if any, otherwise clear them
     if author_tags:
         set_search_tag_in_url(author_tags)
+        apply_search_tag_from_url()
     else:
         set_search_tag_in_url(author_tags).clear()
     
