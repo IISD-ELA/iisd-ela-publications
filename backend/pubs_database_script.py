@@ -93,8 +93,8 @@ def clear_search_params():
 
 
 # Define function to set search tags in URL
-def set_search_tag_in_url(input_tag):
-    st.query_params.author_tag = input_tag
+# def set_search_tag_in_url(input_tag):
+#     st.query_params.author_tag = input_tag
 
 
 # Define a function to get search tag from URL
@@ -227,16 +227,18 @@ with col1:
                           IISD-ELA researchers, please use the "General Search"
                           function.
                        """
-    author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
+    # author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
+    #                                      options=sorted(iisd_ela_authors),
+    #                                      key='multi_author_tags',
+    #                                      help=tags_help_general + 
+    #                                           author_tags_help)
+    
+    author_tags = stqs.multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors),
                                          key='multi_author_tags',
                                          help=tags_help_general + 
                                               author_tags_help)
     
-
-    if author_tags:
-        set_search_tag_in_url(author_tags)
-
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
     author_types_help = """The filters are mutually exclusive and you may
