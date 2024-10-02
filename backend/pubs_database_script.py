@@ -94,7 +94,11 @@ def clear_search_params():
 
 # Define function to set search tags in URL
 def set_search_tag_in_url(input_tag):
+    # Change url to include input author tag
     st.query_params.author_tag = input_tag
+
+    print(st.query_params.author_tag)
+
 
 
 # Define a function to get and apply search tag from URL
