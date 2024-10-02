@@ -235,6 +235,13 @@ with col1:
                                          help=tags_help_general + 
                                               author_tags_help)
     generate_author_tag_url(author_tags)
+
+    author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
+                                         options=sorted(iisd_ela_authors),
+                                         key='multi_author_tags',
+                                         default=st.query_params.author_tags,
+                                         help=tags_help_general + 
+                                              author_tags_help)
     
     # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
     #                                      options=sorted(iisd_ela_authors),
