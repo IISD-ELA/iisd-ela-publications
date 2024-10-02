@@ -228,6 +228,8 @@ with col1:
                           IISD-ELA researchers, please use the "General Search"
                           function.
                        """
+    if 'author_tags' in st.query_params:
+        st.session_state['multi_author_tags'] = st.query_params['author_tags']
 
     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors),
@@ -235,9 +237,6 @@ with col1:
                                          help=tags_help_general + 
                                               author_tags_help)
     generate_author_tag_url(author_tags)
-
-    if 'author_tags' in st.query_params:
-        st.session_state['multi_author_tags'] = st.query_params['author_tags']
 
     
     # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
