@@ -232,13 +232,14 @@ with col1:
     selected_authors_from_url = st.query_params['author_tags'] \
                                 if 'author_tags' in st.query_params \
                                 else []
+    st.write(selected_authors_from_url)
     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors),
                                          key='multi_author_tags',
                                          default=selected_authors_from_url,
                                          help=tags_help_general + 
                                               author_tags_help)
-    
+    st.write(author_tags)
     generate_author_tag_url(author_tags)
     
     # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
