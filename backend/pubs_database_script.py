@@ -240,7 +240,7 @@ with col1:
     if author_tags:
         set_search_tag_in_url(author_tags)
     else:
-        set_search_tag_in_url(author_tags).clear
+        set_search_tag_in_url(author_tags).clear()
     
     # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
     #                                      options=sorted(iisd_ela_authors),
