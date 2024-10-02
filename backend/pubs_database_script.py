@@ -110,7 +110,7 @@ def apply_search_tag_from_url():
 
 
     # Create session state with authors from url
-    st.session_state['multi_author_tags'] = author_tags_from_url
+    st.session_state.multi_author_tags = author_tags_from_url
 
 
 # Define a combined search function
