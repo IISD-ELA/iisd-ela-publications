@@ -237,6 +237,9 @@ with col1:
                                          help=tags_help_general + 
                                               author_tags_help)
     
+    if author_tags:
+        set_search_tag_in_url(author_tags)
+    
     # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
     #                                      options=sorted(iisd_ela_authors),
     #                                      key='multi_author_tags',
