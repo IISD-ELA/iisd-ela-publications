@@ -230,8 +230,7 @@ with col1:
                        """
     
     selected_authors_from_url = st.query_params['author_tags'] \
-                                if 'author_tags' in st.query_params \
-                                else []
+                                if 'author_tags' in st.query_params
     st.write(selected_authors_from_url)
     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors),
