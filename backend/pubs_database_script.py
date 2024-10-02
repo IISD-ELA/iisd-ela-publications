@@ -2,7 +2,7 @@
 # Link to search engine: https://iisd-ela-pubs-search-engine.streamlit.app/
 # Author: Idil Yaktubay (iyaktubay@iisd-ela.org)
 
-# Last Updated: 09-27-2024
+# Last Updated: 10-02-2024
 # Last Updated by: Idil Yaktubay
 
 
@@ -224,10 +224,12 @@ with col1:
                                help=tags_help_general)
 
 
+    # Add a multi-select widget for author tags
     author_tags_help = """To search by authors who are not currently
                           IISD-ELA researchers, please use the "General Search"
                           function.
                        """
+    # This will look for any author tags in embed URL (for scientist profiles only)
     if 'author_tags' in st.query_params:
         author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                             options=sorted(iisd_ela_authors),
@@ -235,20 +237,14 @@ with col1:
                                             default=st.query_params.author_tags,
                                             help=tags_help_general + 
                                                 author_tags_help)
+    # If no author tags in URL, proceed as normal
     else:
         author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                             options=sorted(iisd_ela_authors),
                                             key='multi_author_tags',
                                             help=tags_help_general + 
                                                 author_tags_help)
-    
 
-    # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
-    #                                      options=sorted(iisd_ela_authors),
-    #                                      key='multi_author_tags',
-    #                                      help=tags_help_general + 
-    #                                           author_tags_help)
-    
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
     author_types_help = """The filters are mutually exclusive and you may
