@@ -97,7 +97,7 @@ def set_search_tag_in_url(input_tag):
     # Change url to include input author tag
     st.query_params.author_tag = input_tag
 
-    print(st.query_params.author_tag)
+    return st.query_params
 
 
 
@@ -239,6 +239,8 @@ with col1:
     
     if author_tags:
         set_search_tag_in_url(author_tags)
+    else:
+        set_search_tag_in_url.clear()
     
     # author_tags = multiselect_qs(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
     #                                      options=sorted(iisd_ela_authors),
