@@ -231,7 +231,7 @@ with col1:
     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                          options=sorted(iisd_ela_authors),
                                          key='multi_author_tags',
-                                         default=st.query_params.author_tags or []
+                                         default=st.query_params.author_tags or [],
                                          help=tags_help_general + 
                                               author_tags_help)
     
