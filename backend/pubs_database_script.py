@@ -2,15 +2,15 @@
 # Link to search engine: https://iisd-ela-pubs-search-engine.streamlit.app/
 # Author: Idil Yaktubay (iyaktubay@iisd-ela.org)
 
-# Last Updated: 10-02-2024
+# Last Updated: 10-03-2024
 # Last Updated by: Idil Yaktubay
 
 
 # Import required modules
 import streamlit as st
-# from streamlit_qs import multiselect_qs
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
+import sys
 
 
 # Set page layout to wide to occupy more of the display
@@ -192,6 +192,91 @@ def combined_search(data,
         data = data[data['type'].isin(['msc', 'phd'])]
 
     return data
+
+
+#==========================CODE FOR SCIENTIST PROFILES============================
+
+# SECTION PURPOSE: 
+    # This is the backend code for IISD-ELA search engine results for queried
+    # scientists.
+    # For any scientist queries in the app URL, the code in this section will return
+    # a list of publications for the queried scientist.
+    # The page resulting from the code in this section will not have any UI features
+    # (e.g., search by lake). Rather, it will only have a list of publications
+    # for the purposes of embedding this list into the corresponding scientist
+    # profile on the IISD-ELA website.
+
+
+# Check if URL has scientist queries
+if 'author_tags' in st.query_params:
+
+    # Filter results by the queried scientist in the URL
+    result_for_scientist = combined_search(data=data, 
+                                           author_query= \
+                            st.query_params['author_tags']).sort_values(
+                                                           by=['authors', 'year'])
+    
+
+    # Prepare authors values for APA format
+    result_for_scientist['authors'] = \
+        result_for_scientist['authors'].str.replace(';', ',')
+    
+
+    # Create container to enable scrolling
+    with st.container(height=500, border=False):
+
+
+        # Display each row as a string
+        for index, row in result_for_scientist.iterrows():
+
+
+            # Format journal articles in APA 7th ed format
+            if row['type'] == 'journal':
+                row_string =(f"{row['authors']} ({row['year']}). " 
+                                f"{row['title']}. *{row['journal_name']}*, " 
+                                f"*{str(int(row['journal_vol_no']))}*" 
+                                f"({str(int(row['journal_issue_no']))})" 
+                                f"{', '+str(row['journal_page_range']) if \
+                                   not pd.isna(row['journal_page_range']) else ''}. " 
+                                f"{row['doi_or_url']}"
+                            )
+                
+
+            # Format theses in APA 7th ed format
+            elif row['type'] in ['msc', 'phd']:
+                row_string = (f"{row['authors']} ({row['year']}). "
+                                f"*{row['title']}* "
+                                f"[{'Doctoral dissertation' if row['type']=='phd' \
+                                    else 'Master of Science dissertation'}, "
+                                f"{row['thesis_uni']}]. "
+                                f"{row['thesis_db']+'.' if \
+                                   not pd.isna(row['thesis_db']) else ''} "
+                                f"{row['doi_or_url'] if \
+                                   not pd.isna(row['doi_or_url']) else ''}"
+                            )   
+            
+            # Write tag information into question mark icon for each publication
+            tag_info = f"""**Lakes:** {row['lake_tags']}  
+                            **Data Types:** {row['data_type_tags']}  
+                            **Environmental Issues:** {row['environmental_issue_tags']}  
+                        """
+            
+            # Display each formatted publication with question mark icon
+            st.markdown(row_string, 
+                        unsafe_allow_html=True,
+                        help=tag_info) 
+
+    sys.exit()
+
+#============================CODE FOR SEARCH ENGINE================================
+
+# SECTION PURPOSE:
+    # This is the backend code for the actual IISD-ELA search engine.
+    # Link to search engine: https://iisd-ela-pubs-search-engine.streamlit.app/
+    # When the user adds query parameters for scientists to the URL above, the code
+    # in this section will not run. Instead, the app will only return search
+    # results based on the scientist query in the URL by running the code in the
+    # previous section and terminating the rest of the code.
 
 
 # Create separate columns for search functions and search results
