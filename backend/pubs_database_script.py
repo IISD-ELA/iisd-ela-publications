@@ -209,7 +209,7 @@ def combined_search(data,
 
 # Check if URL has scientist queries
 if 'author_tags' in st.query_params:
-
+    st.write(st.query_params.author_tags)
     # Filter results by the queried scientist in the URL
     result_for_scientist = combined_search(data=data, 
                                            author_query= \
