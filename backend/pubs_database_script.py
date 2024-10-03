@@ -209,8 +209,7 @@ def combined_search(data,
 
 # Check if URL has scientist queries
 if 'author_tags' in st.query_params:
-    st.write(st.query_params['author_tags'])
-    st.write(data)
+
     # Filter results by the queried scientist in the URL
     result_for_scientist = combined_search(data=data, 
                                            author_query= \
@@ -223,6 +222,13 @@ if 'author_tags' in st.query_params:
         result_for_scientist['authors'].str.replace(';', ',')
     
 
+    # Create Title
+    st.markdown(
+            f"<h2 style='color: #083266;'>Publications by ({st.query_params.author_tags[0]})</h2>",
+            unsafe_allow_html=True
+                        )
+    
+    
     # Create container to enable scrolling
     with st.container(height=500, border=False):
 
