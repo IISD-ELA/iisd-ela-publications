@@ -1,4 +1,8 @@
-# Code purpose: Backend code for IISD-ELA Publications Search Engine
+
+#===============================0. OVERVIEW=========================================
+
+
+# Code purpose: Backend program for IISD-ELA Publications Search Engine app
 # Link to search engine: https://iisd-ela-pubs-search-engine.streamlit.app/
 # Author: Idil Yaktubay (iyaktubay@iisd-ela.org)
 
@@ -6,15 +10,24 @@
 # Last Updated by: Idil Yaktubay
 
 
-# Import required modules
-import streamlit as st
+#==================================1. INITIAL SET UP=================================
+
+# SECTION PURPOSE:
+        # 1. Establish connection to publications Google Sheet spreadsheet
+        # 2. Load and filter data from publications Google Sheet spreadsheet
+        # 3. Convert loaded data types to prepare for dataset manipulation
+        # 4. Declare any immutable variables used in the script
+
+
+
+# import streamlit to develop app features 
+import streamlit as st 
+
+# import streamlit_gsheets for establishing Google Sheet connection
 from streamlit_gsheets import GSheetsConnection
+
+# import pandas for dataset manipulations
 import pandas as pd
-import sys
-
-
-# Set page layout to wide to occupy more of the display
-st.set_page_config(layout="wide")
 
 
 # Connect to Google Sheet containing publications data
@@ -205,6 +218,10 @@ def combined_search(data,
     # (e.g., search by lake). Rather, it will only have a list of publications
     # for the purposes of embedding this list into the corresponding scientist
     # profile on the IISD-ELA website.
+
+
+# Set page layout to wide to occupy more of the display
+st.set_page_config(layout="wide")
 
 
 # Check if URL has scientist queries
