@@ -99,7 +99,9 @@ unique_lakes.append('Other or Unspecified')
 
 
 # Store publication citation text formatting code as string
-show_publications = """
+# This is so that we avoid repeating this code in sections 3 and 4
+show_publications = \
+"""
 # Format journal articles in APA 7th ed format
 if row['type'] == 'journal':
     row_string =(f"{row['authors']} ({row['year']}). " 
@@ -130,7 +132,8 @@ tag_info = f'''**Lakes:** {row['lake_tags']}
 st.markdown(row_string, 
             unsafe_allow_html=True,
             help=tag_info) 
-                    """
+"""
+
 
 #================================2. DEFINE PROGRAM FUNCTIONS================================
 
