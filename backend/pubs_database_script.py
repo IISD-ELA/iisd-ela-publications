@@ -109,10 +109,16 @@ def clear_search_params():
         https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
         """
     
+    # Store all widget keys in a list 
+    # this is so that clear_search_params can access widgets to clear inputs
+    inputs_list = [key for key in st.session_state.keys()]
+
+    # Iterate over the widget keys list to clear all inputs
     for input in inputs_list:
         st.session_state[input] = [] if 'multi' in input else \
                             '<select a filter>' if 'selectbox' in input \
                             else ""
+    
     return None
 
 
@@ -440,10 +446,6 @@ with col2:
                         )
         
     with col6:
-        # Store all widget keys in a list 
-        # this is so that clear_search_params can access widgets to clear inputs
-        inputs_list = [key for key in st.session_state.keys()]
-
         # Add a clear all search parameters button
         st.button('Clear all search parameters', on_click=clear_search_params)
         
