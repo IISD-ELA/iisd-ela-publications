@@ -236,8 +236,7 @@ if 'author_tags' in st.query_params:
                                 f"{row['title']}. *{row['journal_name']}*, " 
                                 f"*{str(int(row['journal_vol_no']))}*" 
                                 f"({str(int(row['journal_issue_no']))})" 
-                                f"{', '+str(row['journal_page_range']) if \
-                                   not pd.isna(row['journal_page_range']) else ''}. " 
+                                f"{', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}. " 
                                 f"{row['doi_or_url']}"
                             )
                 
@@ -246,13 +245,10 @@ if 'author_tags' in st.query_params:
             elif row['type'] in ['msc', 'phd']:
                 row_string = (f"{row['authors']} ({row['year']}). "
                                 f"*{row['title']}* "
-                                f"[{'Doctoral dissertation' if row['type']=='phd' \
-                                    else 'Master of Science dissertation'}, "
+                                f"[{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, "
                                 f"{row['thesis_uni']}]. "
-                                f"{row['thesis_db']+'.' if \
-                                   not pd.isna(row['thesis_db']) else ''} "
-                                f"{row['doi_or_url'] if \
-                                   not pd.isna(row['doi_or_url']) else ''}"
+                                f"{row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} "
+                                f"{row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
                             )   
             
             # Write tag information into question mark icon for each publication
