@@ -267,7 +267,7 @@ def combined_search(data: pd.DataFrame,
     return data
 
 
-#==========================CODE FOR SCIENTIST PROFILES============================
+#==========================3. CODE FOR SCIENTIST PROFILES============================
 
 
 # SECTION PURPOSE: 
@@ -305,41 +305,12 @@ if 'author_tags' in st.query_params:
         # Display each row as a string
         for index, row in result_for_scientist.iterrows():
             exec(show_publications)
-            # # Format journal articles in APA 7th ed format
-            # if row['type'] == 'journal':
-            #     row_string =(f"{row['authors']} ({row['year']}). " 
-            #                     f"{row['title']}. *{row['journal_name']}*, " 
-            #                     f"*{str(int(row['journal_vol_no']))}*" 
-            #                     f"({str(int(row['journal_issue_no']))})" 
-            #                     f"{', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}. " 
-            #                     f"{row['doi_or_url']}"
-            #                 )
 
-            # # Format theses in APA 7th ed format
-            # elif row['type'] in ['msc', 'phd']:
-            #     row_string = (f"{row['authors']} ({row['year']}). "
-            #                     f"*{row['title']}* "
-            #                     f"[{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, "
-            #                     f"{row['thesis_uni']}]. "
-            #                     f"{row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} "
-            #                     f"{row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
-            #                 )   
-            
-            # # Write tag information into question mark icon for each publication
-            # tag_info = f"""**Lakes:** {row['lake_tags']}  
-            #                 **Data Types:** {row['data_type_tags']}  
-            #                 **Environmental Issues:** {row['environmental_issue_tags']}  
-            #             """
-            
-            # # Display each formatted publication with question mark icon
-            # st.markdown(row_string, 
-            #             unsafe_allow_html=True,
-            #             help=tag_info) 
-
+    # Prevent the rest of the program from running       
     st.stop()
 
 
-#============================CODE FOR SEARCH ENGINE================================
+#============================4. CODE FOR SEARCH ENGINE================================
 
 
 # SECTION PURPOSE:
@@ -475,8 +446,6 @@ result_for_user['authors'] = result_for_user['authors'].str.replace(';', ',')
 
 
 with col2:
-
-
     # Split right hand side into two columns for header and
     # clear all search parameters button
     col5, col6 = st.columns(spec=[0.8, 0.2])
@@ -496,42 +465,40 @@ with col2:
         st.markdown(f"No publications were found for your search.")
     else:
         with st.container(height=500, border=False):
-
             # Display each row as a string
             for index, row in result_for_user.iterrows():
-
-
-                # Format journal articles in APA 7th ed format
-                if row['type'] == 'journal':
-                    row_string =(f"{row['authors']} ({row['year']}). " 
-                                 f"{row['title']}. *{row['journal_name']}*, " 
-                                 f"*{str(int(row['journal_vol_no']))}*" 
-                                 f"({str(int(row['journal_issue_no']))})" 
-                                 f"{', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}. " 
-                                 f"{row['doi_or_url']}"
-                                )
+                exec(show_publications)
+                # # Format journal articles in APA 7th ed format
+                # if row['type'] == 'journal':
+                #     row_string =(f"{row['authors']} ({row['year']}). " 
+                #                  f"{row['title']}. *{row['journal_name']}*, " 
+                #                  f"*{str(int(row['journal_vol_no']))}*" 
+                #                  f"({str(int(row['journal_issue_no']))})" 
+                #                  f"{', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}. " 
+                #                  f"{row['doi_or_url']}"
+                #                 )
                     
 
-                # Format theses in APA 7th ed format
-                #elif row['type']=='msc' or row['type']=='phd':
-                elif row['type'] in ['msc', 'phd']:
-                    row_string = (f"{row['authors']} ({row['year']}). "
-                                  f"*{row['title']}* "
-                                  f"[{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, "
-                                  f"{row['thesis_uni']}]. "
-                                  f"{row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} "
-                                  f"{row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
-                                )   
+                # # Format theses in APA 7th ed format
+                # #elif row['type']=='msc' or row['type']=='phd':
+                # elif row['type'] in ['msc', 'phd']:
+                #     row_string = (f"{row['authors']} ({row['year']}). "
+                #                   f"*{row['title']}* "
+                #                   f"[{'Doctoral dissertation' if row['type']=='phd' else 'Master of Science dissertation'}, "
+                #                   f"{row['thesis_uni']}]. "
+                #                   f"{row['thesis_db']+'.' if not pd.isna(row['thesis_db']) else ''} "
+                #                   f"{row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
+                #                 )   
                 
-                # Write tag information into question mark icon for each publication
-                tag_info = f"""**Lakes:** {row['lake_tags']}  
-                               **Data Types:** {row['data_type_tags']}  
-                               **Environmental Issues:** {row['environmental_issue_tags']}  
-                            """
+                # # Write tag information into question mark icon for each publication
+                # tag_info = f"""**Lakes:** {row['lake_tags']}  
+                #                **Data Types:** {row['data_type_tags']}  
+                #                **Environmental Issues:** {row['environmental_issue_tags']}  
+                #             """
                 
-                # Display each formatted publication with question mark icon
-                st.markdown(row_string, 
-                            unsafe_allow_html=True,
-                            help=tag_info) 
+                # # Display each formatted publication with question mark icon
+                # st.markdown(row_string, 
+                #             unsafe_allow_html=True,
+                #             help=tag_info) 
         
     
