@@ -98,8 +98,8 @@ unique_lakes = sorted(list({int(num_str) for num_str in \
 unique_lakes.append('Other or Unspecified')
 
 
-# Store publication citation text formatting code as string
-# This is so that we avoid repeating this code in sections 3 and 4
+# Store code for formatting data as citation text in a string
+# This will be ran in both sections 3 and 4
 show_publications = \
 """
 # Format journal articles in APA 7th ed format
@@ -136,6 +136,10 @@ st.markdown(row_string,
 
 
 #================================2. DEFINE PROGRAM FUNCTIONS================================
+
+
+# SECTION PURPOSE:
+    # 1. Define all functions that will be used to create the search engine
 
 
 def clear_search_params():
@@ -271,14 +275,11 @@ def combined_search(data: pd.DataFrame,
 
 
 # SECTION PURPOSE: 
-    # This is the backend code for IISD-ELA search engine results for queried
-    # scientists.
-    # For any scientist queries in the app URL, the code in this section will return
-    # a list of publications for the queried scientist.
-    # The page resulting from the code in this section will not have any UI features
-    # (e.g., search by lake). Rather, it will only have a list of publications
-    # for the purposes of embedding this list into the corresponding scientist
-    # profile on the IISD-ELA website.
+    # 1. Check for any author queries in the URL
+    # 2. Generate a list of publications for the queried author
+    # 3. Display the generated list, which will be embedded into scientist profiles
+    #    on the IISD-ELA website
+    # 4. Stop the program after susccesfully displaying the list
 
 
 # Check if URL has a scientist query
@@ -314,13 +315,8 @@ if 'author_tags' in st.query_params:
 
 
 # SECTION PURPOSE:
-    # This is the backend code for the actual IISD-ELA search engine.
-    # Link to search engine: https://iisd-ela-pubs-search-engine.streamlit.app/
-    # When the user adds query parameters for scientists to the URL above, the code
-    # in this section will not run. Instead, the app will only return search
-    # results based on the scientist query in the URL by running the code in the
-    # previous section and terminating the rest of the code.
-
+    # 1. If URL has no author queries, generate the main IISD-ELA publications search engine
+    
 
 # Create separate columns for search functions and search results
 col1, col2 = st.columns(spec=[0.3, 0.7])
