@@ -271,7 +271,7 @@ def combined_search(data: pd.DataFrame,
     return data
 
 
-#==========================3. CODE FOR SCIENTIST PROFILES============================
+#================================3. CODE FOR SCIENTIST PROFILES=========================================
 
 
 # SECTION PURPOSE: 
@@ -316,7 +316,7 @@ if 'author_tags' in st.query_params:
 
 # SECTION PURPOSE:
     # 1. If URL has no author queries, generate the main IISD-ELA publications search engine
-    
+
 
 # Create separate columns for search functions and search results
 col1, col2 = st.columns(spec=[0.3, 0.7])
