@@ -223,7 +223,7 @@ if 'author_tags' in st.query_params:
 
     # Create Title
     st.markdown(
-            f"<h2 style='color: #083266;'>{len(result_for_scientist)} Publications by {st.query_params.author_tags}</h2>",
+            f"<h2 style='color: #083266;'>{len(result_for_scientist)} publications by {st.query_params.author_tags}</h2>",
             unsafe_allow_html=True
                         )
     
