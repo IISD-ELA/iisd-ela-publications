@@ -445,7 +445,7 @@ with col2:
         inputs_list = [key for key in st.session_state.keys()]
 
         # Add a clear all search parameters button
-        st.button('Clear all search parameters', on_click=clear_search_params())
+        st.button('Clear all search parameters', on_click=clear_search_params)
         
 
     if len(result_for_user) == 0:
