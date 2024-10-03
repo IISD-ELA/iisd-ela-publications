@@ -106,9 +106,9 @@ def generate_author_tag_url(input_tags):
 # Define a combined search function
 def combined_search(data, 
                     data_type_query=list(), 
-                    env_issue_query=None, 
-                    lake_query=None, 
-                    author_query=None,
+                    env_issue_query=list(), 
+                    lake_query=list(), 
+                    author_query=list(),
                     iisd_ela_rel_query=None, 
                     year_start_query=None, 
                     year_end_query=None, 
