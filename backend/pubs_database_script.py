@@ -269,7 +269,7 @@ if 'author_tags' in st.query_params:
                         unsafe_allow_html=True,
                         help=tag_info) 
 
-    sys.exit()
+    exit()
 
 #============================CODE FOR SEARCH ENGINE================================
 
