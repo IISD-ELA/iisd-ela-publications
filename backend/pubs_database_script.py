@@ -123,6 +123,7 @@ def clear_search_params():
 
 
 # Define function to set author tags in URL
+# This function is potentially junk and will be deleted at some point...
 def generate_author_tag_url(input_tags):
     if input_tags:
         # Change url to include input author tag
@@ -133,8 +134,7 @@ def generate_author_tag_url(input_tags):
         st.query_params.clear()
 
 
-# Define a combined search function
-def combined_search(data, 
+def combined_search(data: pd.DataFrame, 
                     data_type_query=list(), 
                     env_issue_query=list(), 
                     lake_query=list(), 
@@ -144,7 +144,13 @@ def combined_search(data,
                     year_end_query=None, 
                     general_search_query=None):
     
-    # Define a list of query and condition pairs for search by functions
+    _ = """
+        Return filtered version of data DataFrame according to user queries.
+        All function arguments that end with _query have been predefined
+        to allow calling the function with only a few arguments.
+        """
+    
+    # Define a list of query and condition pairs for search by tag functions
     queries = [ (data_type_query,
                     data.apply(lambda row: 
                                     any(data_type_tag in row['data_type_tags'].split('; ') 
@@ -226,6 +232,7 @@ def combined_search(data,
 
 #==========================CODE FOR SCIENTIST PROFILES============================
 
+
 # SECTION PURPOSE: 
     # This is the backend code for IISD-ELA search engine results for queried
     # scientists.
@@ -237,7 +244,7 @@ def combined_search(data,
     # profile on the IISD-ELA website.
 
 
-# Check if URL has scientist queries
+# Check if URL has a scientist query
 if 'author_tags' in st.query_params:
     # Filter results by the queried scientist in the URL
     result_for_scientist = combined_search(data=data, 
@@ -245,26 +252,21 @@ if 'author_tags' in st.query_params:
                             [st.query_params['author_tags']]).sort_values(
                                                            by=['authors', 'year'])
     
-
     # Prepare authors values for APA format
     result_for_scientist['authors'] = \
         result_for_scientist['authors'].str.replace(';', ',')
     
-
     # Create Title
     st.markdown(
             f"<h2 style='color: #083266;'>{len(result_for_scientist)} publications by {st.query_params.author_tags}</h2>",
             unsafe_allow_html=True
                         )
-    
 
     # Create container to enable scrolling
     with st.container(height=500, border=False):
 
-
         # Display each row as a string
         for index, row in result_for_scientist.iterrows():
-
 
             # Format journal articles in APA 7th ed format
             if row['type'] == 'journal':
@@ -275,7 +277,6 @@ if 'author_tags' in st.query_params:
                                 f"{', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}. " 
                                 f"{row['doi_or_url']}"
                             )
-                
 
             # Format theses in APA 7th ed format
             elif row['type'] in ['msc', 'phd']:
@@ -300,7 +301,9 @@ if 'author_tags' in st.query_params:
 
     st.stop()
 
+
 #============================CODE FOR SEARCH ENGINE================================
+
 
 # SECTION PURPOSE:
     # This is the backend code for the actual IISD-ELA search engine.
@@ -314,8 +317,10 @@ if 'author_tags' in st.query_params:
 # Create separate columns for search functions and search results
 col1, col2 = st.columns(spec=[0.3, 0.7])
 
+
 # Fill the search functions column with search widgets
 with col1: 
+    
     # Add a multi-select widget for data type tags
     tags_help_general = """You may choose multiple,
                            which will return search results 
