@@ -224,11 +224,11 @@ if 'author_tags' in st.query_params:
 
     # Create Title
     st.markdown(
-            f"<h2 style='color: #083266;'>Publications by ({st.query_params.author_tags[0]})</h2>",
+            f"<h2 style='color: #083266;'>Publications by {st.query_params.author_tags}</h2>",
             unsafe_allow_html=True
                         )
     
-    
+
     # Create container to enable scrolling
     with st.container(height=500, border=False):
 
