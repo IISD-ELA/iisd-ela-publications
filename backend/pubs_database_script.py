@@ -109,7 +109,7 @@ def combined_search(data,
                     env_issue_query=list(), 
                     lake_query=list(), 
                     author_query=list(),
-                    author_types_query=None, 
+                    iisd_ela_rel_query=None, 
                     year_start_query=None, 
                     year_end_query=None, 
                     general_search_query=None):
@@ -173,7 +173,7 @@ def combined_search(data,
                     ]
     
     # Filter by author types current researchers or other researchers (no students)
-    if author_types_query in [author_type_options[1], author_type_options[2]]:
+    if iisd_ela_rel_query in [author_type_options[1], author_type_options[2]]:
 
         # Create mapping instructions
         author_type_options_mapping = {'authored': author_type_options[1],
@@ -184,11 +184,11 @@ def combined_search(data,
             data['relationship_to_iisd_ela'].map(author_type_options_mapping)
 
         # Filter data for non-student pubs that satisfy the author type query
-        data = data[(data['relationship_to_iisd_ela']==author_types_query) &
+        data = data[(data['relationship_to_iisd_ela']==iisd_ela_rel_query) &
                     ~(data['type'].isin(['msc', 'phd']))]
         
     # Filter by author type students
-    elif author_types == author_type_options[3]:
+    elif iisd_ela_rel_query == author_type_options[3]:
         data = data[data['type'].isin(['msc', 'phd'])]
 
     return data
