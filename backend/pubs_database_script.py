@@ -101,7 +101,7 @@ unique_lakes.append('Other or Unspecified')
 #================================2. DEFINE PROGRAM FUNCTIONS================================
 
 
-def clear_search_params(inputs: list):
+def clear_search_params():
     _ = """
         Return None after clearing all input search parameters in inputs
         by clearing the app's session state.
@@ -109,8 +109,7 @@ def clear_search_params(inputs: list):
         https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
         """
     
-    # Iterate over 
-    for input in inputs:
+    for input in inputs_list:
         st.session_state[input] = [] if 'multi' in input else \
                             '<select a filter>' if 'selectbox' in input \
                             else ""
@@ -446,7 +445,7 @@ with col2:
         inputs_list = [key for key in st.session_state.keys()]
 
         # Add a clear all search parameters button
-        st.button('Clear all search parameters', on_click=clear_search_params(inputs_list))
+        st.button('Clear all search parameters', on_click=clear_search_params())
         
 
     if len(result_for_user) == 0:
