@@ -22,10 +22,10 @@
 # import streamlit to develop app features 
 import streamlit as st 
 
-# import streamlit_gsheets for establishing Google Sheet connection
+# import streamlit_gsheets to establish Google Sheet connection
 from streamlit_gsheets import GSheetsConnection
 
-# import pandas for dataset manipulations
+# import pandas to manipulate datasets
 import pandas as pd
 
 
@@ -77,7 +77,6 @@ env_issues = sorted(['Acid Rain',
 env_issues.append('Other')
                     
 
-
 # Store all author type options in a list
 # DO **NOT**!! Change the order of the values in this list
 # You can change the values themselves if needed, but 
@@ -99,13 +98,23 @@ unique_lakes = sorted(list({int(num_str) for num_str in \
 unique_lakes.append('Other or Unspecified')
 
 
+#================================2. DEFINE PROGRAM FUNCTIONS================================
+
+
+
 # Define function to clear all search parameters
 def clear_search_params():
+    _ = """
+        Return None after clearing all input search parameters
+        by clearing the app's session state.
+        For more info on streamlit session states, go to:
+        https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
+        """
     for input in inputs_list:
         st.session_state[input] = [] if 'multi' in input else \
                             '<select a filter>' if 'selectbox' in input \
                             else ""
-    return
+    return None
 
 
 # Define function to set author tags in URL
