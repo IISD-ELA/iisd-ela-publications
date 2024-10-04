@@ -303,7 +303,7 @@ if 'author_tags' in st.query_params:
     # Create title string for scientist
     title_string_scientist = (f"<h2 style='color: #083266;'>Publications by "
                               f"{st.query_params.author_tags} "
-                              f"({year_start_scientist}-{year_end_scientist}</h2>")
+                              f"({year_start_scientist}-{year_end_scientist})</h2>")
 
     # Create Title
     st.markdown(title_string_scientist,
