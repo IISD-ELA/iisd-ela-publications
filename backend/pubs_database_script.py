@@ -294,10 +294,20 @@ if 'author_tags' in st.query_params:
     result_for_scientist['authors'] = \
         result_for_scientist['authors'].str.replace(';', ',')
     
+
+    # Define the year range for available publications for scientist
+    year_start_scientist = result_for_scientist['year'].min()
+    year_end_scientist = result_for_scientist['year'].max()
+
+
+    # Create title string for scientist
+    title_string_scientist = (f"<h2 style='color: #083266;'> Publications by ",
+                              f"{st.query_params.author_tags} ",
+                              f"({year_start_scientist}-{year_end_scientist}</h2>")
+
     # Create Title
-    st.markdown(
-            f"<h2 style='color: #083266;'>{len(result_for_scientist)} publications by {st.query_params.author_tags}</h2>",
-            unsafe_allow_html=True
+    st.markdown(title_string_scientist,
+                unsafe_allow_html=True
                         )
 
     # Create container to enable scrolling
