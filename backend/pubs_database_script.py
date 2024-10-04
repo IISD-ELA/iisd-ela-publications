@@ -6,7 +6,7 @@
 # Link to search engine: https://iisd-ela-pubs-search-engine.streamlit.app/
 # Author: Idil Yaktubay (iyaktubay@iisd-ela.org)
 
-# Last Updated: 10-03-2024
+# Last Updated: 10-04-2024
 # Last Updated by: Idil Yaktubay
 
 
@@ -434,11 +434,11 @@ with col1:
         
 
 # Write disclaimer on bottom of page
-disclaimer_string = (f'**<div style="font-size: 12px;">Currently, the search engine only has '
-                     f'publications from more recent years and '
-                     f'completing our publications database is an ongoing effort. '
+disclaimer_string = (f'**<div style="font-size: 12px;">Our search engine currently '
+                     f'includes publications from recent years, and '
+                     f'we are actively working to complete our database. '
                      f'If you notice any missing publications or encounter issues '
-                     f'with this search engone, please reach out to us at eladata@iisd-ela.org.'
+                     f'with this search engine, please reach out to us at eladata@iisd-ela.org.'
                      f'**</div>')
 
 st.markdown(disclaimer_string,
