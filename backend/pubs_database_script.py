@@ -49,6 +49,11 @@ data = all_data[all_data['approved'].isin(['Yes', 'Not applicable'])]
 data['year'] = data['year'].astype(int).astype(str)
 
 
+# Store the year range for available data
+data_year_min = data['year'].min()
+data_year_max = data['year'].max()
+
+
 # For records with a single lake tag, Python reads
 # lake tags as float point numbers (bad)
 # So, convert all lake tags to string
@@ -428,9 +433,16 @@ with col1:
                                          help=gen_search_help)
         
 
-# Write notes on the bottom of the page
-st.markdown('**<div style="font-size: 12px;">If you notice any missing publications or encounter issues with this search engine, please reach out to us at eladata@iisd-ela.org.**</div>',
-                unsafe_allow_html=True)
+# Write disclaimer on bottom of page
+disclaimer_string = (f'**<div style="font-size: 12px;">Currently, the search engine has '
+                     f'publications from {data_year_min}-{data_year_max}. '
+                     f'Completing our publications database is an ongoing effort. '
+                     f'If you notice any missing publications or encounter issues '
+                     f'with this search engone, please reach out to us at eladata@iisd-ela.org.'
+                     f'**</div>')
+
+st.markdown(disclaimer_string,
+            unsafe_allow_html=True)
 
 
 # Call combined_search function to filter the data based on user queries
