@@ -391,10 +391,10 @@ with col1:
         st.markdown(
             """
             <style>
-            div[data-testid="stSelectbox"] div[role="combobox"][id*='selectbox_author_type'] {
+            div[data-testid="stSelectbox"] > div[role="combobox"][id*='selectbox_author_type'] {
                 background-color: #083266 !important;
             }
-            div[data-testid="stSelectbox"] div[role="combobox"][id*='selectbox_author_type'] * {
+            div[data-testid="stSelectbox"] > div[role="combobox"][id*='selectbox_author_type'] * {
                 color: white !important;
             }
             </style>
