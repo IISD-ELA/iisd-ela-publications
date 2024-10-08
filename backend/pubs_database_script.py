@@ -6,7 +6,7 @@
 # Link to search engine: https://iisd-ela-pubs-search-engine.streamlit.app/
 # Author: Idil Yaktubay (iyaktubay@iisd-ela.org)
 
-# Last Updated: 10-04-2024
+# Last Updated: 10-08-2024
 # Last Updated by: Idil Yaktubay
 
 
@@ -375,7 +375,8 @@ with col1:
                                            key='selectbox_author_type',
                                            help=author_types_help)
     
-    # Inject custom CSS to make non-default options blue with white font
+
+    # Inject custom CSS to make non-default options blue with white font for author types widget
     if author_types != '<select a filter>':
         st.html(
             """<style>
@@ -386,6 +387,7 @@ with col1:
                 color: white !important;
             }
             </style>""")
+
 
     # Create columns for side-by-side year filters
     col3, col4 = st.columns(2)
