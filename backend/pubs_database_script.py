@@ -391,15 +391,14 @@ with col1:
         st.markdown(
             """
             <style>
-            div[role="listbox"] > div[data-testid="stMarkdownContainer"] div.stSelectbox {
+            div[data-baseweb="select"] > div {
                 background-color: #083266 !important;
-                color: white !important;
             }
-            div[role="listbox"] > div[data-testid="stMarkdownContainer"] div.stSelectbox span {
+            div[data-baseweb="select"] * {
                 color: white !important;
             }
             </style>
-            """,
+            """, 
             unsafe_allow_html=True
         )
 
