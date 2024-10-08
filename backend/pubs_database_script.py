@@ -309,6 +309,12 @@ if 'author_tags' in st.query_params:
         # Display each row as a string
         for index, row in result_for_scientist.iterrows():
             exec(show_publications)
+    
+    disclaimer_string_scientist = r"""
+                                  This list is retrieved from the IISD-ELA publications
+                                  [search engine database](https://iisd-ela-pubs-search-engine.streamlit.app/).
+                                  """
+    st.markdown(disclaimer_string_scientist)
 
     # Prevent the rest of the program from running       
     st.stop()
@@ -425,8 +431,8 @@ with col1:
 
 # Write disclaimer on bottom of page
 disclaimer_string = (f'**<div style="font-size: 12px;">Our search engine currently '
-                     f'includes publications from recent years, and '
-                     f'we are actively working to complete our database. '
+                     f'only includes publications from recent years, and '
+                     f'we are actively working to complete our publications database. '
                      f'If you notice any missing publications or encounter issues '
                      f'with this search engine, please reach out to us at eladata@iisd-ela.org.'
                      f'**</div>')
