@@ -168,27 +168,6 @@ def clear_search_params():
     return None
 
 
-def color_selectbox(n_element:int, color:str):
-
-    js = f'''
-    <script>
-    // Find all the selectboxes
-    var selectboxes = window.parent.document.getElementsByClassName("stSelectbox");
-    
-    // Select one of them
-    var selectbox = selectboxes[{n_element}];
-    
-    // Select only the selection div
-    var selectregion = selectbox.querySelector('[data-baseweb="select"]');
-    
-    // Modify the color
-    selectregion.style.backgroundColor = '{color}';
-    </script>
-    '''
-    st.components.v1.html(js, height=0)
-
-
-
 def combined_search(data: pd.DataFrame, 
                     data_type_query=list(), 
                     env_issue_query=list(), 
@@ -396,22 +375,21 @@ with col1:
                                            key='selectbox_author_type',
                                            help=author_types_help)
     
-    # if author_types != '<select a filter>':
-    #     st.markdown(
-    #         """
-    #         <style>
-    #         div[data-baseweb="select"] > div {
-    #             background-color: #083266 !important;
-    #         }
-    #         div[data-baseweb="select"] * {
-    #             color: white !important;
-    #         }
-    #         </style>
-    #         """, 
-    #         unsafe_allow_html=True
-    #     )
+    if author_types != '<select a filter>':
+        st.markdown(
+            """
+            <style>
+            div[data-baseweb="select"] > div {
+                background-color: #083266 !important;
+            }
+            div[data-baseweb="select"] * {
+                color: white !important;
+            }
+            </style>
+            """, 
+            unsafe_allow_html=True
+        )
 
-    color_selectbox(4, '#083266')
 
     # Create columns for side-by-side year filters
     col3, col4 = st.columns(2)
