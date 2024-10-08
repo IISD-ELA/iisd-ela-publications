@@ -310,10 +310,10 @@ if 'author_tags' in st.query_params:
         for index, row in result_for_scientist.iterrows():
             exec(show_publications)
     
-    disclaimer_string_scientist = r"""
+    disclaimer_string_scientist = """
                                   <div style="font-size: 12px;">
                                   This list is retrieved from the IISD-ELA publications
-                                  [search engine database](https://iisd-ela-pubs-search-engine.streamlit.app/).
+                                  <a href='https://iisd-ela-pubs-search-engine.streamlit.app/'>search engine database</a>.
                                   </div>"""
     st.markdown(disclaimer_string_scientist,
                 unsafe_allow_html=True)
