@@ -394,7 +394,7 @@ with col1:
             .stSelectbox:nth-of-type(5) > div[data-baseweb="select"] > div {
                 background-color: #083266 !important;
             }
-            div[data-baseweb="select"] * {
+            .stSelectbox:nth-of-type(5) > div[data-baseweb="select"] * {
                 color: white !important;
             }
             </style>
