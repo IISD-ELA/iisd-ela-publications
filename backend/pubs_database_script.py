@@ -379,7 +379,7 @@ with col1:
         st.markdown(
             """
             <style>
-            div.selectbox_author_type {
+            div.selectbox_author_type > div {
                 background-color: #083266 !important;
             }
             div.selectbox_author_type * {
