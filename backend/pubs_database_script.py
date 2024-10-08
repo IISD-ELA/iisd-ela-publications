@@ -314,7 +314,7 @@ if 'author_tags' in st.query_params:
                                   <div style="font-size: 12px;">
                                   <b>
                                   This list is retrieved from the IISD-ELA publications
-                                  <a href='https://iisd-ela-pubs-search-engine.streamlit.app/'>search engine database</a>.</b>
+                                  <a href='https://iisd-ela-pubs-search-engine.streamlit.app/'>database</a>.</b>
                                   </div>"""
     st.markdown(disclaimer_string_scientist,
                 unsafe_allow_html=True)
