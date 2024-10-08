@@ -375,14 +375,28 @@ with col1:
                                            key='selectbox_author_type',
                                            help=author_types_help)
     
+    # if author_types != '<select a filter>':
+    #     st.markdown(
+    #         """
+    #         <style>
+    #         div[data-baseweb="select"] > div {
+    #             background-color: #083266 !important;
+    #         }
+    #         div[data-baseweb="select"] * {
+    #             color: white !important;
+    #         }
+    #         </style>
+    #         """, 
+    #         unsafe_allow_html=True
+    #     )
     if author_types != '<select a filter>':
         st.markdown(
             """
             <style>
-            div[data-baseweb="select"] > div {
+            div[class*="selectbox_author_type"] div[data-baseweb="select"] > div {
                 background-color: #083266 !important;
             }
-            div[data-baseweb="select"] * {
+            div[class*="selectbox_author_type"] div[data-baseweb="select"] * {
                 color: white !important;
             }
             </style>
