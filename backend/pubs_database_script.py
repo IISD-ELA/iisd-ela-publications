@@ -379,7 +379,7 @@ with col1:
         st.markdown(
             """
             <style>
-            div[data-baseweb="select"]:nth-of-type(5) > div {
+            div[data-baseweb="select"]:nth-of-type(5) {
                 background-color: #083266 !important;
             }
             div[data-baseweb="select"]:nth-of-type(5) * {
