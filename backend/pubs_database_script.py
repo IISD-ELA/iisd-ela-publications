@@ -380,13 +380,11 @@ with col1:
             """<style>
             div[class*="selectbox_author_type"] div[data-baseweb="select"] > div {
                 background-color: #083266 !important;
-                margin -1;
-                padding -1;
+                padding-top: 0rem;
             }
             div[class*="selectbox_author_type"] div[data-baseweb="select"] * {
                 color: white !important;
-                margin -1;
-                padding -1;
+                padding-top: 0rem;
             }
             </style>""", 
             unsafe_allow_html=True
