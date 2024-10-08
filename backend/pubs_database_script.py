@@ -391,17 +391,16 @@ with col1:
         st.markdown(
             """
             <style>
-            div[data-baseweb="select"] > div {
+            div[data-testid="stSelectbox"] div[role="combobox"][id*='selectbox_author_type'] {
                 background-color: #083266 !important;
             }
-            div[data-baseweb="select"] * {
+            div[data-testid="stSelectbox"] div[role="combobox"][id*='selectbox_author_type'] * {
                 color: white !important;
             }
             </style>
             """, 
             unsafe_allow_html=True
         )
-    
 
     # Create columns for side-by-side year filters
     col3, col4 = st.columns(2)
