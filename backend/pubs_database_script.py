@@ -312,8 +312,9 @@ if 'author_tags' in st.query_params:
     
     disclaimer_string_scientist = """
                                   <div style="font-size: 12px;">
+                                  <b>
                                   This list is retrieved from the IISD-ELA publications
-                                  <a href='https://iisd-ela-pubs-search-engine.streamlit.app/'>search engine database</a>.
+                                  <a href='https://iisd-ela-pubs-search-engine.streamlit.app/'>search engine database</a>.</b>
                                   </div>"""
     st.markdown(disclaimer_string_scientist,
                 unsafe_allow_html=True)
