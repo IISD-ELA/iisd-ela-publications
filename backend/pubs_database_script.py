@@ -366,8 +366,7 @@ with col1:
 
     
     # Add a selectbox widget for author types (default is set to <select a filter>)
-    author_types_help = """The filters are mutually exclusive and you may
-                           only choose one.
+    author_types_help = """You may only choose one of these filters.
                         """
     author_types = st.selectbox(r"$\bold{Filter} \: \bold{by} \: \bold{author} \: \bold{type}$",
                                            options=author_type_options, 
