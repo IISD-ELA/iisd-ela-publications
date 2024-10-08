@@ -379,10 +379,10 @@ with col1:
         st.markdown(
             """
             <style>
-            .stSelectbox_selectbox_author_type > div[data-baseweb="select"] {
+            .selectbox_author_type {
                 background-color: #083266 !important;
             }
-            .stSelectbox_selectbox_author_type > div[data-baseweb="select"] * {
+            .selectbox_author_type * {
                 color: white !important;
             }
             </style>
