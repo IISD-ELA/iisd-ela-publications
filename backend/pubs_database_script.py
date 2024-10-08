@@ -391,10 +391,10 @@ with col1:
         st.markdown(
             """
             <style>
-            .stSelectbox:nth-of-type(5) > div[data-baseweb="select"] > div {
+            div[data-testid="stSelectbox"] > div {
                 background-color: #083266 !important;
             }
-            .stSelectbox:nth-of-type(5) > div[data-baseweb="select"] * {
+            div[data-testid="stSelectbox"] * {
                 color: white !important;
             }
             </style>
