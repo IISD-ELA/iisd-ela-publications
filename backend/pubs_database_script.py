@@ -370,16 +370,6 @@ with col1:
                           IISD-ELA researchers, please use the "General Search"
                           function.
                        """
-    # This will look for any author tags in embed URL (for scientist profiles only)
-    # if 'author_tags' in st.query_params:
-    #     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
-    #                                  options=sorted(iisd_ela_authors),
-    #                                  key='multi_author_tags',
-    #                                  default=st.query_params.author_tags,
-    #                                  help=tags_help_general + 
-    #                                       author_tags_help)
-    # If no author tags in URL, proceed as normal
-    
     author_tags = st.multiselect(r"$\bold{Search} \: \bold{by} \: \bold{authors}$",
                                     options=sorted(iisd_ela_authors),
                                     key='multi_author_tags',
@@ -396,6 +386,21 @@ with col1:
                                            index=author_type_options.index('<select a filter>'),
                                            key='selectbox_author_type',
                                            help=author_types_help)
+    
+    if author_types != '<select a filter>':
+        st.markdown(
+            """
+            <style>
+            div[data-baseweb="select"] > div {
+                background-color: #083266 !important;
+            }
+            div[data-baseweb="select"] * {
+                color: white !important;
+            }
+            </style>
+            """, 
+            unsafe_allow_html=True
+        )
     
 
     # Create columns for side-by-side year filters
