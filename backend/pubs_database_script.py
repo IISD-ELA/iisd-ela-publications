@@ -381,13 +381,13 @@ with col1:
             <style>
             div[class*="selectbox_author_type"] div[data-baseweb="select"] > div {
                 background-color: #083266 !important;
-                margin 0;
-                padding 0;
+                margin -1;
+                padding -1;
             }
             div[class*="selectbox_author_type"] div[data-baseweb="select"] * {
                 color: white !important;
-                margin 0;
-                padding 0;
+                margin -1;
+                padding -1;
             }
             </style>
             """, 
