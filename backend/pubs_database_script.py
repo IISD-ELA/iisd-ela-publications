@@ -377,8 +377,7 @@ with col1:
     
     if author_types != '<select a filter>':
         st.markdown(
-            """
-            <style>
+            """<style>
             div[class*="selectbox_author_type"] div[data-baseweb="select"] > div {
                 background-color: #083266 !important;
                 margin -1;
@@ -389,8 +388,7 @@ with col1:
                 margin -1;
                 padding -1;
             }
-            </style>
-            """, 
+            </style>""", 
             unsafe_allow_html=True
         )
 
