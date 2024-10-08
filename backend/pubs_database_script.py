@@ -391,7 +391,7 @@ with col1:
         st.markdown(
             """
             <style>
-            div[data-baseweb="select"] > div {
+            .stSelectbox:nth-of-type(5) > div[data-baseweb="select"] > div {
                 background-color: #083266 !important;
             }
             div[data-baseweb="select"] * {
