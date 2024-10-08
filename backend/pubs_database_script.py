@@ -375,23 +375,17 @@ with col1:
                                            key='selectbox_author_type',
                                            help=author_types_help)
     
+    # Inject custom CSS to make non-default options blue with white font
     if author_types != '<select a filter>':
-        st.markdown(
+        st.html(
             """<style>
-            div[class*="selectbox_author_type"] {
-                margin: 0 !important;
-                padding: 0 !important;
-            }
             div[class*="selectbox_author_type"] div[data-baseweb="select"] > div {
                 background-color: #083266 !important;
             }
             div[class*="selectbox_author_type"] div[data-baseweb="select"] * {
                 color: white !important;
             }
-            </style>""", 
-            unsafe_allow_html=True
-        )
-
+            </style>""")
 
     # Create columns for side-by-side year filters
     col3, col4 = st.columns(2)
