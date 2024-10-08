@@ -379,30 +379,36 @@ with col1:
     #     st.markdown(
     #         """
     #         <style>
-    #         div[data-baseweb="select"] > div {
+    #         div[class*="selectbox_author_type"] div[data-baseweb="select"] > div {
     #             background-color: #083266 !important;
     #         }
-    #         div[data-baseweb="select"] * {
+    #         div[class*="selectbox_author_type"] div[data-baseweb="select"] * {
     #             color: white !important;
     #         }
     #         </style>
     #         """, 
     #         unsafe_allow_html=True
     #     )
+
     if author_types != '<select a filter>':
         st.markdown(
             """
             <style>
-            div[class*="selectbox_author_type"] div[data-baseweb="select"] > div {
+            .selectbox_author_type div[data-baseweb="select"] > div {
                 background-color: #083266 !important;
+                margin: 0;  /* Adjust margin if necessary */
+                padding: 0;  /* Adjust padding if necessary */
             }
-            div[class*="selectbox_author_type"] div[data-baseweb="select"] * {
+            .selectbox_author_type div[data-baseweb="select"] * {
                 color: white !important;
+                margin: 0;  /* Adjust margin if necessary */
+                padding: 0;  /* Adjust padding if necessary */
             }
             </style>
             """, 
             unsafe_allow_html=True
         )
+
 
 
     # Create columns for side-by-side year filters
