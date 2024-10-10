@@ -434,7 +434,7 @@ with col1:
 
 # Write disclaimer on bottom of page
 disclaimer_string = (f'**<div style="font-size: 12px;">Our search engine currently '
-                     f'only includes publications from recent years, and '
+                     f'only includes publications from certain years, and '
                      f'we are actively working to complete our publications database. '
                      f'If you notice any missing publications or encounter issues '
                      f'with this search engine, please reach out to us at eladata@iisd-ela.org.'
