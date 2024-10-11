@@ -2,12 +2,12 @@
 **Last Updated:** 2024-10-10, **Last Updated By:** Idil Yaktubay (iyaktubay@iisd-ela.org)
 
 ## Contents
-* [Background](#background)
+* [Motivation](#motivation)
 * [Usage](#usage)
 * [Data Source](#data-source)
 * [Contact and Support](#contact-and-support)
 
-## Background
+## Motivation
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To help everyone discover IISD-ELA publications, we have compiled an online publications database on Google Sheets and developed a search interface to that database using the open-source Python framework called ```streamlit```. The search interface has been deployed on Streamlit Community Cloud and will soon be embedded into the IISD-ELA website for all users to access.
 
 ## Usage
