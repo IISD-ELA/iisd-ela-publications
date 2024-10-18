@@ -295,8 +295,7 @@ if 'author_tags' in st.query_params:
 
     # Create title string for scientist
     title_string_scientist = (f"<h2 style='color: #083266;'>Academic Publications by "
-                              f"{st.query_params.author_tags} "
-                              f"({year_start_scientist}-{year_end_scientist})</h2>")
+                              f"{st.query_params.author_tags}</h2>")
 
     # Create Title
     st.markdown(title_string_scientist,
@@ -310,11 +309,14 @@ if 'author_tags' in st.query_params:
         for index, row in result_for_scientist.iterrows():
             exec(show_publications)
     
-    disclaimer_string_scientist = """
+    disclaimer_string_scientist = f"""
                                   <div style="font-size: 12px;">
                                   <b>
-                                  This list is retrieved from the IISD-ELA
-                                  <a href='https://iisd-ela-pubs-search-engine.streamlit.app/'>publications database</a>.</b>
+                                  Due to ongoing improvements in our <a href='https://iisd-ela-pubs-search-engine.streamlit.app/'>publications database</a>, 
+                                  the list of publications for {st.query_params.author_tags} includes
+                                  only those from certain years and may not represent the scientist's
+                                  complete academic history. 
+                                  </b>
                                   </div>"""
     st.markdown(disclaimer_string_scientist,
                 unsafe_allow_html=True)
