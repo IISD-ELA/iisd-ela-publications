@@ -294,7 +294,7 @@ if 'author_tags' in st.query_params:
 
 
     # Create title string for scientist
-    title_string_scientist = (f"<h2 style='color: #083266;'>Publications by "
+    title_string_scientist = (f"<h2 style='color: #083266;'>Academic Publications by "
                               f"{st.query_params.author_tags} "
                               f"({year_start_scientist}-{year_end_scientist})</h2>")
 
