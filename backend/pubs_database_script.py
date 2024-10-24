@@ -6,7 +6,7 @@
 # Link to search engine: https://iisd-ela-pubs-search-engine.streamlit.app/
 # Author: Idil Yaktubay (iyaktubay@iisd-ela.org)
 
-# Last Updated: 10-11-2024
+# Last Updated: 10-24-2024
 # Last Updated by: Idil Yaktubay
 
 
@@ -308,16 +308,20 @@ if 'author_tags' in st.query_params:
         # Display each row as a string
         for index, row in result_for_scientist.iterrows():
             exec(show_publications)
-    
+
+
+    # Add disclaimer text at the end
     disclaimer_string_scientist = f"""
-                                  <div style="font-size: 12px;">
+                                  <hr style="border: none; border-top: 2px solid #29c3ec; margin-bottom: 5px;">
+                                  <div style="font-size: 15px; color: #083266; margin-top: 5px;">
                                   <b>
-                                  Due to ongoing improvements in our <a href='https://iisd-ela-pubs-search-engine.streamlit.app/'>publications database</a>, 
+                                  Due to ongoing improvements in our <a href='https://www.iisd.org/ela/researchers/publications/'>publications database</a>, 
                                   the list of publications for {st.query_params.author_tags} includes
                                   only those from certain years and may not represent the scientist's
                                   complete academic history. 
                                   </b>
                                   </div>"""
+    
     st.markdown(disclaimer_string_scientist,
                 unsafe_allow_html=True)
 
@@ -449,9 +453,10 @@ result_for_user = combined_search(
 
 
 # Write disclaimer on bottom of page
-disclaimer_string = (f'**<div style="font-size: 18px;">Current year range: '
-                     f'{data_year_min}-{data_year_max}' 
-                     f'**</div>')
+disclaimer_string = (f"""<hr style="border: none; border-top: 2px solid #29c3ec; margin-bottom: 5px; margin-top: 5px">
+                     <div style="font-size: 15px; color: #083266; margin-top: 5px;"><b>Current year range: 
+                     {data_year_min}-{data_year_max} </b>
+                     </div>""")
 
 st.markdown(disclaimer_string,
             unsafe_allow_html=True)
