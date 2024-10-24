@@ -449,7 +449,7 @@ result_for_user = combined_search(
 
 
 # Write disclaimer on bottom of page
-disclaimer_string = (f'**<div style="font-size: 16px;">Current year range: '
+disclaimer_string = (f'**<div style="font-size: 18px;">Current year range: '
                      f'{result_for_user["year"].min()}-{result_for_user["year"].max()}' 
                      f'**</div>')
 
