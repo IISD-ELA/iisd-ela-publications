@@ -453,7 +453,7 @@ result_for_user = combined_search(
 
 # Write disclaimer on bottom of page
 disclaimer_string = (f"""<hr style="border: none; border-top: 2px solid #29c3ec; margin-bottom: 5px; margin-top: 5px">
-                     <div style="font-size: 15px; color: #083266; margin-top: 5px;"><b>Current year range: 
+                     <div style="font-size: 18px; color: #083266; margin-top: 5px;"><b>Current year range: 
                      {data_year_min}-{data_year_max} </b>
                      </div>""")
 
