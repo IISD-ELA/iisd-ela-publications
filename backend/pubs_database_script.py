@@ -312,7 +312,7 @@ if 'author_tags' in st.query_params:
 
     # Add disclaimer text at the end
     disclaimer_string_scientist = f"""
-                                  <hr style="border: none; border-top: 2px solid #29c3ec; margin-bottom: 5px;">
+                                  <hr style="border: none; border-top: 2px solid #29c3ec; margin-bottom: 5px; margin-top: 5px;">
                                   <div style="font-size: 15px; color: #083266; margin-top: 5px;">
                                   <b>
                                   Due to ongoing improvements in our <a href='https://www.iisd.org/ela/researchers/publications/'>publications database</a>, 
