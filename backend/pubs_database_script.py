@@ -432,18 +432,6 @@ with col1:
     general_search_query = st.text_input(r"$\bold{General} \: \bold{search}$", "",
                                          key='text_gen_search',
                                          help=gen_search_help)
-        
-
-# Write disclaimer on bottom of page
-disclaimer_string = (f'**<div style="font-size: 12px;">Our search engine currently '
-                     f'only includes publications from certain years, and '
-                     f'we are actively working to complete our publications database. '
-                     f'If you notice any missing publications or encounter issues '
-                     f'with this search engine, please reach out to us at eladata@iisd-ela.org.'
-                     f'**</div>')
-
-st.markdown(disclaimer_string,
-            unsafe_allow_html=True)
 
 
 # Call combined_search function to filter the data based on user queries
@@ -458,6 +446,15 @@ result_for_user = combined_search(
                                 year_range_end,
                                 general_search_query
                                 ).sort_values(by=['authors', 'year'])
+
+
+# Write disclaimer on bottom of page
+disclaimer_string = (f'**<div style="font-size: 16px;">Current year range: '
+                     f'{result_for_user["year"].min()}-{result_for_user["year"].max()}' 
+                     f'**</div>')
+
+st.markdown(disclaimer_string,
+            unsafe_allow_html=True)
 
 
 # Prepare authors values for APA format
