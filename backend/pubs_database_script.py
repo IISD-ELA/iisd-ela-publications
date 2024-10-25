@@ -112,9 +112,9 @@ if row['type'] == 'journal':
     row_string =(f"{row['authors']} ({row['year']}). " 
                     f"{row['title']}. *{row['journal_name']}*, " 
                     f"*{str(int(row['journal_vol_no']))}*" 
-                    f"({str(int(row['journal_issue_no']))})" 
+                    f"{'(' + str(int(row['journal_issue_no'])) + ')' if not pd.isna(row['journal_issue_no']) else ''}" 
                     f"{', '+str(row['journal_page_range']) if not pd.isna(row['journal_page_range']) else ''}. " 
-                    f"{row['doi_or_url']}"
+                    f"{row['doi_or_url'] if not pd.isna(row['doi_or_url']) else ''}"
                 )
 
 # Format theses in APA 7th ed format
