@@ -316,8 +316,7 @@ if 'author_tags' in st.query_params:
                                   <div style="font-size: 15px; color: #083266; margin-top: 5px;">
                                   <b>
                                   Due to ongoing improvements in our <a href='https://www.iisd.org/ela/researchers/publications/'>publications database</a>, 
-                                  the list of publications for {st.query_params.author_tags} includes
-                                  only those from certain years.
+                                  the list of publications for {st.query_params.author_tags} may not be complete.
                                   </b>
                                   </div>"""
     
