@@ -19,7 +19,7 @@
 - To examine the tags associated with each publication, the user can hover above the question mark icons found next to each publication. 
 
 ## Data Source
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The publications data for this search engine is pulled directly from a private backend Google Sheet using Google Sheet APIs. For now, the Google Sheet database only contains publications data from certain years. Completing this database to include all IISD-ELA publications is an ongoing effort.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The publications data for this search engine is pulled directly from a private backend Google Sheet using Google Sheet APIs. Completing this database to include all IISD-ELA publications is an ongoing effort.
 
 ## Contact and Support
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If you encounter any issues or bugs, or would like to receive additional information about this search engine, please contact us at eladata@iisd-ela.org.
