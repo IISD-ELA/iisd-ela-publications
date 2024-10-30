@@ -148,12 +148,12 @@ st.markdown(row_string,
 
 
 def clear_search_params():
-    """
-    Return None after clearing all input search parameters in inputs
-    by clearing the app's session state.
-    For more info on streamlit session states, go to:
-    https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
-    """
+    _ = """
+        Return None after clearing all input search parameters in inputs
+        by clearing the app's session state.
+        For more info on streamlit session states, go to:
+        https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
+        """
     
     # Store all widget keys in a list 
     # this is so that clear_search_params can access widgets to clear inputs
@@ -178,11 +178,11 @@ def combined_search(data: pd.DataFrame,
                     year_end_query=None, 
                     general_search_query=None):
     
-    """
-    Return filtered version of data DataFrame according to user queries.
-    All function arguments that end with _query have been predefined
-    to allow calling the function with only a few arguments.
-    """
+    _ = """
+        Return filtered version of data DataFrame according to user queries.
+        All function arguments that end with _query have been predefined
+        to allow calling the function with only a few arguments.
+        """
     
     # Define a list of query and condition pairs for search by tag functions
     queries = [ (data_type_query,
