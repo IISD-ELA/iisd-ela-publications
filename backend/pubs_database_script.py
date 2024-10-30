@@ -210,13 +210,21 @@ def combined_search(data: pd.DataFrame,
 
     
     # Gather all dataframes that satisfy at least one of the query-condition pairs
-    list_result_datasets = []
+    # (e.g., if the queries are author "Palace, V." and data type "Hydrology", 
+    #        list_result_datasets will contain the dataset for "Palace, V." publications 
+    #        and the dataset for hydrology publications for a total of two list elements)
+    list_result_datasets = [] 
     for query, condition in queries:
         if query:
-            list_result_datasets.append(data[condition])
+            # add the dataset satisfying the condition for the query to the list
+            # (e.g., if query is author "Palace, V.", append the dataset for "Palace, V." 
+            #        publications to list_result_datasets)
+            list_result_datasets.append(data[condition]) 
 
-    # Concatenate all dataframes that satify at least one of the query-condition pairs
-    # Also drop duplicates
+    # Concatenate all dataframes in list_result_datasets but also drop duplicates
+    # Duplicates must be dropped in case multiple queries satisfy the same condition
+    # (e.g., querying author "Palace, V." results in the same publication as querying
+    #        author "Higgins, S." since they are co-authors in some papers)
     if len(list_result_datasets) > 0:
         data = \
           pd.concat(list_result_datasets, ignore_index=True, axis=0).drop_duplicates()
@@ -227,9 +235,11 @@ def combined_search(data: pd.DataFrame,
     if year_end_query:
         data = data[lambda data: data['year'] <= year_end_query]
 
-    
     # Filter by general search queries
     if general_search_query:
+        # Filter out columns that do not need to be searched, 
+        # convert each row into a string, ignore capitalization, 
+        # and search each row string for the search query
         data = data[data.loc[:, ~data.columns.isin(['source',
                                         'approved_date',
                                         'approved_by',
@@ -239,7 +249,7 @@ def combined_search(data: pd.DataFrame,
                         ].apply(lambda row: 
                             row.astype(str).str.contains(general_search_query,
                                                         case=False).any(), 
-                               axis=1)
+                               axis=1) # axis=1 means row, axis=0 means column
                     ]
     
     # Filter by author types current researchers or other researchers (no students)
