@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "30 17 * * *"
+    - cron: "30 12 * * *"
 
 jobs:
   wake-up:
