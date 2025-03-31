@@ -23,7 +23,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The publications data for this search engine is pulled directly from a [private backend Google Sheet](https://docs.google.com/spreadsheets/d/1USrhFJ-0ujQhubVdnr3ww-2tHtA90CHvZ7MhE9sewtY/edit?gid=1707056458#gid=1707056458) using Google Sheet APIs. This database is updated on an ongoing basis, in an effort to include all IISD-ELA publications.
 
 ## Detailed Project Organization
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Please note that the wake-up.yml file is a modified version of [this file](https://github.com/Aditya190803/st-awake-template/blob/main/.github/workflows/wake_up.yml.sample), the streamlit_app.py is a modified version of [this file](https://github.com/Aditya190803/st-awake-template/blob/main/streamlit_app.py), and the wake_up_streamlit.py is an exact copy of [this file](https://github.com/Aditya190803/st-awake-template/blob/main/wake_up_streamlit.py). 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Please note that the ```wake-up.yml``` file is a modified version of [this file](https://github.com/Aditya190803/st-awake-template/blob/main/.github/workflows/wake_up.yml.sample), the ```streamlit_app.py``` is a modified version of [this file](https://github.com/Aditya190803/st-awake-template/blob/main/streamlit_app.py), and the ```wake_up_streamlit.py``` is an exact copy of [this file](https://github.com/Aditya190803/st-awake-template/blob/main/wake_up_streamlit.py). 
 
 ------------
 
@@ -48,7 +48,7 @@
 │                                              interface.
 ├── wake_up_streamlit.py                    <- The Python script that wakes up the IISD-ELA search interface.
 └── .gitignore                              <- The file that tells git to ignore the secrets.toml file that this app
-                                               requires to run successfully.
+                                            requires to run successfully.
 
 ```
 ## Contact and Support
