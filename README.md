@@ -43,7 +43,7 @@
 │   └── wake-up.yml                         <- The GitHub Actions workflow configuration file that keeps the IISD-ELA
 │   │                                          publications search interface awake by calling wake_up_streamlit.py
 │   │                                          everyday at 17:30 UTC (12:30 PM CDT or 11:30 AM CST) or on push events
-│   │                                          to the main branch.
+│   │                                          to the main branch. The log file for each run is uploaded as an artifact.
 ├── streamlit_app.py                        <- File containing the global URL for the IISD-ELA publications search
 │                                              interface.
 ├── wake_up_streamlit.py                    <- The Python script that wakes up the IISD-ELA search interface.
