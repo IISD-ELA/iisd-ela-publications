@@ -5,6 +5,7 @@
 * [Motivation](#motivation)
 * [Usage](#usage)
 * [Data Source](#data-source)
+* [Detailed Project Organization](#detailed-project-organization)
 * [Contact and Support](#contact-and-support)
 
 ## Motivation
@@ -21,6 +22,35 @@
 ## Data Source
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The publications data for this search engine is pulled directly from a [private backend Google Sheet](https://docs.google.com/spreadsheets/d/1USrhFJ-0ujQhubVdnr3ww-2tHtA90CHvZ7MhE9sewtY/edit?gid=1707056458#gid=1707056458) using Google Sheet APIs. This database is updated on an ongoing basis, in an effort to include all IISD-ELA publications.
 
+## Detailed Project Organization
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Please note that the wake-up.yml file is a modified version of [this file](https://github.com/Aditya190803/st-awake-template/blob/main/.github/workflows/wake_up.yml.sample), the streamlit_app.py is a modified version of [this file](https://github.com/Aditya190803/st-awake-template/blob/main/streamlit_app.py), and the wake_up_streamlit.py is an exact copy of [this file](https://github.com/Aditya190803/st-awake-template/blob/main/wake_up_streamlit.py). 
+
+------------
+
+```
+├── README.md                               <- File containing general background information on the IISD-ELA 
+│                                              publications search interface including motivation, usage, 
+│                                              and data source.
+├── backend
+│   ├── pubs_database_script.py             <- Backend Python code for the IISD-ELA publications search interface. 
+│   │                                          It also contains useful comments and function descriptions for 
+│   │                                          understanding the code.
+│   └── requirements.txt                    <- The requirements file for reproducing the streamlit app.
+├── .streamlit
+│   ├── config.toml                         <- File that configures aspects of the IISD-ELA publications
+│   └──                                        search interface (e.g., color theme)
+├── .github/workflows                       
+│   └── wake-up.yml                         <- The GitHub Actions workflow configuration file that keeps the IISD-ELA
+│   │                                          publications search interface awake by calling wake_up_streamlit.py
+│   │                                          everyday at 17:30 UTC (12:30 PM CDT or 11:30 AM CST) or on push events
+│   │                                          to the main branch.
+├── streamlit_app.py                        <- File containing the global URL for the IISD-ELA publications search
+│                                              interface.
+├── wake_up_streamlit.py                    <- The Python script that wakes up the IISD-ELA search interface.
+└── .gitignore                              <- The file that tells git to ignore the secrets.toml file that this app
+                                               requires to run successfully.
+
+```
 ## Contact and Support
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If you encounter any issues or bugs, or would like to receive additional information about this search engine, please contact us at eladata@iisd-ela.org.
 
