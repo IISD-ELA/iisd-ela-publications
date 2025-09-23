@@ -2,19 +2,24 @@ import requests
 import datetime
 from streamlit_app import STREAMLIT_APPS
 
-with open("wakeup_log.txt", "a") as log_file:
+with open("wakeup_log.txt", "a", encoding="utf-8") as log_file:
     log_file.write(f"Execution started at: {datetime.datetime.now()}\n")
 
     for url in STREAMLIT_APPS:
         try:
             r = requests.get(url, timeout=30)
+            content = r.text.lower()
+
             if r.status_code == 200:
-                log_file.write(f"[{datetime.datetime.now()}] Successfully pinged {url}\n")
+                if "get this app back up" in content or "app is sleeping" in content:
+                    log_file.write(f"[{datetime.datetime.now()}] App was asleep at: {url} → ping sent to wake it\n")
+                else:
+                    log_file.write(f"[{datetime.datetime.now()}] App already awake at: {url}\n")
             else:
                 log_file.write(f"[{datetime.datetime.now()}] Unexpected status {r.status_code} for {url}\n")
+
         except Exception as e:
             log_file.write(f"[{datetime.datetime.now()}] Error pinging {url}: {str(e)}\n")
-
 #================================OLD CODE, IGNORE==============================================================
 # from selenium import webdriver
 # from selenium.webdriver.common.by import By
