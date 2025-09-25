@@ -38,14 +38,14 @@ def main():
             # After clicking, check if it disappears
             try:
                 wait.until(EC.invisibility_of_element_located((By.XPATH, "//button[contains(text(),'Yes, get this app back up')]")))
-                print("Button clicked and disappeared ✅ (app should be waking up)")
+                print("Button clicked and disappeared (app should be waking up)")
             except TimeoutException:
-                print("Button was clicked but did NOT disappear ❌ (possible failure)")
+                print("Button was clicked but did NOT disappear (possible failure)")
                 exit(1)
 
         except TimeoutException:
             # No button at all → app is assumed to be awake
-            print("No wake-up button found. Assuming app is already awake ✅")
+            print("No wake-up button found. Assuming app is already awake.")
 
     except Exception as e:
         print(f"Unexpected error: {e}")
