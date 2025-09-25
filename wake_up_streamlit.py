@@ -95,7 +95,7 @@ with open("wakeup_log.txt", "a") as log_file:
             driver.get(url)
 
             wait_time_s = 30
-            log_file.write(f"Waiting {wait_time_s} seconds for JS to load..."
+            log_file.write(f"Waiting {wait_time_s} seconds for JS to load...")
             time.sleep(wait_time_s)
 
             buttons = driver.find_elements(By.TAG_NAME, "button")
