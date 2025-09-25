@@ -63,6 +63,14 @@ jobs:
       - name: Run Python script to wake up Streamlit apps
         run: python wake_up_streamlit.py
 
+      - name: Upload debug files
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-files
+          path: |
+            debug_page.html
+            debug_screenshot.png
+
       - name: Upload log file as artifact
         uses: actions/upload-artifact@v4
         with:
