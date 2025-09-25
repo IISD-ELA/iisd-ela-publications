@@ -78,10 +78,18 @@ import datetime
 import tempfile
 
 options = webdriver.ChromeOptions()
-# options.add_argument("--headless=new")  # re-enable once debug is done
+
+# Headless is important on CI
+options.add_argument("--headless=new")   # better than plain --headless
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
-options.add_argument(f"--user-data-dir={tempfile.mkdtemp()}")  # <--- add this
+
+# Force an isolated profile dir
+options.add_argument(f"--user-data-dir={tempfile.mkdtemp()}")
+
+# Disable GPU and extensions (can interfere in CI)
+options.add_argument("--disable-gpu")
+options.add_argument("--disable-extensions")
 
 driver = webdriver.Chrome(options=options)
 
