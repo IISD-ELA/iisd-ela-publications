@@ -80,8 +80,8 @@ import datetime
 
 options = webdriver.ChromeOptions()
 # options.add_argument('--headless=new')  # better JS support
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-gpu')
+# options.add_argument('--no-sandbox')
+# options.add_argument('--disable-gpu')
 
 driver = webdriver.Chrome(options=options)
 
