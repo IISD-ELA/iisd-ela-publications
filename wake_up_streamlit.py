@@ -91,6 +91,13 @@ with open("wakeup_log.txt", "a") as log_file:
     for url in STREAMLIT_APPS:
         try:
             driver.get(url)
+                    
+            # dump the HTML to a file
+            with open("debug_page.html", "w", encoding="utf-8") as f:
+                f.write(driver.page_source)
+            
+            # take a screenshot
+            driver.save_screenshot("debug_screenshot.png")
             try:
                 # wait up to 15s for the button to appear
                 button = WebDriverWait(driver, 15).until(
