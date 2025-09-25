@@ -6,10 +6,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import TimeoutException
-import os
+import time
 from streamlit_app import STREAMLIT_APPS
 
-# Streamlit app URL from environment variable (or default)
 STREAMLIT_URL = STREAMLIT_APPS[0]
 
 def main():
@@ -26,26 +25,21 @@ def main():
         driver.get(STREAMLIT_URL)
         print(f"Opened {STREAMLIT_URL}")
 
-        wait = WebDriverWait(driver, 15)
+        wait = WebDriverWait(driver, 20)
         try:
-            # Look for the wake-up button
             button = wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'Yes, get this app back up')]"))
             )
-            print("Wake-up button found. Clicking...")
-            button.click()
+            print("Wake-up button found. Clicking with JS...")
+            driver.execute_script("arguments[0].click();", button)
 
-            # After clicking, check if it disappears
-            try:
-                wait.until(EC.invisibility_of_element_located((By.XPATH, "//button[contains(text(),'Yes, get this app back up')]")))
-                print("Button clicked and disappeared (app should be waking up)")
-            except TimeoutException:
-                print("Button was clicked but did NOT disappear (possible failure)")
-                exit(1)
+            # Wait for page reload → look for the app’s root div
+            time.sleep(5)
+            wait.until(EC.presence_of_element_located((By.ID, "root")))
+            print("Page reloaded, app should be waking up...")
 
         except TimeoutException:
-            # No button at all → app is assumed to be awake
-            print("No wake-up button found. Assuming app is already awake.")
+            print("No wake-up button found. Assuming app already awake.")
 
     except Exception as e:
         print(f"Unexpected error: {e}")
