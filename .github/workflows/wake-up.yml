@@ -41,7 +41,7 @@ on:
       - main
   schedule:
     - cron: "30 12 * * *"
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   wake-up:
