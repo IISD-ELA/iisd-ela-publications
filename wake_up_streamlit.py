@@ -9,7 +9,7 @@ with open("wakeup_log.txt", "a", encoding="utf-8") as log_file:
         try:
             r = requests.get(url, timeout=30)
             content = r.text.lower()
-
+            log_file.write(f"Retrieved contents via GET API: \n{content}\n")
             if r.status_code == 200:
                 if "get this app back up" in content or "app is sleeping" in content:
                     log_file.write(f"[{datetime.datetime.now()}] App was asleep at: {url} → ping sent to wake it\n")
