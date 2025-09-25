@@ -77,9 +77,10 @@ from streamlit_app import STREAMLIT_APPS
 import datetime
 
 options = webdriver.ChromeOptions()
-# options.add_argument('--headless=new')  # better JS support
-options.add_argument('--no-sandbox')
+# options.add_argument("--headless=new")  # re-enable once debug is done
+options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
+options.add_argument(f"--user-data-dir={tempfile.mkdtemp()}")  # <--- add this
 
 driver = webdriver.Chrome(options=options)
 
