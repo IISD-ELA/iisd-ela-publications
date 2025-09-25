@@ -1,5 +1,3 @@
-
-
 #========================================METHOD#1==============================================================
 # import requests
 # import datetime
@@ -80,29 +78,43 @@ import datetime
 
 options = webdriver.ChromeOptions()
 # options.add_argument('--headless=new')  # better JS support
-# options.add_argument('--no-sandbox')
-# options.add_argument('--disable-gpu')
+options.add_argument('--no-sandbox')
+options.add_argument("--disable-dev-shm-usage")
 
 driver = webdriver.Chrome(options=options)
 
 with open("wakeup_log.txt", "a") as log_file:
     log_file.write(f"Execution started at: {datetime.datetime.now()}\n")
+            
     iframes = driver.find_elements(By.TAG_NAME, "iframe")
-    log_file.write(f"Found iframes: {len(iframes)}")
+    log_file.write(f"(DEBUG 1) Found iframes: {len(iframes)}")
             
     for url in STREAMLIT_APPS:
         try:
+            log_file.write(f"Opening {url} ...")
             driver.get(url)
-                    
+
+            wait_time_s = 30
+            log_file.write(f"Waiting {wait_time_s} seconds for JS to load..."
+            time.sleep(wait_time_s)
+
+            buttons = driver.find_elements(By.TAG_NAME, "button")
+            log_file.write(f"(DEBUG 2) Found {len(buttons)} buttons:")
+            for i, b in enumerate(buttons, start=1):
+                log_file.write(f"  Button {i}: '{b.text}'")
+                        
             # dump the HTML to a file
             with open("debug_page.html", "w", encoding="utf-8") as f:
                 f.write(driver.page_source)
             
             # take a screenshot
             driver.save_screenshot("debug_screenshot.png")
+
+            log_file.write("Saved debug_page.html and debug_screenshot.png")
+            
             try:
-                # wait up to 15s for the button to appear
-                button = WebDriverWait(driver, 30).until(
+                # wait up to 30s for the button to appear
+                button = WebDriverWait(driver, wait_time_s).until(
                     EC.element_to_be_clickable(
                         (By.XPATH, "//button[contains(text(), 'get this app back up')]")
                     )
