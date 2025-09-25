@@ -25,7 +25,7 @@ def main():
         try:
             driver.get(STREAMLIT_URL)
             print(f"Opened {STREAMLIT_URL}\n")
-            log_file.write(f"Opened {STREAMLIT_URL}")
+            log_file.write(f"Opened {STREAMLIT_URL}\n")
     
             wait = WebDriverWait(driver, 20)
             try:
