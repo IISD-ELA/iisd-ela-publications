@@ -71,29 +71,39 @@
 #===============================================METHOD#3===========================================
 
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 from streamlit_app import STREAMLIT_APPS
 import datetime
-import time
 
-# Set up headless Chrome
 options = webdriver.ChromeOptions()
-options.add_argument('--headless=new')  # use the new headless mode for JS support
-options.add_argument('--disable-gpu')
+options.add_argument('--headless=new')  # better JS support
 options.add_argument('--no-sandbox')
+options.add_argument('--disable-gpu')
 
 driver = webdriver.Chrome(options=options)
 
 with open("wakeup_log.txt", "a") as log_file:
     log_file.write(f"Execution started at: {datetime.datetime.now()}\n")
-    
+
     for url in STREAMLIT_APPS:
         try:
-            driver.get(url)  # just visit the page
-            time.sleep(5)    # wait a few seconds to let JS trigger the wake-up
-            log_file.write(f"[{datetime.datetime.now()}] Pinged app at: {url} to wake it\n")
+            driver.get(url)
+            try:
+                # wait up to 15s for the button to appear
+                button = WebDriverWait(driver, 15).until(
+                    EC.element_to_be_clickable(
+                        (By.XPATH, "//button[contains(text(), 'get this app back up')]")
+                    )
+                )
+                button.click()
+                log_file.write(f"[{datetime.datetime.now()}] Successfully clicked wake-up button at {url}\n")
+            except TimeoutException:
+                log_file.write(f"[{datetime.datetime.now()}] Wake-up button not found at {url}\n")
         except Exception as e:
-            log_file.write(f"[{datetime.datetime.now()}] Error pinging {url}: {str(e)}\n")
+            log_file.write(f"[{datetime.datetime.now()}] Error for {url}: {str(e)}\n")
 
 driver.quit()
 
