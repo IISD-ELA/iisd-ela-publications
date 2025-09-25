@@ -75,6 +75,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from streamlit_app import STREAMLIT_APPS
 import datetime
+import tempfile
 
 options = webdriver.ChromeOptions()
 # options.add_argument("--headless=new")  # re-enable once debug is done
