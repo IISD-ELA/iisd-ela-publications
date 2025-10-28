@@ -1,5 +1,5 @@
 # IISD-ELA Publications Search Engine
-**Last Updated:** 2024-10-28
+**Last Updated:** 2025-10-28
 
 ## Contents
 * [Motivation](#motivation)
