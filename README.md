@@ -48,6 +48,8 @@
 │                                              interface.
 ├── wake_up_streamlit.py                    <- The Python script that wakes up the IISD-ELA search interface.
 ├── requirements.txt                        <- The requirements file for running wake_up_streamlit.py
+├── dummy_commits.txt                       <- A text file to do dummy commits to prevent GitHub from pausing
+│                                              our Actions workflows after 60 days of repository inactivity.
 └── .gitignore                              <- The file that tells git to ignore the secrets.toml file that this app
                                             requires to run successfully.
 
