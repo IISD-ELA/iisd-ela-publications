@@ -89,6 +89,53 @@ const BASELINE_WIDGET_NAMES = {
 };
 
 test.describe("publications search", () => {
+  test("uses IISD-ELA theme styling and normal-weight option labels", async ({ page }) => {
+    await page.goto(APP_URL, { waitUntil: "domcontentloaded" });
+    await waitForApp(page, false);
+
+    const theme = await page.evaluate(() => {
+      const stylesFor = (selector) => getComputedStyle(document.querySelector(selector));
+      return {
+        bodyColor: stylesFor("body").color,
+        bodyFont: stylesFor("body").fontFamily,
+        headingColor: stylesFor("#results-title").color,
+        labelWeight: stylesFor("#data-type-tags .multi-label").fontWeight,
+        optionWeight: stylesFor("#data-type-tags .multi-option span").fontWeight,
+        citationFont: stylesFor(".citation").fontFamily
+      };
+    });
+
+    expect(theme.bodyColor).toBe("rgb(0, 0, 0)");
+    expect(theme.bodyFont).toContain("Proxima Nova");
+    expect(theme.bodyFont).toContain("Avenir Next LT Pro");
+    expect(theme.headingColor).toBe("rgb(8, 50, 102)");
+    expect(Number(theme.labelWeight)).toBeLessThan(600);
+    expect(Number(theme.optionWeight)).toBeLessThan(600);
+    expect(theme.citationFont).toContain("Georgia");
+  });
+
+  test("can load inside an iframe for WordPress embedding", async ({ page }) => {
+    await page.setContent(`
+      <!doctype html>
+      <html lang="en">
+        <body>
+          <iframe
+            id="publications-frame"
+            src="${APP_URL}"
+            title="IISD-ELA Publications Search"
+            style="width: 100%; height: 780px; border: 0;"
+          ></iframe>
+        </body>
+      </html>
+    `);
+
+    const app = page.frameLocator("#publications-frame");
+    await expect(app.locator("#results-title")).toHaveText(/Search Results \(\d+\)/, { timeout: 90000 });
+    await expect(app.locator("#author-tags .multi-option").first()).toBeAttached({ timeout: 90000 });
+    await expect(app.locator("html")).toHaveClass(/is-embedded/);
+    await expect(app.locator(".app-shell")).toHaveCSS("padding-top", "0px");
+  });
+
   for (const testCase of CASES) {
     test(testCase.name, async ({ browser }) => {
       const appPage = await browser.newPage();

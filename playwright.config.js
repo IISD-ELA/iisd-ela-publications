@@ -1,3 +1,5 @@
+const chromiumExecutablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
+
 module.exports = {
   testDir: "./tests",
   timeout: 120000,
@@ -9,6 +11,9 @@ module.exports = {
   reporter: [["list"]],
   use: {
     browserName: "chromium",
+    ...(chromiumExecutablePath
+      ? { launchOptions: { executablePath: chromiumExecutablePath } }
+      : { channel: "chromium" }),
     headless: true,
     viewport: { width: 1600, height: 900 },
     actionTimeout: 30000,

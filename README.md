@@ -26,6 +26,21 @@ To help everyone discover IISD-ELA publications, this project provides a browser
 - Results are sorted alphabetically and formatted using APA 7th edition citation rules.
 - Question mark icons beside each publication expose the associated metadata tags.
 
+### WordPress embedding
+
+The CloudFront app can be embedded in the IISD WordPress publications page with an iframe. The CloudFront response headers policy does not set `X-Frame-Options` or a CSP `frame-ancestors` directive, and the frontend trims its own outer padding when it detects that it is running inside an iframe.
+
+Example embed:
+
+```html
+<iframe
+  src="https://d1iaw8tusdj4u8.cloudfront.net/"
+  title="IISD-ELA Publications Search"
+  style="width: 100%; min-height: 760px; border: 0;"
+  loading="lazy"
+></iframe>
+```
+
 ## Data Source
 
 The publications data is pulled directly from a private backend Google Sheet using Google Sheets APIs. This database is updated on an ongoing basis to include IISD-ELA publications.
@@ -96,6 +111,8 @@ Run the Playwright suite against the deployed AWS app with:
 ```bash
 npm run test:playwright
 ```
+
+The Playwright suite includes functional search coverage, a theme check for the IISD-ELA navy/black styling, and an iframe smoke test for WordPress embedding.
 
 Run the Python unit tests with:
 

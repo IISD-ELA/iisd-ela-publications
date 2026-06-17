@@ -1,4 +1,12 @@
 const API_BASE = "/api";
+try {
+  if (window.self !== window.top) {
+    document.documentElement.classList.add("is-embedded");
+  }
+} catch (error) {
+  document.documentElement.classList.add("is-embedded");
+}
+
 const SELECTS = {
   data_type_tags: document.getElementById("data-type-tags"),
   env_issue_tags: document.getElementById("env-issue-tags"),

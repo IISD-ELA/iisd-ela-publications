@@ -1,13 +1,23 @@
 :root {
   color-scheme: light;
+  --font-sans: "Proxima Nova", "Avenir Next LT Pro", Avenir, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
   --blue: #083266;
   --cyan: #29c3ec;
-  --ink: #162033;
-  --muted: #617083;
-  --line: #d8e1ea;
-  --panel: #f6f8fb;
-  --focus: #147da0;
+  --ink: #000000;
+  --muted: #4d5966;
+  --line: #d6dde5;
+  --panel: #f7f8f9;
+  --control: #f1f3f5;
+  --control-border: #bec7cf;
+  --control-hover: #e7ebef;
+  --focus: #083266;
   --white: #ffffff;
+}
+
+html {
+  margin: 0;
+  background: var(--white);
 }
 
 * {
@@ -16,7 +26,7 @@
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
   color: var(--ink);
   background: var(--white);
   font-size: 16px;
@@ -30,6 +40,15 @@ a {
   width: 100%;
   margin: 0;
   padding: 18px 20px;
+}
+
+.is-embedded,
+.is-embedded body {
+  background: transparent;
+}
+
+.is-embedded .app-shell {
+  padding: 0;
 }
 
 .search-layout {
@@ -51,9 +70,9 @@ a {
   min-width: 0;
 }
 
-.field span {
+.field > span {
   color: var(--blue);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.25;
 }
 
@@ -66,17 +85,18 @@ input {
   background: var(--white);
   color: var(--ink);
   font: inherit;
+  font-weight: 400;
 }
 
 select {
   padding: 6px;
-  background: #d3d6d6;
-  border-color: #cfd3d4;
+  background: var(--control);
+  border-color: var(--control-border);
 }
 
 input {
-  background: #d3d6d6;
-  border-color: #cfd3d4;
+  background: var(--control);
+  border-color: var(--control-border);
   padding: 8px 10px;
 }
 
@@ -84,7 +104,7 @@ select:focus,
 input:focus,
 .multi-trigger:focus-visible,
 button:focus-visible {
-  outline: 3px solid rgba(41, 195, 236, 0.35);
+  outline: 3px solid rgba(8, 50, 102, 0.2);
   outline-offset: 1px;
   border-color: var(--focus);
 }
@@ -96,11 +116,11 @@ button:focus-visible {
 
 .multi-trigger {
   width: 100%;
-  min-height: 34px;
-  border: 1px solid #cfd3d4;
+  min-height: 38px;
+  border: 1px solid var(--control-border);
   border-radius: 5px;
-  background: #d3d6d6;
-  color: #7d858b;
+  background: var(--control);
+  color: #343a40;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 8px;
@@ -113,7 +133,7 @@ button:focus-visible {
 }
 
 .multi-trigger:hover {
-  background: #cbd0d0;
+  background: var(--control-hover);
 }
 
 .multi-trigger.has-selection {
@@ -128,7 +148,7 @@ button:focus-visible {
 }
 
 .multi-chevron {
-  color: #111827;
+  color: var(--blue);
   font-size: 14px;
   line-height: 1;
 }
@@ -141,10 +161,10 @@ button:focus-visible {
   right: 0;
   max-height: 270px;
   overflow: auto;
-  border: 1px solid #cfd3d4;
+  border: 1px solid var(--control-border);
   border-radius: 0 0 5px 5px;
   background: #ffffff;
-  box-shadow: 0 16px 28px rgba(16, 24, 40, 0.18);
+  box-shadow: 0 12px 24px rgba(8, 50, 102, 0.14);
   padding: 0;
 }
 
@@ -169,11 +189,11 @@ button:focus-visible {
 
 .multi-option:hover span,
 .multi-option input:focus-visible + span {
-  background: #eef3f7;
+  background: #eef2f6;
 }
 
 .multi-option input:checked + span {
-  background: #d0d0d0;
+  background: #dfe7ef;
 }
 
 .year-grid {
@@ -186,7 +206,7 @@ button:focus-visible {
 .scientist-disclaimer {
   border-top: 2px solid var(--cyan);
   color: var(--blue);
-  font-weight: 700;
+  font-weight: 600;
   padding-top: 8px;
 }
 
@@ -206,6 +226,8 @@ button:focus-visible {
 h1 {
   margin: 0;
   color: var(--blue);
+  font-family: var(--font-sans);
+  font-weight: 600;
   font-size: 26px;
   line-height: 1.2;
 }
@@ -217,7 +239,7 @@ button {
   color: var(--white);
   cursor: pointer;
   font: inherit;
-  font-weight: 700;
+  font-weight: 600;
   padding: 9px 12px;
 }
 
@@ -262,6 +284,7 @@ button:hover {
 }
 
 .citation {
+  font-family: var(--font-serif);
   line-height: 1.45;
 }
 
@@ -274,7 +297,7 @@ button:hover {
   color: var(--blue);
   display: inline-grid;
   place-items: center;
-  font-weight: 700;
+  font-weight: 600;
   padding: 0;
 }
 
