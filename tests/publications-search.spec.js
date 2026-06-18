@@ -136,6 +136,38 @@ test.describe("publications search", () => {
     await expect(app.locator(".app-shell")).toHaveCSS("padding-top", "0px");
   });
 
+  test("supports legacy scientist profile author_tags URLs", async ({ page }) => {
+    await page.goto(`${APP_URL}?author_tags=Hayhurst%2C+L.+D.;`, { waitUntil: "domcontentloaded" });
+    await waitForApp(page, true);
+    await waitForStableAppResults(page, true);
+
+    await expect(page.locator("#search-view")).toBeHidden();
+    await expect(page.locator("#scientist-title")).toHaveText("Academic Publications by Hayhurst, L. D.");
+    await expect(page.locator("#scientist-results .result-item").first()).toContainText("Hayhurst");
+  });
+
+  test("retries transient API failures while loading options", async ({ page }) => {
+    let optionAttempts = 0;
+    await page.route("**/api/options", async (route) => {
+      optionAttempts += 1;
+      if (optionAttempts === 1) {
+        await route.fulfill({
+          status: 500,
+          contentType: "application/json",
+          body: JSON.stringify({ error: "Temporary upstream timeout" })
+        });
+        return;
+      }
+      await route.continue();
+    });
+
+    await page.goto(APP_URL, { waitUntil: "domcontentloaded" });
+    await waitForApp(page, false);
+
+    expect(optionAttempts).toBeGreaterThanOrEqual(2);
+    await expect(page.locator("#status")).not.toHaveClass(/error/);
+  });
+
   for (const testCase of CASES) {
     test(testCase.name, async ({ browser }) => {
       const appPage = await browser.newPage();

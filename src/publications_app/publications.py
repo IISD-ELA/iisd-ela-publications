@@ -138,8 +138,12 @@ def _has_any(value, queries):
 
 
 def _has_any_author(value, queries):
-    values = {part.replace("& ", "") for part in str(value or "").split("; ")}
-    return any(str(query) in values for query in queries)
+    values = {_normalize_author_query(part) for part in str(value or "").split("; ")}
+    return any(_normalize_author_query(query) in values for query in queries)
+
+
+def _normalize_author_query(value):
+    return str(value or "").replace("& ", "").strip().rstrip(";").strip()
 
 
 def _unique_lakes(publications):

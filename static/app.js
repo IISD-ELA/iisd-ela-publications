@@ -1,4 +1,6 @@
 const API_BASE = "/api";
+const API_RETRY_DELAYS_MS = [600, 1600, 3200];
+
 try {
   if (window.self !== window.top) {
     document.documentElement.classList.add("is-embedded");
@@ -43,7 +45,7 @@ document.addEventListener("keydown", (event) => {
 
 async function init() {
   const query = new URLSearchParams(window.location.search);
-  const scientist = query.get("author_tags");
+  const scientist = normalizeAuthorParam(query.get("author_tags"));
 
   if (scientist) {
     searchView.hidden = true;
@@ -128,8 +130,10 @@ async function runSearch() {
 }
 
 async function renderScientist(author) {
+  author = normalizeAuthorParam(author);
   scientistTitle.textContent = `Academic Publications by ${author}`;
   scientistStatus.textContent = "Loading...";
+  scientistStatus.classList.remove("error");
   scientistResults.innerHTML = "";
   scientistDisclaimer.innerHTML = "";
 
@@ -174,11 +178,32 @@ function renderResults(container, results) {
 }
 
 async function getJson(url) {
-  const response = await fetch(url, { headers: { Accept: "application/json" } });
-  if (!response.ok) {
-    throw new Error(`Request failed with ${response.status}`);
+  let lastError;
+  for (let attempt = 0; attempt <= API_RETRY_DELAYS_MS.length; attempt += 1) {
+    try {
+      const response = await fetch(url, { headers: { Accept: "application/json" } });
+      if (!response.ok) {
+        const error = new Error(`Request failed with ${response.status}`);
+        error.status = response.status;
+        throw error;
+      }
+      return response.json();
+    } catch (error) {
+      lastError = error;
+      const isRetryable = !error.status || error.status === 408 || error.status === 429 || error.status >= 500;
+      if (!isRetryable || attempt === API_RETRY_DELAYS_MS.length) break;
+      await sleep(API_RETRY_DELAYS_MS[attempt]);
+    }
   }
-  return response.json();
+  throw lastError;
+}
+
+function normalizeAuthorParam(value) {
+  return String(value || "").trim().replace(/;+$/g, "").trim();
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
 }
 
 function fillSelect(select, values) {

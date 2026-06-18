@@ -41,6 +41,19 @@ Example embed:
 ></iframe>
 ```
 
+Scientist profile pages can embed an author-specific publication list by passing the `author_tags` query parameter from the existing Streamlit links:
+
+```html
+<iframe
+  src="https://d1iaw8tusdj4u8.cloudfront.net/?author_tags=Hayhurst%2C+L.+D."
+  title="IISD-ELA Publications by Lauren Hayhurst"
+  style="width: 100%; min-height: 620px; border: 0;"
+  loading="lazy"
+></iframe>
+```
+
+Legacy Streamlit profile URLs that include a trailing semicolon after the author tag are normalized by the AWS app.
+
 ## Data Source
 
 The publications data is pulled directly from a private backend Google Sheet using Google Sheets APIs. This database is updated on an ongoing basis to include IISD-ELA publications.
@@ -52,7 +65,7 @@ The deployed app is split into static browser assets and a small JSON API:
 - **CloudFront** is the public entry point. It serves the browser app and routes `/api/*` plus `/health` to API Gateway.
 - **S3** stores `static/index.html`, `static/app.js`, and `static/styles.css` in a private bucket. CloudFront reads the bucket through Origin Access Control, so the bucket is not public.
 - **API Gateway HTTP API** exposes `GET /api/options`, `GET /api/search`, and `GET /health`, then invokes the Lambda function synchronously.
-- **Lambda** runs the Python search backend from a zip artifact on the managed Python 3.14 runtime. It fetches publication data from Google Sheets, normalizes it, caches it briefly in the warm Lambda process, and returns JSON to the frontend.
+- **Lambda** runs the Python search backend from a zip artifact on the managed Python 3.14 runtime. It fetches publication data from Google Sheets, normalizes it, caches it in the warm Lambda process, and returns JSON to the frontend. If a refresh from Google Sheets times out, Lambda can serve a stale warm-process cache while Google Sheets recovers.
 - **SSM Parameter Store** holds runtime configuration. Google service account fields are read by Lambda at runtime, and the Google spreadsheet ID is read by OpenTofu and injected into Lambda as an environment variable during deploy.
 - **Google Sheets API** is the source of record for publication and author data.
 
@@ -112,7 +125,7 @@ Run the Playwright suite against the deployed AWS app with:
 npm run test:playwright
 ```
 
-The Playwright suite includes functional search coverage, a theme check for the IISD-ELA navy/black styling, and an iframe smoke test for WordPress embedding.
+The Playwright suite includes functional search coverage, a theme check for the IISD-ELA navy/black styling, an iframe smoke test for WordPress embedding, a scientist profile URL check, and a transient API failure retry check.
 
 Run the Python unit tests with:
 

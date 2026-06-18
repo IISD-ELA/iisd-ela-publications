@@ -1,3 +1,4 @@
+import logging
 import os
 import time
 
@@ -10,7 +11,8 @@ from .credentials import get_google_credentials_info
 
 
 SCOPES = ("https://www.googleapis.com/auth/spreadsheets.readonly",)
-_CACHE = {"expires_at": 0, "value": None}
+LOGGER = logging.getLogger(__name__)
+_CACHE = {"expires_at": 0, "stale_expires_at": 0, "value": None}
 
 
 def get_sheet_rows(cache_ttl_seconds=300, force_refresh=False):
@@ -27,7 +29,18 @@ def get_sheet_rows(cache_ttl_seconds=300, force_refresh=False):
         scopes=SCOPES,
     )
     session = AuthorizedSession(credentials)
-    response = _get_values(session)
+    try:
+        response = _get_values(session)
+    except RequestException:
+        if (
+            not force_refresh
+            and _CACHE["value"] is not None
+            and _CACHE["stale_expires_at"] > now
+        ):
+            LOGGER.warning("Using stale publications cache after Google Sheets fetch failed")
+            return _CACHE["value"]
+        raise
+
     value_ranges = response.json().get("valueRanges", [])
 
     rows_by_sheet = {}
@@ -42,6 +55,7 @@ def get_sheet_rows(cache_ttl_seconds=300, force_refresh=False):
     }
     _CACHE["value"] = payload
     _CACHE["expires_at"] = now + cache_ttl_seconds
+    _CACHE["stale_expires_at"] = now + int(os.getenv("PUBLICATIONS_STALE_CACHE_TTL_SECONDS", "86400"))
     return payload
 
 

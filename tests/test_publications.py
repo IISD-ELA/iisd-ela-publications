@@ -1,5 +1,8 @@
 import json
 
+from requests import RequestException
+
+from publications_app import google_sheets
 from publications_app import handler as handler_module
 from publications_app import publications
 
@@ -111,6 +114,63 @@ def test_citation_html_escapes_and_links_journal_fields(monkeypatch):
 
     assert "<em>Journal of Lakes</em>, <em>12</em>(3), 1-2." in citation
     assert '<a href="https://doi.org/10.0000/example"' in citation
+
+
+def test_author_query_accepts_legacy_trailing_semicolon(monkeypatch):
+    def sheet_rows(cache_ttl_seconds=300, force_refresh=False):
+        return {
+            "publications": PUBLICATION_ROWS
+            + [
+                {
+                    "approved": "Yes",
+                    "authors": "Hayhurst, L. D.; Example, E.",
+                    "year": "2026",
+                    "title": "Profile publication",
+                    "type": "journal",
+                    "data_type_tags": "Fish",
+                    "environmental_issue_tags": "Other",
+                    "lake_tags": "Other or Unspecified",
+                    "journal_name": "Journal of Profiles",
+                    "journal_vol_no": "",
+                    "journal_issue_no": "",
+                    "journal_page_range": "",
+                    "doi_or_url": "",
+                }
+            ],
+            "authors": AUTHOR_ROWS + [{"authors": "Hayhurst, L. D."}],
+        }
+
+    monkeypatch.setattr(publications, "get_sheet_rows", sheet_rows)
+
+    result = publications.search_publications({"author_tags": ["Hayhurst, L. D.;"]})
+
+    assert result["count"] == 1
+    assert "Profile publication" in result["results"][0]["citation_html"]
+
+
+def test_google_sheets_returns_stale_cache_on_timeout(monkeypatch):
+    cached_payload = {
+        "publications": [{"approved": "Yes"}],
+        "authors": [{"authors": "Cached, C."}],
+    }
+    monkeypatch.setattr(google_sheets.time, "monotonic", lambda: 1000)
+    monkeypatch.setitem(google_sheets._CACHE, "value", cached_payload)
+    monkeypatch.setitem(google_sheets._CACHE, "expires_at", 900)
+    monkeypatch.setitem(google_sheets._CACHE, "stale_expires_at", 2000)
+    monkeypatch.setattr(google_sheets, "get_google_credentials_info", lambda: {})
+    monkeypatch.setattr(
+        google_sheets.service_account.Credentials,
+        "from_service_account_info",
+        lambda *args, **kwargs: object(),
+    )
+    monkeypatch.setattr(google_sheets, "AuthorizedSession", lambda credentials: object())
+
+    def fail_fetch(session):
+        raise RequestException("Google Sheets timed out")
+
+    monkeypatch.setattr(google_sheets, "_get_values", fail_fetch)
+
+    assert google_sheets.get_sheet_rows() == cached_payload
 
 
 def test_empty_refresh_query_does_not_error(monkeypatch):
