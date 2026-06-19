@@ -199,7 +199,11 @@ async function getJson(url) {
 }
 
 function normalizeAuthorParam(value) {
-  return String(value || "").trim().replace(/;+$/g, "").trim();
+  return String(value || "")
+    .trim()
+    .replace(/;+$/g, "")
+    .trim()
+    .replace(/([A-Z])$/g, "$1.");
 }
 
 function sleep(ms) {

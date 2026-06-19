@@ -146,6 +146,16 @@ test.describe("publications search", () => {
     await expect(page.locator("#scientist-results .result-item").first()).toContainText("Hayhurst");
   });
 
+  test("supports author_tags URLs with email-truncated initial periods", async ({ page }) => {
+    await page.goto(`${APP_URL}?author_tags=Hayhurst%2C+L.+D`, { waitUntil: "domcontentloaded" });
+    await waitForApp(page, true);
+    await waitForStableAppResults(page, true);
+
+    await expect(page.locator("#search-view")).toBeHidden();
+    await expect(page.locator("#scientist-title")).toHaveText("Academic Publications by Hayhurst, L. D.");
+    await expect(page.locator("#scientist-results .result-item").first()).toContainText("Hayhurst");
+  });
+
   test("retries transient API failures while loading options", async ({ page }) => {
     let optionAttempts = 0;
     await page.route("**/api/options", async (route) => {

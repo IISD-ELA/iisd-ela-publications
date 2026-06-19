@@ -143,7 +143,7 @@ def _has_any_author(value, queries):
 
 
 def _normalize_author_query(value):
-    return str(value or "").replace("& ", "").strip().rstrip(";").strip()
+    return str(value or "").replace("& ", "").strip().rstrip(";").strip().replace(".", "")
 
 
 def _unique_lakes(publications):

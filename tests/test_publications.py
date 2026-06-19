@@ -148,6 +148,38 @@ def test_author_query_accepts_legacy_trailing_semicolon(monkeypatch):
     assert "Profile publication" in result["results"][0]["citation_html"]
 
 
+def test_author_query_accepts_missing_trailing_initial_period(monkeypatch):
+    def sheet_rows(cache_ttl_seconds=300, force_refresh=False):
+        return {
+            "publications": PUBLICATION_ROWS
+            + [
+                {
+                    "approved": "Yes",
+                    "authors": "Hayhurst, L. D.; Example, E.",
+                    "year": "2026",
+                    "title": "Profile publication",
+                    "type": "journal",
+                    "data_type_tags": "Fish",
+                    "environmental_issue_tags": "Other",
+                    "lake_tags": "Other or Unspecified",
+                    "journal_name": "Journal of Profiles",
+                    "journal_vol_no": "",
+                    "journal_issue_no": "",
+                    "journal_page_range": "",
+                    "doi_or_url": "",
+                }
+            ],
+            "authors": AUTHOR_ROWS + [{"authors": "Hayhurst, L. D."}],
+        }
+
+    monkeypatch.setattr(publications, "get_sheet_rows", sheet_rows)
+
+    result = publications.search_publications({"author_tags": ["Hayhurst, L. D"]})
+
+    assert result["count"] == 1
+    assert "Profile publication" in result["results"][0]["citation_html"]
+
+
 def test_google_sheets_returns_stale_cache_on_timeout(monkeypatch):
     cached_payload = {
         "publications": [{"approved": "Yes"}],
