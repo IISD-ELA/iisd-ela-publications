@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IISD-ELA Publications Search</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section id="search-view" class="search-layout" hidden>
+        <aside class="filters" aria-label="Publication filters">
+          <label class="field">
+            <span>Search by data types</span>
+            <div id="data-type-tags" class="multi-select"></div>
+          </label>
+
+          <label class="field">
+            <span>Search by environmental issues</span>
+            <div id="env-issue-tags" class="multi-select"></div>
+          </label>
+
+          <label class="field">
+            <span>Search by lakes</span>
+            <div id="lake-tags" class="multi-select"></div>
+          </label>
+
+          <label class="field">
+            <span>Search by authors</span>
+            <div id="author-tags" class="multi-select"></div>
+          </label>
+
+          <label class="field">
+            <span>Filter by author type</span>
+            <select id="author-type"></select>
+          </label>
+
+          <div class="year-grid">
+            <label class="field">
+              <span>Year start</span>
+              <input id="year-start" inputmode="numeric" autocomplete="off" />
+            </label>
+
+            <label class="field">
+              <span>Year end</span>
+              <input id="year-end" inputmode="numeric" autocomplete="off" />
+            </label>
+          </div>
+
+          <label class="field">
+            <span>General search</span>
+            <input id="general-search" autocomplete="off" />
+          </label>
+
+          <div id="year-range" class="year-range"></div>
+        </aside>
+
+        <section class="results-panel" aria-live="polite">
+          <div class="results-heading">
+            <h1 id="results-title">Search Results</h1>
+            <button id="clear-search" type="button">Clear all search parameters</button>
+          </div>
+          <div id="status" class="status"></div>
+          <div id="results" class="results-list"></div>
+        </section>
+      </section>
+
+      <section id="scientist-view" class="scientist-view" hidden>
+        <h1 id="scientist-title"></h1>
+        <div id="scientist-status" class="status"></div>
+        <div id="scientist-results" class="results-list scientist-results"></div>
+        <div id="scientist-disclaimer" class="scientist-disclaimer"></div>
+      </section>
+    </main>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "iisd-ela-publications",
+  "private": true,
+  "scripts": {
+    "test:python": "PYTHONPATH=src pytest tests/test_publications.py",
+    "test:playwright": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}

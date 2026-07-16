@@ -1,59 +1,181 @@
 # IISD-ELA Publications Search Engine
-**Last Updated:** 2025-10-28
+
+**Last Updated:** 2026-06-09
 
 ## Contents
+
 * [Motivation](#motivation)
 * [Usage](#usage)
 * [Data Source](#data-source)
-* [Detailed Project Organization](#detailed-project-organization)
+* [Architecture](#architecture)
+* [AWS Deployment](#aws-deployment)
+* [Testing](#testing)
+* [Project Organization](#project-organization)
 * [Contact and Support](#contact-and-support)
 
 ## Motivation
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To help everyone discover IISD-ELA publications, we have compiled an online publications database on Google Sheets and developed a search interface to that database using the open-source Python framework called ```streamlit```. The search interface has been deployed on Streamlit Community Cloud and embedded into a the IISD Website for all users to access.
+
+To help everyone discover IISD-ELA publications, this project provides a browser-based search interface backed by the IISD-ELA publications database in Google Sheets.
 
 ## Usage
-- The publications search engine can be accessed via the source [IISD-ELA search engine on Streamlit Community Cloud](https://iisd-ela-pubs-search-engine.streamlit.app/) or an embed on a [Publications page of the IISD website](https://www.iisd.org/ela/researchers/publications/). By default, the search engine will display a catalogue of *all* quality-checked publications in the backend Google Sheet database. 
-- The search results can be narrowed down by search tags of interest using the "Search by data types", "Search by environmental issues", "Search by lakes", and "Search by authors" functions. When multiple of these tags are chosen, the search engine will display publications that match *any* of the tags you selected. 
-- The search results can also be filtered using the "Filter by author type", "Year start", "Year end", and "General search" functions. When these filters are used, the search engine will *only* display publications that meet the selected or entered filter criteria. 
-- In addition, the user can search publications by any keyword that may not appear in the publication texts themselves (e.g., "eutrophication", "cyanobacteria") using the "General search" function as most backend records are tagged with additional keywords that may be included with the publication metadata.
-- In all cases, the returned publications will be sorted in alphabetical order and formatted following the APA 7th edition citation rules. 
-- To examine the tags associated with each publication, the user can hover above the question mark icons found next to each publication. 
+
+- The search engine displays all quality-checked publications by default.
+- Search results can be widened by selecting tags in "Search by data types", "Search by environmental issues", "Search by lakes", and "Search by authors". When multiple tags are selected, publications matching any selected tag are returned.
+- Search results can be narrowed by "Filter by author type", "Year start", "Year end", and "General search". These filters only return publications that meet the selected or entered criteria.
+- The "General search" field can match keywords that may not appear in citation text because backend records include additional publication metadata.
+- Results are sorted alphabetically and formatted using APA 7th edition citation rules.
+- Question mark icons beside each publication expose the associated metadata tags.
+
+### WordPress embedding
+
+The CloudFront app can be embedded in the IISD WordPress publications page with an iframe. The CloudFront response headers policy does not set `X-Frame-Options` or a CSP `frame-ancestors` directive, and the frontend trims its own outer padding when it detects that it is running inside an iframe.
+
+Example embed:
+
+```html
+<iframe
+  src="https://d1iaw8tusdj4u8.cloudfront.net/"
+  title="IISD-ELA Publications Search"
+  style="width: 100%; min-height: 760px; border: 0;"
+  loading="lazy"
+></iframe>
+```
+
+Scientist profile pages can embed an author-specific publication list by passing the `author_tags` query parameter from the existing Streamlit links:
+
+```html
+<iframe
+  src="https://d1iaw8tusdj4u8.cloudfront.net/?author_tags=Hayhurst%2C+L.+D."
+  title="IISD-ELA Publications by Lauren Hayhurst"
+  style="width: 100%; min-height: 620px; border: 0;"
+  loading="lazy"
+></iframe>
+```
+
+Legacy Streamlit profile URLs that include a trailing semicolon after the author tag are normalized by the AWS app.
 
 ## Data Source
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The publications data for this search engine is pulled directly from a [private backend Google Sheet](https://docs.google.com/spreadsheets/d/1USrhFJ-0ujQhubVdnr3ww-2tHtA90CHvZ7MhE9sewtY/edit?gid=1707056458#gid=1707056458) using Google Sheet APIs. This database is updated on an ongoing basis, in an effort to include all IISD-ELA publications.
 
-## Detailed Project Organization
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Please note that ```./wake-up.yml```, ```./wake_up_streamlit.py```, and ```./requirements.txt``` were produced following the instructions [here](https://dev.to/virgoalpha/keeping-your-streamlit-app-awake-using-selenium-and-github-actions-4ajd), though the original code was slightly modified to fit our setup here.
+The publications data is pulled directly from a private backend Google Sheet using Google Sheets APIs. This database is updated on an ongoing basis to include IISD-ELA publications.
 
-------------
+## Architecture
 
+The deployed app is split into static browser assets and a small JSON API:
+
+- **CloudFront** is the public entry point. It serves the browser app and routes `/api/*` plus `/health` to API Gateway.
+- **S3** stores `static/index.html`, `static/app.js`, and `static/styles.css` in a private bucket. CloudFront reads the bucket through Origin Access Control, so the bucket is not public.
+- **API Gateway HTTP API** exposes `GET /api/options`, `GET /api/search`, and `GET /health`, then invokes the Lambda function synchronously.
+- **Lambda** runs the Python search backend from a zip artifact on the managed Python 3.14 runtime. It fetches publication data from Google Sheets, normalizes it, caches it in the warm Lambda process, and returns JSON to the frontend. If a refresh from Google Sheets times out, Lambda can serve a stale warm-process cache while Google Sheets recovers.
+- **SSM Parameter Store** holds runtime configuration. Google service account fields are read by Lambda at runtime, and the Google spreadsheet ID is read by OpenTofu and injected into Lambda as an environment variable during deploy.
+- **Google Sheets API** is the source of record for publication and author data.
+
+The request path is:
+
+```text
+Browser
+  -> CloudFront
+     -> S3 for /, /app.js, /styles.css
+     -> API Gateway for /api/* and /health
+        -> Lambda
+           -> SSM Parameter Store for Google credentials
+           -> Google Sheets API for publication data
 ```
-├── README.md                               <- File containing general background information on the IISD-ELA 
-│                                              publications search interface including motivation, usage, 
-│                                              and data source.
-├── backend
-│   ├── pubs_database_script.py             <- Backend Python code for the IISD-ELA publications search interface. 
-│   │                                          It also contains useful comments and function descriptions for 
-│   │                                          understanding the code.
-│   └── requirements.txt                    <- The requirements file for reproducing the streamlit app.
-├── .streamlit
-│   ├── config.toml                         <- File that configures aspects of the IISD-ELA publications
-│   └──                                        search interface (e.g., color theme)
-├── .github/workflows                       
-│   └── wake-up.yml                         <- The GitHub Actions workflow configuration file that keeps the IISD-ELA
-│   │                                          publications search interface awake by calling wake_up_streamlit.py
-│   │                                          everyday at 12:30 UTC (7:30 AM CDT or 8:30 AM CST) or on push events
-│   │                                          to the main branch. The log file for each run is uploaded as an artifact.
-├── streamlit_app.py                        <- File containing the global URL for the IISD-ELA publications search
-│                                              interface.
-├── wake_up_streamlit.py                    <- The Python script that wakes up the IISD-ELA search interface.
-├── requirements.txt                        <- The requirements file for running wake_up_streamlit.py
-├── dummy_commits.txt                       <- A text file to do dummy commits to prevent GitHub from pausing
-│                                              our Actions workflows after 60 days of repository inactivity.
-└── .gitignore                              <- The file that tells git to ignore the secrets.toml file that this app
-                                            requires to run successfully.
 
+The API is designed for same-origin browser use through CloudFront. The IISD site can embed the CloudFront page in an iframe; external JavaScript clients are not the primary deployment model.
+
+## AWS Deployment
+
+The AWS version is a static browser app backed by a zip-based AWS Lambda API:
+
+- `static/` contains the HTML, CSS, and JavaScript frontend.
+- `src/publications_app/` contains the Lambda handler and search logic.
+- `requirements-lambda.txt` contains the Lambda dependency set.
+- `infrastructure/publications/` contains the OpenTofu stack for Lambda, HTTP API Gateway, S3, CloudFront, IAM, and logs.
+- `scripts/package-lambda.sh` builds `build/lambda.zip` in a Lambda-compatible Python 3.14 container.
+- `scripts/start-local.sh` runs the app locally in a Lambda-compatible container.
+- `scripts/deploy.sh` packages and deploys the app with OpenTofu.
+
+The Lambda reads Google service account credentials from SSM Parameter Store under `/iisd-ela/config/publications/*`. The Google spreadsheet ID is also loaded from SSM at `/iisd-ela/config/publications/spreadsheet_id`; there is no spreadsheet ID fallback in the application code.
+
+`scripts/deploy.sh` performs the deployment in this order:
+
+1. Builds `build/lambda.zip` in the Lambda Python 3.14 container.
+2. Runs `tofu init` and `tofu apply` in `infrastructure/publications`.
+3. Uploads static files to the private S3 bucket through OpenTofu-managed `aws_s3_object` resources.
+4. Updates the Lambda code and infrastructure.
+5. Creates a CloudFront invalidation for `/*`.
+
+Deploy with:
+
+```bash
+./scripts/deploy.sh -p iisd -r ca-central-1
 ```
+
+Run locally with:
+
+```bash
+./scripts/start-local.sh -p iisd -r ca-central-1 -P 8080
+```
+
+## Testing
+
+Run the Playwright suite against the deployed AWS app with:
+
+```bash
+npm run test:playwright
+```
+
+The Playwright suite includes functional search coverage, a theme check for the IISD-ELA navy/black styling, an iframe smoke test for WordPress embedding, a scientist profile URL check, and a transient API failure retry check.
+
+Run the Python unit tests with:
+
+```bash
+python -m pip install -r requirements-lambda.txt -r requirements-dev.txt
+npm run test:python
+```
+
+The Playwright suite reads the deployed app URL from `tofu output -raw site_url` in `infrastructure/publications`. To compare the AWS app against another deployed baseline, provide the baseline URL:
+
+```bash
+BASELINE_PUBLICATIONS_URL="https://example.com/" \
+npm run test:playwright
+```
+
+## Project Organization
+
+```text
+├── README.md
+├── infrastructure
+│   └── publications
+│       ├── api-gateway.tf
+│       ├── iam.tf
+│       ├── lambda.tf
+│       ├── static-site.tf
+│       └── ...
+├── package.json
+├── playwright.config.js
+├── requirements-lambda.txt
+├── requirements-dev.txt
+├── scripts
+│   ├── deploy.sh
+│   ├── package-lambda.sh
+│   └── start-local.sh
+├── src
+│   └── publications_app
+│       ├── config.py
+│       ├── credentials.py
+│       ├── google_sheets.py
+│       ├── handler.py
+│       ├── local_server.py
+│       └── publications.py
+├── static
+│   ├── app.js
+│   ├── index.html
+│   └── styles.css
+└── tests
+    └── publications-search.spec.js
+```
+
 ## Contact and Support
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If you encounter any issues or bugs, or would like to receive additional information about this search engine, please contact us at eladata@iisd-ela.org.
 
+If you encounter any issues or bugs, or would like additional information about this search engine, contact eladata@iisd-ela.org.
