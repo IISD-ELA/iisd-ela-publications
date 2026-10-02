@@ -179,3 +179,25 @@ npm run test:playwright
 ## Contact and Support
 
 If you encounter any issues or bugs, or would like additional information about this search engine, contact eladata@iisd-ela.org.
+
+## Shared application hosting
+
+The same built frontend is published to the original CloudFront site and to [apps.iisd-ela.org](https://apps.iisd-ela.org/) by the normal deployment:
+
+```bash
+scripts/deploy.sh -p iisd -r ca-central-1
+```
+
+To rebuild and update only this app on the shared site, leaving its original hosting and backend untouched:
+
+```bash
+scripts/deploy.sh --mode assets -p iisd -r ca-central-1
+```
+
+Use `-m` as the short form of `--mode`. The default mode remains `deploy`.
+
+The script requires AWS CLI, jq and Docker. It reads the individual SSM parameters `bucket`, `distribution_id`, `site_url` and `app_prefixes` under `/iisd-ela/config/hosting/`, synchronizes only its own prefix from `build/site/`, uses `no-cache` for `app.js` and `styles.css`, publishes HTML last and waits for a prefix-scoped invalidation. Logos, fonts and vendor assets are included in the build. The hosting stack in `iisd-infra` manages the root page and routing; it does not build or upload app assets.
+
+Optional `plan` mode builds and saves an app infrastructure plan without shared uploads. `apply` applies that saved plan and publishes the saved build. Keep `build/site/` and the Lambda package unchanged between plan and apply.
+
+The app infrastructure publishes its API endpoint as an individual SSM String parameter at `/iisd-ela/config/publications/api_endpoint` during normal deployment. Shared hosting reads this parameter rather than the app's OpenTofu state. An `assets` deployment keeps the existing API and its published endpoint.
