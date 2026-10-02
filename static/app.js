@@ -1,4 +1,4 @@
-const API_BASE = "/api";
+const API_BASE = "./api";
 const API_RETRY_DELAYS_MS = [600, 1600, 3200];
 
 try {

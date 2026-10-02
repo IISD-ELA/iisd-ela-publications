@@ -26,7 +26,7 @@ locals {
   static_bucket_name   = "${local.name}-${local.account_id}"
   static_origin_id     = "${local.name}-static"
   api_origin_id        = "${local.name}-api"
-  static_dir           = abspath("${path.module}/../../static")
+  static_dir           = abspath("${path.module}/../../build/site")
   static_files         = fileset(local.static_dir, "**/*")
 
   content_types = {

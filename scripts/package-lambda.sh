@@ -4,11 +4,13 @@ set -eo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 BUILD_DIR="$ROOT_DIR/build"
 PACKAGE_DIR="$BUILD_DIR/package"
+SITE_DIR="$BUILD_DIR/site"
 ZIP_PATH="$BUILD_DIR/lambda.zip"
 IMAGE="public.ecr.aws/lambda/python:3.14"
 
-rm -rf "$PACKAGE_DIR" "$ZIP_PATH"
-mkdir -p "$PACKAGE_DIR"
+rm -rf "$PACKAGE_DIR" "$SITE_DIR" "$ZIP_PATH"
+mkdir -p "$PACKAGE_DIR" "$SITE_DIR"
+cp -R "$ROOT_DIR/static/." "$SITE_DIR/"
 
 docker run --rm \
   --platform linux/amd64 \
